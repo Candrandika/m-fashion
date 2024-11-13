@@ -22,3 +22,7 @@ Route::name('admin.')->prefix('admin')->group(function() {
     Route::resource('transactions', AdminTransactionController::class);
     Route::resource('brands', AdminBrandController::class);
 });
+
+Route::name('data-table.')->prefix('data-table')->group(function() {
+    Route::get('/brand', [AdminBrandController::class, 'dataTable'])->name('brand');
+});
