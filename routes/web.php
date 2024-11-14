@@ -25,4 +25,5 @@ Route::name('admin.')->prefix('admin')->group(function() {
 
 Route::name('data-table.')->prefix('data-table')->group(function() {
     Route::get('/brand', [AdminBrandController::class, 'dataTable'])->name('brand');
+    Route::get('/category', [AdminCategoryProductController::class, 'dataTable'])->name('category');
 });
