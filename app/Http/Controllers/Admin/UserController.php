@@ -60,7 +60,7 @@ class UserController extends Controller
         }
     }
 
-    public function delete(User $user){
+    public function destroy(User $user){
         try{
             $user->update(["is_delete" => 1]);
     

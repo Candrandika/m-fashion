@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use App\Models\Product;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    use UploadTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -26,15 +32,29 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        try{
+            if (isset($data['image'])) {
+                $data["image"] = $this->upload('products', $request->file('image'));
+            } else {
+                $data["image"] = null;
+            }
+    
+            Product::create($data);
+    
+            return redirect()->back()->with('success', 'Berhasil menambahkan data product');
+        }catch(\Throwable $th){
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
         return view('pages.admin.products.show');
     }
@@ -42,7 +62,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
         //
     }
@@ -50,16 +70,42 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $data = $request->validated();
+
+        try{
+            if (isset($data['image'])) {
+                $data["image"] = $this->upload('products', $request->file('image'));
+            } else {
+                $data["image"] = null;
+            }
+    
+            $product->update($data);
+    
+            return redirect()->back()->with('success', 'Berhasil mengubah data product');
+        }catch(\Throwable $th){
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        try{
+            $product->update(["is_delete" => 1]);
+    
+            return redirect()->back()->with('success', 'Berhasil menghapus product');
+        }catch(\Throwable $th){
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function dataTable(Request $request) {
+        $data = Product::where('is_delete',0);
+
+        return BaseDatatable::Table($data);
     }
 }

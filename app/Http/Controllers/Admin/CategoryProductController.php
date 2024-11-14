@@ -40,7 +40,7 @@ class CategoryProductController extends Controller
         }
     }
 
-    public function delete(Category $brand){
+    public function destroy(Category $brand){
         try{
             $brand->update(["is_delete" => 1]);
     
