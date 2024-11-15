@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     ProductController as AdminProductController,
+    ProductDetailController as AdminProductDetailController,
     CategoryProductController as AdminCategoryProductController,
     UserController as AdminUserController,
     TransactionController as AdminTransactionController,
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\{
 Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/', [AdminController::class, 'indexDashboard'])->name('dashboard');
     Route::resource('products', AdminProductController::class);
+    Route::resource('product-details', AdminProductDetailController::class);
     Route::resource('product-categories', AdminCategoryProductController::class);
     Route::resource('users', AdminUserController::class);
     Route::resource('transactions', AdminTransactionController::class);
@@ -29,4 +31,5 @@ Route::name('data-table.')->prefix('data-table')->group(function() {
     Route::get('/transaction', [AdminTransactionController::class, 'dataTable'])->name('transaction');
     Route::get('/user', [AdminUserController::class, 'dataTable'])->name('user');
     Route::get('/product', [AdminProductController::class, 'dataTable'])->name('product');
+    Route::get('/product-detail', [AdminProductDetailController::class, 'dataTable'])->name('product-detail');
 });
