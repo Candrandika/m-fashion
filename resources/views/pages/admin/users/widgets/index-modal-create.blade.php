@@ -15,10 +15,10 @@
                     <label for="email" class="form-label mb-0">Email <span class="text-danger">*</span></label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                 </div>
-                {{-- <div class="mb-3">
+                <div class="mb-3">
                     <label for="phone" class="form-label mb-0">No. Telp <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="phone" name="phone" placeholder="No. Telp" required>
-                </div> --}}
+                </div>
                 <div class="mb-3">
                     <label for="password" class="form-label mb-0">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">

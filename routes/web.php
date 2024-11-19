@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\{
     BrandController as AdminBrandController,
     AdminController
 };
+use App\Http\Controllers\Auth\AuthController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -25,12 +26,13 @@ Route::name('auth.')->group(function() {
     Route::get('/register', function() {
         return view('pages.auth.register');
     });
+    Route::post('register', [AuthController::class, 'register'])->name('register');
     Route::get('/login-success', function() {
         return view('pages.auth.login-success');
-    });
+    })->name('login.success');
     Route::get('/register-success', function() {
         return view('pages.auth.register-success');
-    });
+    })->name('register.success');
 });
 
 Route::name('main')->group(function() {

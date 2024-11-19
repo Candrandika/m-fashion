@@ -9,7 +9,7 @@
 @push('script')
     <script>
         setTimeout(() => {
-            window.location.href = "/admin";
+            window.location.href = "/login";
         }, 3000);
     </script>
 @endpush
