@@ -15,7 +15,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained('products');
             $table->foreignUuid('user_id')->constrained('users');
-            $table->json('item_details');
+            $table->json('item_details')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->double('price')->nullable();
             $table->string('status')->default('PENDING');
             $table->timestamps();
         });
