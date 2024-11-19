@@ -1,6 +1,6 @@
 <div class="modal modal-lg fade" id="modal-create-product" tabindex="-1">
     <div class="modal-dialog">
-        <form action="#" method="POST" class="modal-content">
+        <form action="{{ route('admin.products.store') }}" method="POST" class="modal-content" enctype="multipart/form-data">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
@@ -10,8 +10,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="photo" class="form-label mb-0">Gambar <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" id="photo" name="photo" accept=".jpg,.png,.jpeg" required>
+                            <label for="image" class="form-label mb-0">Gambar <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" id="image" name="image" accept=".jpg,.png,.jpeg" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -25,6 +25,9 @@
                             <label for="brand_id" class="form-label mb-0">Brand <span class="text-danger">*</span></label>
                             <select class="form-select" id="brand_id" name="brand_id" required>
                                 <option value="">Pilih Brand</option>
+                                @foreach ($brand as $item)
+                                    <option value="{{ $item->id }}"> {{ $item->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -33,14 +36,17 @@
                             <label for="category_id" class="form-label mb-0">Kategori <span class="text-danger">*</span></label>
                             <select class="form-select" id="category_id" name="category_id" required>
                                 <option value="">Pilih Kategori</option>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}"> {{ $item->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="mb-3">
-                            <label for="description" class="form-label mb-0">Deskripsi <span class="text-danger">*</span></label>
+                            <label for="desc" class="form-label mb-0">Deskripsi <span class="text-danger">*</span></label>
                             <div id="editor" style="height: 300px"></div>
-                            <input type="hidden" name="description">
+                            <input type="hidden" name="desc">
                         </div>
                     </div>
                 </div>

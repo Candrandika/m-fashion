@@ -20,8 +20,8 @@
                     <input type="text" class="form-control" id="phone" name="phone" placeholder="No. Telp" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label mb-0">Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <label for="password" class="form-label mb-0">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                 </div>
             </div>
             <div class="modal-footer">
