@@ -1,15 +1,16 @@
 <div class="modal fade" id="modal-create-variant" tabindex="-1">
     <div class="modal-dialog">
-        <form action="#" method="POST" class="modal-content">
+        <form action="{{ route('admin.product-details.store') }}" method="POST" class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Ukuran</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
             </div>
             <div class="modal-body">
                 @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <div class="mb-3">
-                    <label for="name" class="form-label mb-0">Nama Ukuran <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama Ukuran (S, M, L, XL, dll)" required>
+                    <label for="size" class="form-label mb-0">Nama Ukuran <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="size" name="size" placeholder="Nama Ukuran (S, M, L, XL, dll)" required>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label mb-0">Harga <span class="text-danger">*</span></label>
@@ -25,18 +26,18 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="length" class="form-label mb-0">Lebar <span class="text-danger">*</span></label>
+                            <label for="width" class="form-label mb-0">Lebar <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="length" name="length" placeholder="Lebar" required>
+                                <input type="number" class="form-control" id="width" name="width" placeholder="Lebar" required>
                                 <div class="input-group-text">cm</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="tinggi" class="form-label mb-0">Tinggi <span class="text-danger">*</span></label>
+                            <label for="heigth" class="form-label mb-0">Tinggi <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="tinggi" name="tinggi" placeholder="Tinggi" required>
+                                <input type="number" class="form-control" id="heigth" name="heigth" placeholder="Tinggi" required>
                                 <div class="input-group-text">cm</div>
                             </div>
                         </div>

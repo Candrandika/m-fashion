@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
@@ -18,7 +20,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.products.index');
+        $category = Category::where('is_delete', 0)->get();
+        $brand = Brand::where('is_delete', 0)->get();
+        return view('pages.admin.products.index', compact('category','brand'));
     }
 
     /**
@@ -47,6 +51,7 @@ class ProductController extends Controller
     
             return redirect()->back()->with('success', 'Berhasil menambahkan data product');
         }catch(\Throwable $th){
+            dd($th->getMessage());
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
@@ -56,7 +61,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('pages.admin.products.show');
+        return view('pages.admin.products.show', compact('product'));
     }
 
     /**

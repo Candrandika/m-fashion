@@ -11,7 +11,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,9 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,except,'. $this->user,
-            'password' => 'nullable',
-            "role" => 'required',
-            'role.*' => 'required|exists:roles,name',
+            'password' => 'required|min:8',
+            // "role" => 'required',
+            // 'role.*' => 'required|exists:roles,name',
         ];
     }
 
@@ -37,10 +37,16 @@ class UserRequest extends FormRequest
             'email.required' => 'Kolom email harus diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah digunakan.',
-            'password.nullable' => 'Kolom password tidak boleh diisi.',
-            'role.required' => 'Kolom role harus diisi.',
-            'role.*.required' => 'Kolom role harus diisi.',
-            'role.*.exists' => 'Role tidak valid.',
+            'password.required' => 'Kolom password harus diisi.',
+            'password.min' => 'Password minimal harus 8.',
+            // 'role.required' => 'Kolom role harus diisi.',
+            // 'role.*.required' => 'Kolom role harus diisi.',
+            // 'role.*.exists' => 'Role tidak valid.',
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        if(!$this->password) $this->merge(["password" => 'password']);
     }
 }

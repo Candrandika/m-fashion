@@ -27,12 +27,11 @@ class UserController extends Controller
             } else {
                 $data["image"] = null;
             }
-    
-            $role = $data["role"];
-            unset($data["role"]);
+
+            $data["password"] = bcrypt($data["password"]);
 
             $user = User::create($data);
-            $user->syncRoles($role);
+            $user->syncRoles('admin');
     
             return redirect()->back()->with('success', 'Berhasil menambahkan data user');
         }catch(\Throwable $th){
@@ -47,12 +46,8 @@ class UserController extends Controller
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('users', $request->file('image'));
             }
-    
-            $role = $data["role"];
-            unset($data["role"]);
 
             $user->update($data);
-            $user->syncRoles($role);
     
             return redirect()->back()->with('success', 'Berhasil menambahkan data user');
         }catch(\Throwable $th){

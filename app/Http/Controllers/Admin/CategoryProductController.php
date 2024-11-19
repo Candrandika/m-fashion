@@ -6,10 +6,13 @@ use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
 class CategoryProductController extends Controller
 {
+    use UploadTrait;
+
     public function index()
     {
         return view('pages.admin.product-categories.index');
@@ -19,32 +22,41 @@ class CategoryProductController extends Controller
         $data = $request->validated();
 
         try{
+            if (isset($data['image'])) {
+                $data["image"] = $this->upload('categories', $request->file('image'));
+            } else {
+                $data["image"] = null;
+            }
+            
             Category::create($data);
     
-            return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
+            return redirect()->back()->with('success', 'Berhasil menambahkan data category');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
     
-    public function update(CategoryRequest $request, Category $brand){
+    public function update(CategoryRequest $request, Category $category){
         $data = $request->validated();
         try{
+            if (isset($data['image'])) {
+                $data["image"] = $this->upload('categories', $request->file('image'));
+            }
 
-            $brand->update($data);
+            $category->update($data);
     
-            return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
+            return redirect()->back()->with('success', 'Berhasil menambahkan data category');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    public function destroy(Category $brand){
+    public function destroy(Category $category){
         try{
-            $brand->update(["is_delete" => 1]);
+            $category->update(["is_delete" => 1]);
     
-            return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
+            return redirect()->back()->with('success', 'Berhasil menambahkan data category');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());
         }

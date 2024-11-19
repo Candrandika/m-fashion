@@ -11,7 +11,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,6 +22,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
             'name' => 'required|unique:categories,name,except,' . $this->category,
             'desc' => 'nullable'
         ];
@@ -30,6 +31,9 @@ class CategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'image.image' => 'Logo harus berupa image!',
+            'image.mimes' => 'Format logo hanya bisa ".jpg,.png,.jpeg"!',
+            'image.max' => 'Maxksimal ukuran logo 2mb!',
             'name.required' => 'Nama kategori harus diisi!',
             'name.unique' => 'Nama kategori sudah digunakan'
         ];
