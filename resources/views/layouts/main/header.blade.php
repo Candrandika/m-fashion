@@ -1,5 +1,7 @@
 <header class="d-flex justify-content-between align-items-center bg-white px-5 py-3">
-    <img src="{{ asset('dist/logos/full-dark.png') }}" alt="logo" height="30">
+    <a href="/home">
+        <img src="{{ asset('dist/logos/full-dark.png') }}" alt="logo" height="30">
+    </a>
     <div>
         <div class="input-group">
             <div class="input-group-text bg-muted border-0" style="--bs-bg-opacity: .1">
@@ -9,6 +11,11 @@
         </div>
     </div>
     <div class="d-flex gap-3 align-items-center">
-        
+        <a href="/carts" class="text-black">
+            <i class="ti ti-shopping-bag fs-8"></i>
+        </a>
+        <a href="/profile" class="text-black">
+            <i class="ti ti-user fs-8"></i>
+        </a>
     </div>
 </header>

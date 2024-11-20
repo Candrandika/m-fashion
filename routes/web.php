@@ -48,6 +48,21 @@ Route::name('main')->group(function() {
     })->name('login.success');
 // });
 
+Route::name('products.')->prefix('products')->group(function() {
+    Route::get('/', function() {
+        return view('pages.main.products.index');
+    })->name('index');
+    Route::get('{product}', function() {
+        return view('pages.main.products.show');
+    })->name('show');
+});
+
+Route::name('categories.')->prefix('categories')->group(function() {
+    Route::get('/{category}', function() {
+        return view('pages.main.categories.show');
+    });
+});
+
 Route::name('admin.')->prefix('admin')->group(function() {
     Route::get('/', [AdminController::class, 'indexDashboard'])->name('dashboard');
     Route::resource('products', AdminProductController::class);

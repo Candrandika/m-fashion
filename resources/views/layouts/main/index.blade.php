@@ -15,7 +15,7 @@
     @stack('style')
 </head>
 
-<body class="bg-muted" style="--bs-bg-opacity: .1">
+<body>
     <div class="d-flex flex-column" style="min-height: 100dvh;">
         @include('layouts.main.header')
         <div class="wrapper" style="flex: 1">
