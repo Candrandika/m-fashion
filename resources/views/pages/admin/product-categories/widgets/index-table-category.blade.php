@@ -15,9 +15,12 @@
                         <tr>
                             <th>{{ $i + 1 }}</th>
                             <td>
-                                <div class="">
-                                    <div class="fw-bolder">Kategori {{ $i + 1 }}</div>
-                                    <div class="text-truncate" style="max-width: 400px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis perspiciatis fuga eos.</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="gambar katerogi" width="50px" class="rounded">
+                                    <div class="">
+                                        <div class="fw-bolder">Kategori {{ $i + 1 }}</div>
+                                        <div class="text-truncate" style="max-width: 400px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis perspiciatis fuga eos.</div>
+                                    </div>
                                 </div>
                             </td>
                             <td><span class="badge bg-light-primary text-primary">100</span></td>
