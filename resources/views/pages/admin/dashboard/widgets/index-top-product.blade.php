@@ -2,7 +2,7 @@
     <div class="card-header">
         <h5 class="card-title m-0">Produk Terlaris</h5>
     </div>
-    <div class="card-body">
+    <div class="card-body pt-0">
         <div class="table-responsive">
             <table class="table table-striped align-middle" id="top-product-table">
                 <thead>
