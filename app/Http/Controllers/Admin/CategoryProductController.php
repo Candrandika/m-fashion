@@ -18,46 +18,48 @@ class CategoryProductController extends Controller
         return view('pages.admin.product-categories.index');
     }
 
-    public function store(CategoryRequest $request){
+    public function store(CategoryRequest $request)
+    {
         $data = $request->validated();
 
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('categories', $request->file('image'));
             } else {
                 $data["image"] = null;
             }
-            
+
             Category::create($data);
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data category');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    
-    public function update(CategoryRequest $request, Category $category){
+
+    public function update(CategoryRequest $request, Category $category)
+    {
         $data = $request->validated();
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('categories', $request->file('image'));
             }
-
             $category->update($data);
-    
-            return redirect()->back()->with('success', 'Berhasil menambahkan data category');
-        }catch(\Throwable $th){
+
+            return redirect()->back()->with('success', 'Berhasil mengedit data category');
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    public function destroy(Category $category){
-        try{
+    public function destroy(Category $category)
+    {
+        try {
             $category->update(["is_delete" => 1]);
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data category');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }

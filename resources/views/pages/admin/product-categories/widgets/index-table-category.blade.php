@@ -42,18 +42,47 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            $('#table-categories').DataTable();
-
-            $(document).on('click', '.btn-delete-category', function() {
-                Swal.fire({
-                    icon: 'question',
-                    title: 'Apakah anda yakin?',
-                    text: 'Data kategori akan dihapus!',
-                    showCancelButton: true,
-                    cancelButtonText: 'Batal',
-                    confirmButtonText: 'Yakin'
-                })
-            })
+            $('#table-categories').DataTable({
+                ajax: "{{ route('data-table.category') }}",
+                columns: [
+                    { data: 'id', render: function(data, type, row, meta) {
+                        return meta.row + 1;
+                    } },
+                    { data: 'name', name: 'name', render: function(data, type, row) {
+                        const desc = row.desc != null ? row.desc : '-';
+                        return `<div class="d-flex align-items-center gap-2"><img src="{{ asset('storage/` + row.image + `') }}" alt="gambar katerogi" width="50px" class="rounded"><div class=""><div class="fw-bolder">` + data + `</div><div class="text-truncate" style="max-width: 400px;">` + desc + `</div></div></div>`;
+                    } },
+                    { data: 'products_count', name: 'products_count', defaultContent: '0', render: function(data, type, row) {
+                        return '<span class="badge bg-light-primary text-primary">' + '0' + '</span>';
+                    } },    
+                    { data: 'actions', name: 'actions', orderable: false, searchable: false, render: function(data, type, row){
+                        return `<div class="d-flex align-items-center gap-1"><button type="button" class="btn btn-primary p-2" data-bs-toggle="modal" data-bs-target="#modal-detail-category" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-eye"></div></button><button type="button" class="btn btn-warning p-2 btn-edit" data-bs-toggle="modal" data-bs-target="#modal-edit-category" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-edit"></div></button><button type="button" class="btn btn-danger p-2 btn-delete-category" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-trash"></div></button></div>`;
+                    } },
+                ],
+                order: [[0, 'asc']],
+                columnDefs: [
+                    {
+                        targets: 0,
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        targets: 1,
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        targets: 2,
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        targets: 3,
+                        orderable: false,
+                        searchable: false,
+                    },
+                ],
+            });
         })
     </script>
 @endpush

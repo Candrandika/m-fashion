@@ -1,6 +1,8 @@
 <div class="modal fade" id="modal-edit-category" tabindex="-1">
     <div class="modal-dialog">
         <form action="#" method="POST" class="modal-content">
+            @csrf
+            @method('PATCH')
             <div class="modal-header">
                 <h5 class="modal-title">Ubah Kategori</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
