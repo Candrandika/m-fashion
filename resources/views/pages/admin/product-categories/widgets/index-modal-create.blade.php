@@ -8,8 +8,8 @@
             <div class="modal-body">
                 @csrf
                 <div class="mb-3">
-                    <label for="image" class="form-label mb-0">Gambar / Logo</label>
-                    <input type="file" class="form-control" id="image" name="image" accept=".jpg,.png,.jpeg">
+                    <label for="image" class="form-label mb-0">Gambar</label>
+                    <input type="file" class="form-control" id="image" name="image" accept=".jpg,.png,.jpeg" required>
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label mb-0">Nama Kategori <span class="text-danger">*</span></label>

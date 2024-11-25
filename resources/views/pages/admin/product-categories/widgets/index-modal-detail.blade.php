@@ -6,16 +6,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
             </div>
             <div class="modal-body">
-                <table class="table table-sm">
-                    <tr>
-                        <th style="width: 100px;">Kategori</th>
-                        <td>Nama Kategori</td>
-                    </tr>
-                    <tr>
-                        <th style="width: 100px;">Deskripsi</th>
-                        <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, nulla similique quas eveniet voluptatem corporis minima perferendis dolore!</td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <div class="col-4">
+                        <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="w-100 rounded">
+                    </div>
+                    <div class="col-8">
+                        <h5 class="fw-bolder">Nama Kategori</h5>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure laboriosam ab, aut sequi rerum sed necessitatibus esse placeat ex hic commodi alias accusamus nihil ipsa.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

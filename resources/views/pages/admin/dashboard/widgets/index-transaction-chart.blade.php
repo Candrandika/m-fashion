@@ -15,13 +15,12 @@
 
 
 @push('script')
-    <script src="{{ asset('dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             let options = {
                 chart: {
                     type: 'area',
-                    height: 350
+                    height: 325
                 },
                 dataLabels: {
                     enabled: false
