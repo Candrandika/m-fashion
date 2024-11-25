@@ -18,46 +18,49 @@ class BrandController extends Controller
         return view('pages.admin.brands.index');
     }
 
-    public function store(BrandRequest $request){
+    public function store(BrandRequest $request)
+    {
         $data = $request->validated();
 
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('brands', $request->file('image'));
             } else {
                 $data["image"] = null;
             }
-    
+
             Brand::create($data);
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    
-    public function update(BrandRequest $request, Brand $brand){
+
+    public function update(BrandRequest $request, Brand $brand)
+    {
         $data = $request->validated();
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('brands', $request->file('image'));
             }
-    
+
             $brand->update($data);
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    public function destroy(Brand $brand){
-        try{
+    public function destroy(Brand $brand)
+    {
+        try {
             $brand->update(["is_delete" => 1]);
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }

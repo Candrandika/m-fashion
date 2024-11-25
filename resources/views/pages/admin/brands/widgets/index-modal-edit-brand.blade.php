@@ -1,8 +1,10 @@
 <div class="modal fade" id="modal-edit-brand" tabindex="-1">
     <div class="modal-dialog">
         <form action="#" method="POST" class="modal-content">
+            @csrf
+            @method('PATCH')
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Brand</h5>
+                <h5 class="modal-title">Edit Brand</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
             </div>
             <div class="modal-body">
@@ -18,7 +20,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-muted" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary">Tambah</button>
+                <button type="submit" class="btn btn-primary">Edit</button>
             </div>
         </form>
     </div>
