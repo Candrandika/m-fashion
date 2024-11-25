@@ -48,7 +48,7 @@
                         return `<div class="d-flex align-items-center gap-3"><img src="{{ asset('storage/` + row.image + `') }}" class="rounded object-fit-cover" width="40" height="40" alt=""><div class="fw-bolder">` + data + `</div></div>`;
                     } },
                     { data: 'products_count', name: 'products_count', defaultContent: '0', render: function(data, type, row) {
-                        return '<span class="badge bg-light-primary text-primary">' + '0' + '</span>';
+                        return '<span class="badge bg-light-primary text-primary">' + row.products_count + '</span>';
                     } },    
                     { data: 'actions', name: 'actions', orderable: false, searchable: false, render: function(data, type, row){
                         return `<div class="d-flex align-items-center gap-1"><button type="button" class="btn btn-warning p-2 btn-edit" data-bs-toggle="modal" data-bs-target="#modal-edit-brand" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-edit"></div></button><button type="button" class="btn btn-danger p-2 btn-delete-brand" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-trash"></div></button></div>`;

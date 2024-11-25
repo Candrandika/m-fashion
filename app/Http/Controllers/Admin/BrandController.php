@@ -43,12 +43,16 @@ class BrandController extends Controller
         $data = $request->validated();
         try {
             if (isset($data['image'])) {
+                if($brand->image){
+                    $this->remove($brand->image);
+                }
+
                 $data["image"] = $this->upload('brands', $request->file('image'));
             }
 
             $brand->update($data);
 
-            return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
+            return redirect()->back()->with('success', 'Berhasil update data brand');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -57,6 +61,10 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         try {
+            if($brand->image){
+                $this->remove($brand->image);
+            }
+
             $brand->update(["is_delete" => 1]);
 
             return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
@@ -67,7 +75,7 @@ class BrandController extends Controller
 
     public function dataTable()
     {
-        $data = Brand::where('is_delete', 0)->get();
+        $data = Brand::withCount('products')->where('is_delete', 0)->get();
         return BaseDatatable::TableV2($data->toArray());
     }
 }
