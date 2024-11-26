@@ -17,5 +17,8 @@
         <a href="/profile" class="text-black">
             <i class="ti ti-user fs-8"></i>
         </a>
+        <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" class="text-black">
+            <i class="ti ti-menu fs-8"></i>
+        </a>
     </div>
 </header>

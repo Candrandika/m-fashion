@@ -15,17 +15,7 @@
             <div class="fs-6 ps-3" style="border-left: 1px solid black;">Kami memastikan pelanggan kami memiliki pengalaman berbelanja terbaik</div>
         </div>
         <div class="mb-5">
-            <div class="row">
-                @for ($i = 0; $i < 4; $i++)
-                <div class="col-lg-3">
-                    <div class="d-flex flex-column">
-                        <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" width="50px" class="mb-2">
-                        <h5 class="mb-0">Produk Asli</h5>
-                        <p>Kami memberikan jaminan uang kembali jika produk tidak asli</p>
-                    </div>
-                </div>
-                @endfor
-            </div>
+            @include('pages.main.home.widgets.index-service')
         </div>
         <div class="mb-5">
             <h4 class="fw-bolder">Kategori Produk</h4>

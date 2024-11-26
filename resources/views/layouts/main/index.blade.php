@@ -22,6 +22,21 @@
             @yield('content')
         </div>
         @include('layouts.main.footer')
+        <div style="top: 0;" class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                Offcanvas Bottom
+              </h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div>
+                Some text as placeholder. In real life you can have
+                the elements you have chosen. Like, text, images,
+                lists, etc.
+              </div>
+            </div>
+          </div>
     </div>
 
     <!--  Import Js Files -->
