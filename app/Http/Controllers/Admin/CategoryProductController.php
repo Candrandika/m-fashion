@@ -38,11 +38,19 @@ class CategoryProductController extends Controller
     }
 
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, string $id)
     {
         $data = $request->validated();
         try {
+            
+            $category = Category::find($id);
+            if(!$category) return redirect()->back()->with('error','Tidak dapat menemukan data category!');
+
             if (isset($data['image'])) {
+                if($category->image){
+                    $this->remove($category->image);
+                }
+
                 $data["image"] = $this->upload('categories', $request->file('image'));
             }
             $category->update($data);
@@ -53,12 +61,19 @@ class CategoryProductController extends Controller
         }
     }
 
-    public function destroy(Category $category)
+    public function destroy(string $id)
     {
         try {
+            $category = Category::find($id);
+            if(!$category) return redirect()->back()->with('error','Tidak dapat menemukan data category!');
+
+            if($category->image){
+                $this->remove($category->image);
+            }
+
             $category->update(["is_delete" => 1]);
 
-            return redirect()->back()->with('success', 'Berhasil menambahkan data category');
+            return redirect()->back()->with('success', 'Berhasil menghapus data category');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -66,7 +81,7 @@ class CategoryProductController extends Controller
 
     public function dataTable()
     {
-        $data = Category::where('is_delete', 0)->get();
+        $data = Category::withCount('products')->where('is_delete', 0)->get();
         return BaseDatatable::TableV2($data->toArray());
     }
 }

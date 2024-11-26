@@ -23,7 +23,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'name' => 'required|unique:categories,name,except,' . $this->category,
+            'name' => 'required|unique:categories,name,' . $this->product_category .',id',
             'desc' => 'nullable'
         ];
     }

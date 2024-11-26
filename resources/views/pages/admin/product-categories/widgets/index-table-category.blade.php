@@ -11,7 +11,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 0; $i < 25; $i++)
+                    @for ($i = 0; $i < 1; $i++)
                         <tr>
                             <th>{{ $i + 1 }}</th>
                             <td>
@@ -53,7 +53,7 @@
                         return `<div class="d-flex align-items-center gap-2"><img src="{{ asset('storage/` + row.image + `') }}" alt="gambar katerogi" width="50px" class="rounded"><div class=""><div class="fw-bolder">` + data + `</div><div class="text-truncate" style="max-width: 400px;">` + desc + `</div></div></div>`;
                     } },
                     { data: 'products_count', name: 'products_count', defaultContent: '0', render: function(data, type, row) {
-                        return '<span class="badge bg-light-primary text-primary">' + '0' + '</span>';
+                        return '<span class="badge bg-light-primary text-primary">' + row.products_count + '</span>';
                     } },    
                     { data: 'actions', name: 'actions', orderable: false, searchable: false, render: function(data, type, row){
                         return `<div class="d-flex align-items-center gap-1"><button type="button" class="btn btn-primary p-2" data-bs-toggle="modal" data-bs-target="#modal-detail-category" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-eye"></div></button><button type="button" class="btn btn-warning p-2 btn-edit" data-bs-toggle="modal" data-bs-target="#modal-edit-category" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-edit"></div></button><button type="button" class="btn btn-danger p-2 btn-delete-category" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-trash"></div></button></div>`;
