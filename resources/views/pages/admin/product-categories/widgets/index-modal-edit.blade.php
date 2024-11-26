@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-edit-category" tabindex="-1">
     <div class="modal-dialog">
-        <form action="#" method="POST" class="modal-content">
+        <form action="#" method="POST" class="modal-content" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="modal-header">
@@ -18,8 +18,8 @@
                     <input type="text" class="form-control" id="name" name="name" placeholder="Nama Kategori" required>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label mb-0">Deskripsi</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Deskripsi"></textarea>
+                    <label for="desc" class="form-label mb-0">Deskripsi</label>
+                    <textarea class="form-control" id="desc" name="desc" placeholder="Deskripsi"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

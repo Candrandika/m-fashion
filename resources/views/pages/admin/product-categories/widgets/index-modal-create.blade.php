@@ -16,8 +16,8 @@
                     <input type="text" class="form-control" id="name" name="name" placeholder="Nama Kategori" required>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label mb-0">Deskripsi</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Deskripsi"></textarea>
+                    <label for="desc" class="form-label mb-0">Deskripsi</label>
+                    <textarea class="form-control" id="desc" name="desc" placeholder="Deskripsi"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
