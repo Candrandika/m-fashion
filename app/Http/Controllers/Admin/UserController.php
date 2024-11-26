@@ -18,10 +18,11 @@ class UserController extends Controller
         return view('pages.admin.users.index');
     }
 
-    public function store(UserRequest $request){
+    public function store(UserRequest $request)
+    {
         $data = $request->validated();
 
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('users', $request->file('image'));
             } else {
@@ -32,35 +33,37 @@ class UserController extends Controller
 
             $user = User::create($data);
             $user->syncRoles('admin');
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data user');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    
-    public function update(UserRequest $request, User $user){
+
+    public function update(UserRequest $request, User $user)
+    {
         $data = $request->validated();
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('users', $request->file('image'));
             }
 
             $user->update($data);
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data user');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    public function destroy(User $user){
-        try{
+    public function destroy(User $user)
+    {
+        try {
             $user->update(["is_delete" => 1]);
-    
-            return redirect()->back()->with('success', 'Berhasil menambahkan data user');
-        }catch(\Throwable $th){
+
+            return redirect()->back()->with('success', 'Berhasil menghapus data user');
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }

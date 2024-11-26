@@ -68,19 +68,33 @@
                                 </select>
                             </div>
                         `);
-                    }
-                },
-            );
-
-            $(document).on('click', '.btn-delete-user', function() {
-                Swal.fire({
-                    icon: 'question',
-                    title: 'Apakah anda yakin?',
-                    text: 'Data pengguna akan dihapus!',
-                    showCancelButton: true,
-                    cancelButtonText: 'Batal',
-                    confirmButtonText: 'Yakin'
-                })
+                    },
+                    ajax: "{{ route('data-table.user') }}",
+                    columns: [
+                    { data: 'id', render: function(data, type, row, meta) {
+                        console.log(row)
+                        return meta.row + 1;
+                    } },
+                    { data: 'name', name: 'name', render: function(data, type, row) {
+                        return `<div class="d-flex align-items-center gap-3">
+                                    <img src="{{ asset('${row.image}') }}" class="rounded object-fit-cover" width="40" height="40" alt="">
+                                    <div>
+                                        <div class="fw-bolder">${row.name}</div>
+                                        <div class="text-truncate" style="max-width: 400px;">${row.email}</div>
+                                    </div>
+                                </div>`;
+                    } },
+                    { data: 'phone', name: 'phone', render: function(data, type, row) {
+                        return data ?? '-';
+                    } },
+                    { data: 'phone', name: 'phone', defaultContent: 'admin', render: function(data, type, row) {
+                        return '<span class="badge bg-light-primary text-primary">' + data + '</span>';
+                    } },    
+                    { data: 'actions', name: 'actions', orderable: false, searchable: false, render: function(data, type, row){
+                        const detailRoute = "{{ route('admin.users.show', ':id') }}".replace(':id', row.id);
+                        return `<div class="d-flex align-items-center gap-1"><a href="${detailRoute}" class="btn btn-primary p-2"><div class="ti ti-eye"></div></a><button type="button" class="btn btn-warning p-2 btn-edit" data-bs-toggle="modal" data-bs-target="#modal-edit-user" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-edit"></div></button><button type="button" class="btn btn-danger p-2 btn-delete-user" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-trash"></div></button></div>`;
+                    } },
+                    ],
             })
         })
     </script>
