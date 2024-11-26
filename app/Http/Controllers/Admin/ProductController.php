@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
         $category = Category::where('is_delete', 0)->get();
         $brand = Brand::where('is_delete', 0)->get();
-        return view('pages.admin.products.index', compact('category','brand'));
+        return view('pages.admin.products.index', compact('category', 'brand'));
     }
 
     /**
@@ -40,17 +40,17 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('products', $request->file('image'));
             } else {
                 $data["image"] = null;
             }
-    
+
             Product::create($data);
-    
+
             return redirect()->back()->with('success', 'Berhasil menambahkan data product');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             dd($th->getMessage());
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -59,8 +59,9 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(String $id)
     {
+        $product = Product::with('category', 'brand')->where('id', $id)->first();
         return view('pages.admin.products.show', compact('product'));
     }
 
@@ -79,17 +80,17 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        try{
+        try {
             if (isset($data['image'])) {
                 $data["image"] = $this->upload('products', $request->file('image'));
             } else {
                 $data["image"] = null;
             }
-    
+
             $product->update($data);
-    
+
             return redirect()->back()->with('success', 'Berhasil mengubah data product');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
@@ -99,17 +100,18 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        try{
+        try {
             $product->update(["is_delete" => 1]);
-    
+
             return redirect()->back()->with('success', 'Berhasil menghapus product');
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    public function dataTable(Request $request) {
-        $data = Product::where('is_delete',0);
+    public function dataTable(Request $request)
+    {
+        $data = Product::where('is_delete', 0);
 
         return BaseDatatable::Table($data);
     }
