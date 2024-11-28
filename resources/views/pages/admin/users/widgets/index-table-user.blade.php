@@ -13,38 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 0; $i < 25; $i++)
-                        <tr>
-                            <th>{{ $i + 1 }}</th>
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
-                                    <img src="{{ asset('dist/images/profile/user-1.jpg') }}" class="rounded object-fit-cover" width="40" height="40" alt="">
-                                    <div>
-                                        <div class="fw-bolder">Pengguna {{ $i + 1 }}</div>
-                                        <div class="text-truncate" style="max-width: 400px;">user@gmail.com</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                08881234567{{ $i }}
-                            </td>
-                            <td>
-                                @if($i % 5 == 0)
-                                <span class="badge bg-secondary text-white">Admin</span>
-                                @else
-                                <span class="badge bg-warning text-white">User</span>
-                                @endif
-                            </td>
-                            {{-- <td><span class="badge bg-light-primary text-primary">100</span></td> --}}
-                            <td>
-                                <div class="d-flex align-items-center gap-1">
-                                    {{-- <a href="#" class="btn btn-primary p-2"><div class="ti ti-eye"></div></a> --}}
-                                    <button type="button" class="btn btn-warning p-2" data-bs-toggle="modal" data-bs-target="#modal-edit-user"><div class="ti ti-edit"></div></button>
-                                    <button type="button" class="btn btn-danger p-2 btn-delete-user"><div class="ti ti-trash"></div></button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endfor
+                 
                 </tbody>
             </table>
         </div>
@@ -72,12 +41,12 @@
                     ajax: "{{ route('data-table.user') }}",
                     columns: [
                     { data: 'id', render: function(data, type, row, meta) {
-                        console.log(row)
                         return meta.row + 1;
                     } },
                     { data: 'name', name: 'name', render: function(data, type, row) {
+                        const image = row.image ? "{{ asset("+ row.image +") }}" : "{{ asset('dist/images/profile/user-1.jpg') }}";
                         return `<div class="d-flex align-items-center gap-3">
-                                    <img src="{{ asset('${row.image}') }}" class="rounded object-fit-cover" width="40" height="40" alt="">
+                                    <img src="${image}" class="rounded object-fit-cover" width="40" height="40" alt="">
                                     <div>
                                         <div class="fw-bolder">${row.name}</div>
                                         <div class="text-truncate" style="max-width: 400px;">${row.email}</div>
@@ -87,8 +56,10 @@
                     { data: 'phone', name: 'phone', render: function(data, type, row) {
                         return data ?? '-';
                     } },
-                    { data: 'phone', name: 'phone', defaultContent: 'admin', render: function(data, type, row) {
-                        return '<span class="badge bg-light-primary text-primary">' + data + '</span>';
+                    { data: 'roles', name: 'roles', defaultContent: 'admin', render: function(data, type, row) {
+                        const role = row.roles.find(() => true)?.name ?? '-';
+                        if(role == 'admin') return '<span class="badge bg-light-warning text-warning">' + role + '</span>';
+                        else return '<span class="badge bg-light-primary text-primary">' + role + '</span>';
                     } },    
                     { data: 'actions', name: 'actions', orderable: false, searchable: false, render: function(data, type, row){
                         const detailRoute = "{{ route('admin.users.show', ':id') }}".replace(':id', row.id);

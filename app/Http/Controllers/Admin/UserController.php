@@ -46,12 +46,16 @@ class UserController extends Controller
         $data = $request->validated();
         try {
             if (isset($data['image'])) {
+                if($user->image){
+                    $this->remove($user->image);
+                }
+
                 $data["image"] = $this->upload('users', $request->file('image'));
             }
 
             $user->update($data);
 
-            return redirect()->back()->with('success', 'Berhasil menambahkan data user');
+            return redirect()->back()->with('success', 'Berhasil update data user');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -60,7 +64,11 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         try {
-            $user->update(["is_delete" => 1]);
+            if($user->image){
+                $this->remove($user->image);
+            }
+
+            $user->update(["is_delete" => 1, 'image' => null]);
 
             return redirect()->back()->with('success', 'Berhasil menghapus data user');
         } catch (\Throwable $th) {
@@ -68,9 +76,13 @@ class UserController extends Controller
         }
     }
 
-    public function dataTable()
+    public function dataTable(Request $request)
     {
-        $data = User::where('is_delete', 0);
+        $data = User::with('roles')
+        ->when($request->role, function ($q) use ($request){
+            $q->whereRelation('roles','name',$request->role);
+        })
+        ->where('is_delete', 0);
         return BaseDatatable::Table($data);
     }
 }

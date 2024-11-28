@@ -71,7 +71,7 @@ class CategoryProductController extends Controller
                 $this->remove($category->image);
             }
 
-            $category->update(["is_delete" => 1]);
+            $category->update(["is_delete" => 1, 'image' => null]);
 
             return redirect()->back()->with('success', 'Berhasil menghapus data category');
         } catch (\Throwable $th) {

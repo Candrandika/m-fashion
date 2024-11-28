@@ -21,32 +21,45 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,except,'. $this->user,
-            'password' => 'required|min:8',
-            // "role" => 'required',
-            // 'role.*' => 'required|exists:roles,name',
-        ];
+        if(in_array('POST',$this->route()->methods)){
+            return [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'phone' => 'nullable',
+                'password' => 'required|min:8',
+            ];
+        }else {
+            return [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email,'. $this->user->id.',id',
+                'phone' => 'nullable',
+            ];
+        }
     }
 
     public function messages()
     {
-        return [
-            'name.required' => 'Kolom nama harus diisi.',
-            'email.required' => 'Kolom email harus diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'email.unique' => 'Email sudah digunakan.',
-            'password.required' => 'Kolom password harus diisi.',
-            'password.min' => 'Password minimal harus 8.',
-            // 'role.required' => 'Kolom role harus diisi.',
-            // 'role.*.required' => 'Kolom role harus diisi.',
-            // 'role.*.exists' => 'Role tidak valid.',
-        ];
+        if(in_array('POST',$this->route()->methods)){
+            return [
+                'name.required' => 'Kolom nama harus diisi.',
+                'email.required' => 'Kolom email harus diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah digunakan.',
+                'password.required' => 'Kolom password harus diisi.',
+                'password.min' => 'Password minimal harus 8.',
+            ];
+        }else {
+            return [
+                'name.required' => 'Kolom nama harus diisi.',
+                'email.required' => 'Kolom email harus diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah digunakan.',
+            ];
+        }
     }
 
     public function prepareForValidation()
     {
-        if(!$this->password) $this->merge(["password" => 'password']);
+        if(!$this->password && in_array('POST',$this->route()->methods)) $this->merge(["password" => 'password']);
     }
 }
