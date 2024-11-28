@@ -1,12 +1,13 @@
 <div class="modal modal-lg fade" id="modal-edit-product" tabindex="-1">
     <div class="modal-dialog">
         <form action="#" method="POST" class="modal-content">
+            @csrf
+            @method('PATCH')
             <div class="modal-header">
                 <h5 class="modal-title">Ubah Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
             </div>
             <div class="modal-body">
-                @csrf
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
@@ -25,6 +26,9 @@
                             <label for="brand_id" class="form-label mb-0">Brand <span class="text-danger">*</span></label>
                             <select class="form-select" id="brand_id" name="brand_id" required>
                                 <option value="">Pilih Brand</option>
+                                @foreach ($brand as $item)
+                                    <option value="{{ $item->id }}"> {{ $item->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -33,6 +37,9 @@
                             <label for="category_id" class="form-label mb-0">Kategori <span class="text-danger">*</span></label>
                             <select class="form-select" id="category_id" name="category_id" required>
                                 <option value="">Pilih Kategori</option>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}"> {{ $item->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
