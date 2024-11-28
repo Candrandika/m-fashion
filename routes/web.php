@@ -21,13 +21,14 @@ Route::get('info', function () {
     return phpinfo();
 });
 
+Route::get('/login', function () {
+    return view('pages.auth.login');
+})->name('login');
+
 Route::name('auth.')->group(function () {
     Route::get('/', function () {
         return view('pages.auth.index');
     })->name('home');
-    Route::get('/login', function () {
-        return view('pages.auth.login');
-    })->name('view.login');
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', function () {
         return view('pages.auth.register');
@@ -50,10 +51,10 @@ Route::get('checkout', function () {
 });
 
 // Route::middleware('auth')->group(function() {
-Route::get('/login-success', function () {
-    $user = Auth::user();
-    return view('pages.auth.login-success', compact('user'));
-})->name('login.success');
+    Route::get('/login-success', function () {
+        $user = Auth::user();
+        return view('pages.auth.login-success', compact('user'));
+    })->name('login.success');
 // });
 
 Route::name('products.')->prefix('products')->group(function () {

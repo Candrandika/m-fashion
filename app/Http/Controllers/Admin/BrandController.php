@@ -65,7 +65,7 @@ class BrandController extends Controller
                 $this->remove($brand->image);
             }
 
-            $brand->update(["is_delete" => 1]);
+            $brand->update(["is_delete" => 1, 'image' => null]);
 
             return redirect()->back()->with('success', 'Berhasil menambahkan data brand');
         } catch (\Throwable $th) {

@@ -17,8 +17,8 @@
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label mb-0">No. Telp <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="No. Telp" required>
+                    <label for="phone" class="form-label mb-0">No. Telp</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="No. Telp">
                 </div>
             </div>
             <div class="modal-footer">
