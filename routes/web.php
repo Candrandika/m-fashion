@@ -42,10 +42,11 @@ Route::name('main')->group(function () {
     Route::get('home', function () {
         return view('pages.main.home.index');
     });
-    // Route::get('checkouts', function () {
-    //     return view('pages.main.checkout.index');
-    // });
+
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+});
+Route::get('checkout', function () {
+    return view('pages.main.checkout.index');
 });
 
 // Route::middleware('auth')->group(function() {
