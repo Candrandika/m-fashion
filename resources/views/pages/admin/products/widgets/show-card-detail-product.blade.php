@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <p class="p-2 border rounded mt-3">
-                    {{ $product->desc ?? "-" }}
+                    {!! $product->desc ?? "-" !!}
                 </p>
             </div>
         </div>

@@ -75,6 +75,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'indexDashboard'])->name('dashboard');
     Route::resource('products', AdminProductController::class);
     Route::resource('product-details', AdminProductDetailController::class);
+    Route::post('product-images/{product}', [AdminProductDetailController::class, 'addImage'])->name('product_images');
     Route::resource('product-categories', AdminCategoryProductController::class);
     Route::resource('users', AdminUserController::class);
     Route::resource('transactions', AdminTransactionController::class);

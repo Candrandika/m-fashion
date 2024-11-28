@@ -6,11 +6,13 @@ use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductDetailRequest;
 use App\Models\ProductDetail;
+use App\Models\ProductImage;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
 class ProductDetailController extends Controller
 {
+    use UploadTrait;
 
     /**
      * Display a listing of the resource.
@@ -94,5 +96,24 @@ class ProductDetailController extends Controller
         $data = ProductDetail::where('is_delete',0)->where('product_id', $request->product_id);
 
         return response()->json(["status" => true, "code" => 200, "data" => $data])->setStatusCode(200);
+    }
+
+    public function addImage(Request $request){
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,jpeg'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $this->upload('product_image/'.$request->product_id, $request->file('image'));
+        } else {
+            $image = null;
+        }
+
+        ProductImage::create([
+            'product_id' => $request->product_id,
+            'image' => $request->image
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil menambahkan gambar produk');
     }
 }
