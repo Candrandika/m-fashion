@@ -20,17 +20,17 @@
         <div class="mb-5">
             <h4 class="fw-bolder">Kategori Produk</h4>
             <div class="row">
-                @for($i = 0; $i < 3; $i++)
+                @foreach ($categories as $category)
                 <div class="col-lg-4 mb-3">
                     <div class="position-relative">
-                        <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="w-100 rounded-2">
+                        <img src="{{ asset('storage/' . $category->image) }}" alt="" class="w-100 rounded-2">
                         <a href="/categories/1" class="btn btn-light d-flex align-items-center justify-content-between fw-semibold rounded-1 position-absolute translate-middle start-50" style="bottom: 0; width: 90%">
-                            <div>Kategori</div>
+                            <div>{{ $category->name }}</div>
                             <i class="ti ti-arrow-right"></i>
                         </a>
                     </div>
                 </div>
-                @endfor
+                @endforeach
             </div>
         </div>
         <div class="mb-5">

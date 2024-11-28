@@ -1,9 +1,11 @@
 <section id="brand-carousels">
     <h4 class="fw-bolder">Brand</h4>
     <div class="owl-carousel counter-carousel owl-theme">
+        @foreach ($brands as $brand)
         <div class="item">
-            <img src="{{ asset('dist/images/profile/user-1.jpg') }}" class="rounded-5 shadow-sm" alt="" style="width: 150px; height: 150px; object-fit; cover;">
+            <img src="{{ asset('storage/' . $brand->image) }}" class="rounded-5 shadow-sm" alt="" style="width: 150px; height: 150px; object-fit; cover;">
         </div>
+        @endforeach
     </div>
 </section>
 

@@ -49,6 +49,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="accordion-item shadow-none border-0">
+                            <h2 class="accordion-header">
+                                <button class="px-0 accordion-button border-0 shadow-none fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-pemasok" aria-expanded="true" aria-controls="collapse-pemasok">
+                                    Pemasokk Bahan
+                                </button>
+                            </h2>
+                            <div id="collapse-pemasok" class="accordion-collapse collapse" data-bs-parent="#product-accordion">
+                                <div class="accordion-body border-0">
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam exercitationem laudantium in dolor, assumenda natus beatae fuga ratione delectus odio. Officia culpa, nihil aperiam illum suscipit accusantium porro animi maxime eum omnis qui eos ut excepturi quod mollitia aliquid quia quisquam quam consequatur quae quaerat veritatis iusto quos vitae! At, quae? Soluta harum, ipsum quos eum voluptate possimus iste adipisci ipsam molestias ea aspernatur tenetur suscipit consectetur autem quo magni dicta, sunt vitae qui modi! Eligendi, possimus esse voluptatibus placeat temporibus iure iste aperiam aliquam, omnis et quisquam sequi accusantium labore autem iusto adipisci praesentium velit cumque facilis laudantium voluptates vero. Quod quae exercitationem incidunt blanditiis nulla labore neque voluptatum, ab, voluptatibus inventore, ipsam necessitatibus! Tempora in quaerat fugiat molestiae amet eaque accusantium? Nisi sequi necessitatibus molestiae repellat unde a voluptatum laborum dignissimos qui. Iste repellendus ullam autem sapiente voluptas est saepe harum natus consequuntur eaque nemo, doloremque aliquam facere praesentium. Quasi dolore ipsa voluptatibus, nulla nam harum mollitia sed tempora impedit. Ipsum, velit aut nulla excepturi voluptatibus dolorum sequi, cupiditate ratione assumenda id dicta eaque consectetur aperiam, veritatis eos tenetur quo recusandae? Iure aut molestias earum optio voluptas in quam iusto enim laborum sed ab non alias architecto commodi ipsa, nam pariatur est facilis sint corrupti. Officiis qui quaerat voluptatem quidem expedita nihil sapiente dolore illum dolorum ex. Facilis tenetur vitae corporis voluptate dolor sint perspiciatis expedita in nihil, vel rerum sunt ducimus eum maiores mollitia autem repellat delectus sapiente nulla natus officiis ipsa. Repudiandae non fugiat sed blanditiis esse necessitatibus cum iure perferendis nostrum?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item shadow-none border-0">
+                            <h2 class="accordion-header">
+                                <button class="px-0 accordion-button border-0 shadow-none fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-pengiriman" aria-expanded="true" aria-controls="collapse-pengiriman">
+                                    Pengiriman dan Pengembalian
+                                </button>
+                            </h2>
+                            <div id="collapse-pengiriman" class="accordion-collapse collapse" data-bs-parent="#product-accordion">
+                                <div class="accordion-body border-0">
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam exercitationem laudantium in dolor, assumenda natus beatae fuga ratione delectus odio. Officia culpa, nihil aperiam illum suscipit accusantium porro animi maxime eum omnis qui eos ut excepturi quod mollitia aliquid quia quisquam quam consequatur quae quaerat veritatis iusto quos vitae! At, quae? Soluta harum, ipsum quos eum voluptate possimus iste adipisci ipsam molestias ea aspernatur tenetur suscipit consectetur autem quo magni dicta, sunt vitae qui modi! Eligendi, possimus esse voluptatibus placeat temporibus iure iste aperiam aliquam, omnis et quisquam sequi accusantium labore autem iusto adipisci praesentium velit cumque facilis laudantium voluptates vero. Quod quae exercitationem incidunt blanditiis nulla labore neque voluptatum, ab, voluptatibus inventore, ipsam necessitatibus! Tempora in quaerat fugiat molestiae amet eaque accusantium? Nisi sequi necessitatibus molestiae repellat unde a voluptatum laborum dignissimos qui. Iste repellendus ullam autem sapiente voluptas est saepe harum natus consequuntur eaque nemo, doloremque aliquam facere praesentium. Quasi dolore ipsa voluptatibus, nulla nam harum mollitia sed tempora impedit. Ipsum, velit aut nulla excepturi voluptatibus dolorum sequi, cupiditate ratione assumenda id dicta eaque consectetur aperiam, veritatis eos tenetur quo recusandae? Iure aut molestias earum optio voluptas in quam iusto enim laborum sed ab non alias architecto commodi ipsa, nam pariatur est facilis sint corrupti. Officiis qui quaerat voluptatem quidem expedita nihil sapiente dolore illum dolorum ex. Facilis tenetur vitae corporis voluptate dolor sint perspiciatis expedita in nihil, vel rerum sunt ducimus eum maiores mollitia autem repellat delectus sapiente nulla natus officiis ipsa. Repudiandae non fugiat sed blanditiis esse necessitatibus cum iure perferendis nostrum?
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

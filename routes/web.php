@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\{
     AdminController
 };
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Landing\HomeController;
 use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', function () {
@@ -40,9 +41,7 @@ Route::name('auth.')->group(function () {
 });
 
 Route::name('main')->group(function () {
-    Route::get('home', function () {
-        return view('pages.main.home.index');
-    });
+    Route::get('home', [HomeController::class, 'index']);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
@@ -51,10 +50,10 @@ Route::get('checkout', function () {
 });
 
 // Route::middleware('auth')->group(function() {
-    Route::get('/login-success', function () {
-        $user = Auth::user();
-        return view('pages.auth.login-success', compact('user'));
-    })->name('login.success');
+Route::get('/login-success', function () {
+    $user = Auth::user();
+    return view('pages.auth.login-success', compact('user'));
+})->name('login.success');
 // });
 
 Route::name('products.')->prefix('products')->group(function () {
