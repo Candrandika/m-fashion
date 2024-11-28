@@ -45,9 +45,9 @@
                     </div>
                     <div class="col-12">
                         <div class="mb-3">
-                            <label for="description" class="form-label mb-0">Deskripsi <span class="text-danger">*</span></label>
+                            <label for="desc" class="form-label mb-0">Deskripsi <span class="text-danger">*</span></label>
                             <div id="editor" style="height: 300px"></div>
-                            <input type="hidden" name="description">
+                            <input type="hidden" name="desc">
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
     
             $(document).on('submit', '#modal-edit-product form', function() {
                 const quill_content = quill_edit.root.innerHTML;
-                $('#modal-edit-product [name=description]').val(quill_content)
+                $('#modal-edit-product [name=desc]').val(quill_content)
             })
         })
     </script>

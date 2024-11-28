@@ -29,11 +29,12 @@
                         return meta.row + 1;
                     } },
                     { data: 'name', name: 'name', render: function(data, type, row) {
-                        console.log(row);
-                        return `<div class="d-flex align-items-center gap-2"><img src="{{ asset('storage/` + row.image + `') }}" alt="gambar katerogi" width="50px" class="rounded"><div class=""><div class="fw-bolder">` + data + `</div><span class="badge bg-light-primary text-primary">Brand</span> <span class="badge bg-light-primary text-success">Kategori</span></div></div>`;
+                        return `<div class="d-flex align-items-center gap-2"><img src="{{ asset('storage/` + row.image + `') }}" alt="gambar katerogi" width="50px" class="rounded"><div class=""><div class="fw-bolder">` + data + `</div><span class="badge bg-light-primary text-primary">${row?.brand?.name}</span> <span class="badge bg-light-primary text-success">${row?.category?.name}</span></div></div>`;
                     } },
                     { data: 'products_count', name: 'products_count', defaultContent: '0', render: function(data, type, row) {
-                        return '<span class="badge bg-light-primary text-primary">' + '0' + '</span>';
+                        const total_stock = row.details.reduce((a,item) => a + item.stock, 0);
+
+                        return '<span class="badge bg-light-primary text-primary">' + total_stock + '</span>';
                     } },
                     { data: 'products_count', name: 'products_count', defaultContent: '0', render: function(data, type, row) {
                         return '<span class="badge bg-light-primary text-primary">' + '0' + '</span>';

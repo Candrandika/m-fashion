@@ -51,7 +51,6 @@ class ProductController extends Controller
 
             return redirect()->back()->with('success', 'Berhasil menambahkan data product');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
@@ -82,9 +81,11 @@ class ProductController extends Controller
 
         try {
             if (isset($data['image'])) {
+                if($product->image){
+                    $this->remove($product->image);
+                }
+
                 $data["image"] = $this->upload('products', $request->file('image'));
-            } else {
-                $data["image"] = null;
             }
 
             $product->update($data);
@@ -101,7 +102,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
-            $product->update(["is_delete" => 1]);
+            if($product->image){
+                $this->remove($product->image);
+            }
+
+            $product->update(["is_delete" => 1, 'image' => null]);
 
             return redirect()->back()->with('success', 'Berhasil menghapus product');
         } catch (\Throwable $th) {
@@ -111,7 +116,7 @@ class ProductController extends Controller
 
     public function dataTable(Request $request)
     {
-        $data = Product::where('is_delete', 0);
+        $data = Product::with('brand','category','details')->where('is_delete', 0);
 
         return BaseDatatable::Table($data);
     }

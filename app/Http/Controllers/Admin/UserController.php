@@ -68,7 +68,7 @@ class UserController extends Controller
                 $this->remove($user->image);
             }
 
-            $user->update(["is_delete" => 1, 'image' => null]);
+            $user->update(["is_delete" => 1]);
 
             return redirect()->back()->with('success', 'Berhasil menghapus data user');
         } catch (\Throwable $th) {
