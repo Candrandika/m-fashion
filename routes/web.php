@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function() {
         return view('pages.auth.login-success', compact('user'));
     })->name('login.success');
     
-    Route::middleware('role:user')->group(function (){
+    // Route::middleware('role:user')->group(function (){
         Route::name('main')->group(function () {
             Route::get('home', [HomeController::class, 'index']);
         
@@ -74,9 +74,9 @@ Route::middleware('auth')->group(function() {
                 return view('pages.main.categories.show');
             });
         });
-    });
+    // });
 
-    Route::middleware('role:user')->group(function (){
+    // Route::middleware('role:user')->group(function (){
         Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('/', [AdminController::class, 'indexDashboard'])->name('dashboard');
             Route::resource('products', AdminProductController::class);
@@ -96,6 +96,6 @@ Route::middleware('auth')->group(function() {
             Route::get('/product', [AdminProductController::class, 'dataTable'])->name('product');
             Route::get('/product-detail', [AdminProductDetailController::class, 'dataTable'])->name('product-detail');
         });
-    });
+    // });
 });
 
