@@ -95,7 +95,7 @@ class ProductDetailController extends Controller
     public function dataTable(Request $request) {
         $data = ProductDetail::where('is_delete',0)->where('product_id', $request->product_id);
 
-        return response()->json(["status" => true, "code" => 200, "data" => $data])->setStatusCode(200);
+        return BaseDatatable::Table($data);
     }
 
     public function addImage(Request $request){

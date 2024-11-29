@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-create-variant" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('admin.product-details.store') }}" method="POST" class="modal-content">
+        <form action="{{ route('admin.product-details.store', $product->id) }}" method="POST" class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Ukuran</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
@@ -16,7 +16,7 @@
                     <label for="price" class="form-label mb-0">Harga <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <div class="input-group-text">Rp</div>
-                        <input type="text" class="form-control" id="price" name="price" placeholder="Harga" required>
+                        <input type="number" class="form-control" id="price" name="price" placeholder="Harga" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -37,7 +37,7 @@
                         <div class="mb-3">
                             <label for="heigth" class="form-label mb-0">Tinggi <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="heigth" name="heigth" placeholder="Tinggi" required>
+                                <input type="number" class="form-control" id="height" name="height" placeholder="Tinggi" required>
                                 <div class="input-group-text">cm</div>
                             </div>
                         </div>

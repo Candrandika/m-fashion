@@ -20,3 +20,5 @@
     </div>
 
 @endsection
+
+@include('components.alerts.index')

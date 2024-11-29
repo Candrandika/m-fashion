@@ -7,15 +7,17 @@
             </div>
             <div class="modal-body">
                 @csrf
+                @method('PUT')
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <div class="mb-3">
-                    <label for="name" class="form-label mb-0">Nama Ukuran <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama Ukuran (S, M, L, XL, dll)" required>
+                    <label for="size" class="form-label mb-0">Nama Ukuran <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="size" name="size" placeholder="Nama Ukuran (S, M, L, XL, dll)" required>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label mb-0">Harga <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <div class="input-group-text">Rp</div>
-                        <input type="text" class="form-control" id="price" name="price" placeholder="Harga" required>
+                        <input type="number" class="form-control" id="price" name="price" placeholder="Harga" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -25,18 +27,18 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="length" class="form-label mb-0">Lebar <span class="text-danger">*</span></label>
+                            <label for="width" class="form-label mb-0">Lebar <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="length" name="length" placeholder="Lebar" required>
+                                <input type="number" class="form-control" id="width" name="width" placeholder="Lebar" required>
                                 <div class="input-group-text">cm</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="tinggi" class="form-label mb-0">Tinggi <span class="text-danger">*</span></label>
+                            <label for="height" class="form-label mb-0">Tinggi <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="tinggi" name="tinggi" placeholder="Tinggi" required>
+                                <input type="number" class="form-control" id="height" name="height" placeholder="Tinggi" required>
                                 <div class="input-group-text">cm</div>
                             </div>
                         </div>
@@ -50,3 +52,21 @@
         </form>
     </div>
 </div>
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.btn-edit-variant', function() {
+                const data = $(this).data('data')
+                let action = `{{ route('admin.product-details.update', ':id') }}`.replace(':id', data.id)
+
+                $('#modal-edit-variant [name=size]').val(data.size)
+                $('#modal-edit-variant [name=price]').val(data.price)
+                $('#modal-edit-variant [name=stock]').val(data.stock)
+                $('#modal-edit-variant [name=width]').val(data.width)
+                $('#modal-edit-variant [name=height]').val(data.height)
+                $('#modal-edit-variant form').attr('action', action)
+            })
+        })
+    </script>
+@endpush
