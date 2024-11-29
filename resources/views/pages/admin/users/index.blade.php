@@ -6,7 +6,7 @@
     @include('components.alerts.index')
     <div class="d-flex align-items-end justify-content-between mb-2">
         <h2 class="fw-bolder mb-0">Pengguna</h2>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-user">+ Tambah</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-user">+ Tambah Admin</button>
     </div>
     @include('pages.admin.users.widgets.index-table-user')
     @include('pages.admin.users.widgets.index-modal-create')

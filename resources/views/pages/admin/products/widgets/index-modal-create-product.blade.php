@@ -68,7 +68,7 @@
     
             $(document).on('submit', '#modal-create-product form', function() {
                 const quill_content = quill_create.root.innerHTML;
-                $('modal-create-product [name=desc]').val(quill_content)
+                $('#modal-create-product [name=desc]').val(quill_content)
             })
         })
     </script>

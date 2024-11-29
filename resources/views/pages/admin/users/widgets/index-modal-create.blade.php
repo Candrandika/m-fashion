@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <form action="{{ route('admin.users.store') }}" method="POST" class="modal-content" enctype="multipart/form-data">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Pengguna</h5>
+                <h5 class="modal-title">Tambah Admin</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
             </div>
             <div class="modal-body">
