@@ -24,9 +24,8 @@
             // update action 
             $(document).on('click', '.btn-edit', function() {
                 var data = $(this).data('data');
-                console.log(data);
                 $('#modal-edit-category').find('input[name="name"]').val(data.name);
-                $('#modal-edit-category').find('input[name="desc"]').val(data.desc);
+                $('#modal-edit-category').find('[name="desc"]').text(data.desc);
                 $('#modal-edit-category').find('form').attr('action', `{{ route('admin.product-categories.update', ':id') }}`.replace(':id', data.id));
             })
 

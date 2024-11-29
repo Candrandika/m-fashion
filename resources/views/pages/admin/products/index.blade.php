@@ -21,30 +21,6 @@
 
     <script>
         $(document).ready(function() {
-            
-            // update action 
-            $(document).on('click', '.btn-edit', function() {
-                var data = $(this).data('data');
-                $('#modal-edit-product').find('input[name="name"]').val(data.name);
-                $('#modal-edit-product').find('input[name="desc"]').val(data.desc);
-
-                const barndOptions = $('#modal-edit-product').find('select[name="brand_id"] option');
-                barndOptions.each(function() {
-                    if (this.value == data.brand_id) {
-                        $(this).attr('selected', 'selected');
-                    }
-                });
-
-                const categoryOptions = $('#modal-edit-product').find('select[name="category_id"] option');
-                categoryOptions.each(function() {
-                    if (this.value == data.category_id) {
-                        $(this).attr('selected', 'selected');
-                    }
-                });
-
-                $('#modal-edit-product').find('form').attr('action', `{{ route('admin.products.update', ':id') }}`.replace(':id', data.id));
-            })
-
             // delete action 
             $(document).on('click', '.btn-delete-product', function() {
                 Swal.fire({

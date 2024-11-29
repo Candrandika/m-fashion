@@ -8,14 +8,28 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-4">
-                        <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="w-100 rounded">
+                        <img id="category-img" src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="w-100 rounded object-fit-cover" style="aspect-ratio: 1/1">
                     </div>
                     <div class="col-8">
-                        <h5 class="fw-bolder">Nama Kategori</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure laboriosam ab, aut sequi rerum sed necessitatibus esse placeat ex hic commodi alias accusamus nihil ipsa.</p>
+                        <h5 class="fw-bolder" id="category-name">Nama Kategori</h5>
+                        <p id="category-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure laboriosam ab, aut sequi rerum sed necessitatibus esse placeat ex hic commodi alias accusamus nihil ipsa.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.btn-detail-category', function() {
+
+                const category = $(this).data('data')
+                $('#modal-detail-category #category-img').attr('src', '{{ asset("storage") }}/'+category.image)
+                $('#modal-detail-category #category-name').text(category.name)
+                $('#modal-detail-category #category-desc').text(category.desc)
+            })
+        })
+    </script>
+@endpush

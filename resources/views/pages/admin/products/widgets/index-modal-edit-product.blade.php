@@ -71,6 +71,30 @@
                 const quill_content = quill_edit.root.innerHTML;
                 $('#modal-edit-product [name=desc]').val(quill_content)
             })
+
+            // update action 
+            $(document).on('click', '.btn-edit', function() {
+                var data = $(this).data('data');
+                $('#modal-edit-product').find('input[name="name"]').val(data.name);
+                $('#modal-edit-product').find('input[name="desc"]').val(data.desc);
+                quill_edit.clipboard.dangerouslyPasteHTML(data.desc);
+
+                const barndOptions = $('#modal-edit-product').find('select[name="brand_id"] option');
+                barndOptions.each(function() {
+                    if (this.value == data.brand_id) {
+                        $(this).attr('selected', 'selected');
+                    }
+                });
+
+                const categoryOptions = $('#modal-edit-product').find('select[name="category_id"] option');
+                categoryOptions.each(function() {
+                    if (this.value == data.category_id) {
+                        $(this).attr('selected', 'selected');
+                    }
+                });
+
+                $('#modal-edit-product').find('form').attr('action', `{{ route('admin.products.update', ':id') }}`.replace(':id', data.id));
+            })
         })
     </script>
 @endpush
