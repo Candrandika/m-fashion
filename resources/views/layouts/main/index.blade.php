@@ -12,6 +12,11 @@
     <link id="themeColors" rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('dist/libs/sweetalert2/dist/sweetalert2.min.css') }}">
 
+    <style>
+      .unstyled > * {
+          margin: 0;
+      }
+    </style>
     @stack('style')
 </head>
 
