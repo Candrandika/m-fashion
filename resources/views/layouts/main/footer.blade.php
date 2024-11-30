@@ -1,5 +1,5 @@
 <footer class="bg-white p-5">
-    <div class="row  justify-content-center container gap-2">
+    <div class="row mx-auto justify-content-center container gap-2">
         <div class="col-12 col-md-4 col-lg">
             <h6 class="fw-bolder mb-2">Informasi</h6>
             <div class="fw-semibold d-flex flex-column gap-1">
@@ -26,12 +26,24 @@
             <div>
 
                 <div style="display: grid; grid-template-columns: repeat(2, 110px);">
-                    <img src="{{ asset('dist/images/icons/BCA.png') }}" alt="" class="img-fluid mb-1" height="40">
-                    <img src="{{ asset('dist/images/icons/Mandiri.png') }}" alt="" class="img-fluid mb-1" height="40">
-                    <img src="{{ asset('dist/images/icons/BRI.png') }}" alt="" class="img-fluid mb-1" height="40">
-                    <img src="{{ asset('dist/images/icons/BSI.png') }}" alt="" class="img-fluid mb-1" height="40">
-                    <img src="{{ asset('dist/images/icons/spay.png') }}" alt="" class="img-fluid mb-1" height="40">
-                    <img src="{{ asset('dist/images/icons/gopay.png') }}" alt="" class="img-fluid mb-1" height="40">
+                    <div style="height: 40px" class="mb-2">
+                        <img src="{{ asset('dist/images/icons/BCA.png') }}" alt="" class="img-fluid" style="max-height: 40px">
+                    </div>
+                    <div style="height: 40px" class="mb-2">
+                        <img src="{{ asset('dist/images/icons/Mandiri.png') }}" alt="" class="img-fluid" style="max-height: 40px">
+                    </div>
+                    <div style="height: 40px" class="mb-2">
+                        <img src="{{ asset('dist/images/icons/BRI.png') }}" alt="" class="img-fluid" style="max-height: 40px">
+                    </div>
+                    <div style="height: 40px" class="mb-2">
+                        <img src="{{ asset('dist/images/icons/BSI.png') }}" alt="" class="img-fluid" style="max-height: 40px">
+                    </div>
+                    <div style="height: 40px" class="mb-2">
+                        <img src="{{ asset('dist/images/icons/spay.png') }}" alt="" class="img-fluid" style="max-height: 40px">
+                    </div>
+                    <div style="height: 40px" class="mb-2">
+                        <img src="{{ asset('dist/images/icons/gopay.png') }}" alt="" class="img-fluid" style="max-height: 40px">
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,9 +1,9 @@
 <section id="brand-carousels">
-    <h4 class="fw-bolder">Brand</h4>
+    <h4 class="fw-bolder mb-4">Brand</h4>
     <div class="owl-carousel counter-carousel owl-theme">
         @foreach ($brands as $brand)
         <div class="item">
-            <img src="{{ asset('storage/' . $brand->image) }}" class="rounded-5 shadow-sm" alt="" style="width: 150px; height: 150px; object-fit; cover;">
+            <img src="{{ asset('storage/' . $brand->image) }}" class="rounded-5 shadow-sm" alt="" style="height: 150px; width: 150px; object-fit: cover;">
         </div>
         @endforeach
     </div>
@@ -22,6 +22,9 @@
                 autoplay: true,
                 responsive: {
                     0: {
+                        items: 1
+                    },
+                    280: {
                         items: 2
                     },
                     576: {
@@ -31,10 +34,10 @@
                         items: 4
                     },
                     992: {
-                        items: 6
+                        items: 5
                     },
                     1200: {
-                        items: 7
+                        items: 6
                     },
                 }
             })

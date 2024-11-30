@@ -43,7 +43,7 @@ Route::middleware('guest')->group(function(){
 });
 
 
-Route::middleware('auth')->group(function() {
+// Route::middleware('auth')->group(function() {
     Route::get('/login-success', function () {
         $user = Auth::user();
         return view('pages.auth.login-success', compact('user'));
@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function() {
                 return view('pages.main.categories.show');
             });
         });
+
     // });
 
     // Route::middleware('role:user')->group(function (){
@@ -82,6 +83,9 @@ Route::middleware('auth')->group(function() {
             Route::resource('products', AdminProductController::class);
             Route::resource('product-details', AdminProductDetailController::class);
             Route::post('product-images/{product}', [AdminProductDetailController::class, 'addImage'])->name('product_images');
+            Route::delete('product-images/{product}', function() {
+
+            })->name('product_images.destroy');
             Route::resource('product-categories', AdminCategoryProductController::class);
             Route::resource('users', AdminUserController::class);
             Route::resource('transactions', AdminTransactionController::class);
@@ -97,5 +101,10 @@ Route::middleware('auth')->group(function() {
             Route::get('/product-detail', [AdminProductDetailController::class, 'dataTable'])->name('product-detail');
         });
     // });
-});
+// });
 
+Route::name('carts.')->prefix('carts')->group(function() {
+    Route::get('/', function() {
+        return view('pages.main.cart.index');
+    })->name('index');
+});

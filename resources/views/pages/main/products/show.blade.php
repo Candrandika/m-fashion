@@ -32,6 +32,8 @@
 
                 <div class="d-flex w-100 mt-4 gap-2">
                     <button type="button" class="btn btn-lg btn-dark rounded-0" style="flex: 1;">Tambahkan ke Keranjang</button>
+                    <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i class="ti ti-heart"></i></button>
+                    {{-- <button type="button" class="btn btn-lg rounded-0" style="border: 1px solid black"><i class="ti ti-heart-filled text-danger"></i></button> --}}
                     <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i class="ti ti-upload"></i></button>
                 </div>
 

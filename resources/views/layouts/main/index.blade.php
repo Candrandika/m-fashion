@@ -16,6 +16,9 @@
       .unstyled > * {
           margin: 0;
       }
+      .mb-4 {
+        margin-bottom: 2rem!important;
+      }
     </style>
     @stack('style')
 </head>
