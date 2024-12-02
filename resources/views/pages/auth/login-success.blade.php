@@ -9,6 +9,7 @@
 @push('script')
     <script>
         const role = "{{ $user->roles?->first()?->name }}";
+
         setTimeout(() => {
             if(role == "user") window.location.href = "/home";
             else window.location.href = "/admin";

@@ -54,6 +54,7 @@ class AuthController extends Controller
     {
         try{
             Auth::logout();
+            logger()->info('Auth check after login:', ['auth' => Auth::check()]);
             return redirect()->route('auth.view.login');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());

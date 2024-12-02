@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 <div class="d-grid py-4 px-7 pt-8">
-                                    <a href="authentication-login.html"
+                                    <a href="{{ route('mainlogout') }}"
                                         class="btn btn-outline-primary">Log Out</a>
                                 </div>
                             </div>
