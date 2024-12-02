@@ -26,7 +26,8 @@ class ProductRequest extends FormRequest
             'category_id' => 'nullable',
             'brand_id' => 'required',
             'name' => 'required',
-            'desc' => 'nullable|',
+            'price' => 'required|numeric',
+            'desc' => 'nullable',
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
         ];
     }
@@ -36,6 +37,8 @@ class ProductRequest extends FormRequest
         return [
             'brand_id.required' => 'Brand produk harus diisi!',
             'name.required' => 'Nama produk harus diisi',
+            'price.required' => 'Harga harus diisi!',
+            'price.numeric' => 'Harga harus di isi dengan angka!',
             'image.image' => 'Gambar harus berupa image!',
             'image.mimes' => 'Format gambar hanya bisa ".jpg,.png,.jpeg"!',
             'image.max' => 'Maxksimal ukuran gambar 2mb!',
