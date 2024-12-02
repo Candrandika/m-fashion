@@ -1,16 +1,16 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h4 class="m-0 fw-semibold" >Data Varian</h4>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-variant">+ Tambah Varian</button>
+        <h4 class="m-0 fw-semibold" >Data Warna</h4>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-color">+ Tambah Warna</button>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped align-middle" id="table-variant"></table>
+            <table class="table table-striped align-middle" id="table-color"></table>
         </div>
     </div>
 </div>
 
-<form action="" id="delete-variant-form" method="POST">
+<form action="" id="delete-color-form" method="POST">
     @csrf
     @method('DELETE')
 </form>
@@ -18,7 +18,7 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            $('#table-variant').DataTable({
+            $('#table-color').DataTable({
                 ajax: "{{ route('data-table.product-detail', ['product_id' =>$product->id]) }}",
                 order: [[1, 'asc']],
                 columns: [
@@ -29,16 +29,14 @@
                         orderable: false
                     },
                     {
-                        data: 'size',
-                        title: 'Ukuran',
-                    },
-                    {
                         data: 'color',
                         title: 'Warna',
                     },
                     {
-                        data: 'stock',
-                        title: 'Stok'
+                        title: 'Gambar',
+                        mRender: function(data, type, row) {
+                            return `<img src="${row['image']}" width="40" height="40" class="object-fit-cover" />`
+                        }
                     },
                     {
                         title: 'Aksi',
@@ -47,8 +45,8 @@
                         mRender: function(data, type, row) {
                             return `
                                 <td>
-                                    <button type="button" class="btn btn-warning p-2 btn-edit-variant" data-bs-toggle="modal" data-bs-target="#modal-edit-variant" data-data='${JSON.stringify(row)}'><div class="ti ti-edit"></div></button>
-                                    <button type="button" class="btn btn-danger p-2 btn-delete-variant" data-data='${JSON.stringify(row)}'><div class="ti ti-trash"></div></button>
+                                    <button type="button" class="btn btn-warning p-2 btn-edit-color" data-bs-toggle="modal" data-bs-target="#modal-edit-color" data-data='${JSON.stringify(row)}'><div class="ti ti-edit"></div></button>
+                                    <button type="button" class="btn btn-danger p-2 btn-delete-color" data-data='${JSON.stringify(row)}'><div class="ti ti-trash"></div></button>
                                 </td>
                             `
                         }
@@ -56,21 +54,21 @@
                 ]
             });
 
-            $(document).on('click', '.btn-delete-variant', function() {
+            $(document).on('click', '.btn-delete-color', function() {
                 const data = $(this).data('data')
                 const action = `{{ route('admin.product-details.destroy', ':id') }}`.replace(':id', data.id)
-                $('#delete-variant-form').attr('action', action)
+                $('#delete-color-form').attr('action', action)
                 
                 Swal.fire({
                     icon: 'question',
                     title: 'Apakah anda yakin?',
-                    text: 'Data varian akan dihapus dari produk ini!',
+                    text: 'Data warna akan dihapus dari produk ini!',
                     showCancelButton: true,
                     cancelButtonText: 'Batal',
                     confirmButtonText: 'Yakin'
                 }).then((result) => {
                     if(result.isConfirmed) {
-                        $('#delete-variant-form').submit()
+                        $('#delete-color-form').submit()
                     }
                 })
 

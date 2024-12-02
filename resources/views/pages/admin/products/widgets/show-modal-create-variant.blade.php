@@ -2,44 +2,33 @@
     <div class="modal-dialog">
         <form action="{{ route('admin.product-details.store', $product->id) }}" method="POST" class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Ukuran</h5>
+                <h5 class="modal-title">Tambah Varian</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
             </div>
             <div class="modal-body">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <div class="mb-3">
-                    <label for="size" class="form-label mb-0">Nama Ukuran <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="size" name="size" placeholder="Nama Ukuran (S, M, L, XL, dll)" required>
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label mb-0">Harga <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-text">Rp</div>
-                        <input type="number" class="form-control" id="price" name="price" placeholder="Harga" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="stock" class="form-label mb-0">Stok <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Stok" required>
-                </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="width" class="form-label mb-0">Lebar <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="width" name="width" placeholder="Lebar" required>
-                                <div class="input-group-text">cm</div>
-                            </div>
+                            <label for="size_id" class="form-label mb-0">Ukuran <span class="text-danger">*</span></label>
+                            <select name="size_id" id="size_id" class="form-select" required>
+                                <option value="">Pilih Ukuran</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="heigth" class="form-label mb-0">Tinggi <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="height" name="height" placeholder="Tinggi" required>
-                                <div class="input-group-text">cm</div>
-                            </div>
+                            <label for="color_id" class="form-label mb-0">Warna <span class="text-danger">*</span></label>
+                            <select name="color_id" id="color_id" class="form-select" required>
+                                <option value="">Pilih Warna</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="stock" class="form-label mb-0">Stok <span class="text-danger">*</span></label>
+                            <input type="number" min="0" class="form-control" id="stock" name="stock" placeholder="Stok" required>
                         </div>
                     </div>
                 </div>

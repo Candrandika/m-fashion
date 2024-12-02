@@ -8,10 +8,19 @@
         <h2 class="fw-bolder mb-0">Detail Produk</h2>
     </div>
     @include('pages.admin.products.widgets.show-card-detail-product')
+    @include('pages.admin.products.widgets.show-modal-add-image')
+
+    @include('pages.admin.products.widgets.show-table-size')
+    @include('pages.admin.products.widgets.show-modal-create-size')
+    @include('pages.admin.products.widgets.show-modal-edit-size')
+
+    @include('pages.admin.products.widgets.show-table-color')
+    @include('pages.admin.products.widgets.show-modal-create-color')
+    @include('pages.admin.products.widgets.show-modal-edit-color')
+
     @include('pages.admin.products.widgets.show-table-variant')
     @include('pages.admin.products.widgets.show-modal-create-variant')
     @include('pages.admin.products.widgets.show-modal-edit-variant')
-    @include('pages.admin.products.widgets.show-modal-add-image')
 @endsection
 
 @push('script')

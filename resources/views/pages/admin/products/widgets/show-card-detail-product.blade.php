@@ -27,6 +27,12 @@
                     </div>
                 </div>
                 <div class="mt-3">
+                    <h5 class="fw-semibold">Harga</h5>
+                    <div class="unstyled">
+                        Rp 1.000.000
+                    </div>
+                </div>
+                <div class="mt-3">
                     <h5 class="fw-semibold">Deskripsi</h5>
                     <div class="p-2 border rounded mt-3 unstyled">
                         {!! $product->desc ?? "-" !!}

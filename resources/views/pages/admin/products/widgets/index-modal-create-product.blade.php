@@ -20,6 +20,15 @@
                             <input type="text" class="form-control" id="name" name="name" placeholder="Nama Produk" required>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="price" class="form-label mb-0">Harga <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-text">Rp</div>
+                                <input type="number" class="form-control" id="price" name="price" placeholder="Harga Produk" required>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="brand_id" class="form-label mb-0">Brand <span class="text-danger">*</span></label>
