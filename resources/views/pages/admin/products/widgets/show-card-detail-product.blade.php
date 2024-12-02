@@ -29,7 +29,7 @@
                 <div class="mt-3">
                     <h5 class="fw-semibold">Harga</h5>
                     <div class="unstyled">
-                        Rp 1.000.000
+                        Rp {{ number_format($product->price, 0, ',', '.') }}
                     </div>
                 </div>
                 <div class="mt-3">

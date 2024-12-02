@@ -25,6 +25,19 @@
                             return `<div class="d-flex align-items-center gap-2"><img src="{{ asset('storage/` + row.image + `') }}" alt="gambar katerogi" width="50px" height="50px" class="rounded object-fit-cover"><div class=""><div class="fw-bolder">` + data + `</div><span class="badge bg-light-primary text-primary">${row?.brand?.name}</span> <span class="badge bg-light-primary text-success">${row?.category?.name}</span></div></div>`;
                         } 
                     },
+                    {
+                        data: 'price',
+                        title: 'Harga',
+                        render: function(data, type, row) {
+                            const formatter = new Intl.NumberFormat('id-ID', {
+                                currency: 'IDR',
+                                style: 'currency',
+                                maximumFractionDigits: 0
+                            })
+
+                            return formatter.format(data)
+                        }
+                    },
                     { 
                         data: 'products_count',
                         title: 'Stok',

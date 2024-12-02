@@ -85,6 +85,7 @@
             $(document).on('click', '.btn-edit', function() {
                 var data = $(this).data('data');
                 $('#modal-edit-product').find('input[name="name"]').val(data.name);
+                $('#modal-edit-product').find('input[name="price"]').val(data.price);
                 $('#modal-edit-product').find('input[name="desc"]').val(data.desc);
                 quill_edit.clipboard.dangerouslyPasteHTML(data.desc);
 
