@@ -105,6 +105,12 @@ Route::middleware('auth')->group(function() {
             return view('pages.main.cart.index');
         })->name('index');
     });
+
+    Route::name('favorites.')->prefix('favorites')->group(function() {
+        Route::get('/', function() {
+            return view('pages.main.favorites.index');
+        })->name('index');
+    });
 });
 
 

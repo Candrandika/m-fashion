@@ -43,11 +43,10 @@
                   <a href="" class="d-block fs-5 fw-bold text-black">Pria</a>
                   <a href="" class="d-block fs-5 fw-bold text-black">Anak</a>
                   <a href="" class="d-block fs-5 fw-bold text-black">Informasi</a>
-                  <a href="" class="d-block text-black">Tentang MFashion</a>
-                  <a href="" class="d-block text-black">CSR</a>
-                  <a href="" class="d-block text-black">Sustainabillity</a>
-                  <a href="" class="d-block text-black">Customer Service</a>
-                  <a href="" class="d-block text-black">Lokasi Toko</a>
+                  <a href="/about" class="d-block text-black">Tentang MFashion</a>
+                  <a href="/csr" class="d-block text-black">CSR</a>
+                  <a href="/contact-us" class="d-block text-black">Hubungi Kami</a>
+                  <a href="/location" class="d-block text-black">Lokasi Toko</a>
                 </div>
                 <div class="col-md-8">
                   <h4>Promo</h4>
