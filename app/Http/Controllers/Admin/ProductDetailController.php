@@ -100,7 +100,7 @@ class ProductDetailController extends Controller
 
     public function addImage(Request $request){
         $request->validate([
-            'image' => 'required|image|mimes:png,jpg,jpeg'
+            'image' => 'required|mimes:png,jpg,jpeg,mp4,mkv,mov'
         ]);
 
         if ($request->hasFile('image')) {
@@ -109,11 +109,28 @@ class ProductDetailController extends Controller
             $image = null;
         }
 
+        $mimes = $request->file('image')->getMimeType();
+        if(str_contains($mimes, "image")) $type = "image";
+        else $type = "video";
+
+        $check_data = ProductImage::where('type','video')->where('product_id', $request->product_id)->first();
+        if($check_data && $type == "video") return redirect()->back()->with('error','Hanya boleh upload 1 video dalam 1 produk!');
+
         ProductImage::create([
             'product_id' => $request->product_id,
-            'image' => $request->image
+            'image' => $image,
+            "type" => $type
         ]);
 
         return redirect()->back()->with('success', 'Berhasil menambahkan gambar produk');
+    }
+
+    public function deleteImage(Request $request, ProductImage $productImage){
+        if ($productImage->image) {
+            $this->remove('product_image/'.$productImage->product_id, $productImage->image);
+        }
+
+        $productImage->delete();
+        return redirect()->back()->with('success', 'Berhasil menghapus gambar produk');
     }
 }
