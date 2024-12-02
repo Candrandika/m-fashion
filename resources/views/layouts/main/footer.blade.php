@@ -3,11 +3,11 @@
         <div class="col-12 col-md-4 col-lg">
             <h6 class="fw-bolder mb-2">Informasi</h6>
             <div class="fw-semibold d-flex flex-column gap-1">
-                <div>Tentang MFashion</div>
-                <div>CSR</div>
-                <div>Sustainability</div>
-                <div>Customer Service</div>
-                <div>Lokasi Toko</div>
+                <a href="/about" class="text-body">Tentang MFashion</a>
+                <a href="/csr" class="text-body">CSR</a>
+                {{-- <div>Sustainability</div> --}}
+                <a href="/contact-us" class="text-body">Hubungi Kami</a>
+                <a href="/location" class="text-body">Lokasi Toko</a>
             </div>
         </div>
         <div class="col-12 col-md-4 col-lg">

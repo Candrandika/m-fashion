@@ -111,7 +111,12 @@ Route::middleware('auth')->group(function() {
 Route::get('about', function() {
     return view('pages.main.about.index');
 });
-
 Route::get('csr', function() {
     return view('pages.main.csr.index');
+});
+Route::get('contact-us', function() {
+    return view('pages.main.contact.index');
+});
+Route::get('location', function() {
+    return view('pages.main.location.index');
 });
