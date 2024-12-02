@@ -106,3 +106,12 @@ Route::middleware('auth')->group(function() {
         })->name('index');
     });
 });
+
+
+Route::get('about', function() {
+    return view('pages.main.about.index');
+});
+
+Route::get('csr', function() {
+    return view('pages.main.csr.index');
+});
