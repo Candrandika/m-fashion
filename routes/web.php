@@ -11,7 +11,9 @@ use App\Http\Controllers\Admin\{
     AdminController
 };
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Landing\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', function () {
@@ -60,20 +62,9 @@ Route::middleware('auth')->group(function() {
             return view('pages.main.checkout.index');
         });
         
-        Route::name('products.')->prefix('products')->group(function () {
-            Route::get('/', function () {
-                return view('pages.main.products.index');
-            })->name('index');
-            Route::get('{product}', function () {
-                return view('pages.main.products.show');
-            })->name('show');
-        });
-        
-        Route::name('categories.')->prefix('categories')->group(function () {
-            Route::get('/{category}', function () {
-                return view('pages.main.categories.show');
-            });
-        });
+        Route::resource('products', ProductController::class)->only(['index', 'show']);
+
+        Route::resource('categories', CategoryController::class)->only(['show']);
 
     // });
 

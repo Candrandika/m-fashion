@@ -4,12 +4,27 @@
 @section('subtitle', 'Daftar Produk')
 
 @section('content')
+    @include('pages.main.products.widgets.show-modal-show-image')
+
     <div class="container">
         <div class="row mt-5">
-            <div class="col-lg-6">
-                <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="w-100">
+            <div class="col-lg-5">
+                <img data-bs-toggle="modal" data-bs-target="#modal-show-image" src="{{ asset($product->image ? 'storage/' . $product->image : 'dist/images/products/s1.jpg') }}"
+                    alt="" class="w-100 object-fit-cover btn-show-image" style="aspect-ratio: 1/1;">
+                <div class="mt-3">
+                    <div class="owl-carousel counter-carousel owl-theme">
+                        @foreach ($product->product_images as $index => $img)
+                            <div class="item">
+                                <img data-bs-toggle="modal" data-bs-target="#modal-show-image"
+                                    src="{{ asset('storage/' . $img->image) }}" alt="gambar produk {{ $index }}"
+                                    class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;"
+                                    data-img="{{ $img }}">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <h4 class="fw-bolder mb-0">Nama Produk</h4>
                 <div class="fs-4 mb-4">Rp 100.000</div>
 
@@ -17,12 +32,14 @@
                     <h6 class="fw-bolder mb-0">Pilih Warna</h6>
                     <div class="row">
                         @for ($i = 0; $i < 3; $i++)
-                        <div class="col-auto px-0">
-                            <label class="form-check form-check-image m-0 p-0">
-                                <input class="form-check-input d-none" type="radio" name="option" value="{{ $i+1 }}">
-                                <img src="{{ asset('dist/images/products/s1.jpg') }}" alt="Option 1" class="form-check-image" height="100px">
-                            </label>
-                        </div>
+                            <div class="col-auto px-0">
+                                <label class="form-check form-check-image m-0 p-0">
+                                    <input class="form-check-input d-none" type="radio" name="option"
+                                        value="{{ $i + 1 }}">
+                                    <img src="{{ asset('dist/images/products/s1.jpg') }}" alt="Option 1"
+                                        class="form-check-image" height="100px">
+                                </label>
+                            </div>
                         @endfor
                     </div>
                 </div>
@@ -185,9 +202,46 @@
 
 
 @push('script')
+    <script src="{{ asset('dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".counter-carousel").owlCarousel({
+                loop: true,
+                rtl: true,
+                margin: 5,
+                mouseDrag: true,
+
+                nav: false,
+
+                responsive: {
+                    0: {
+                        items: 2,
+                        loop: true,
+                    },
+                    576: {
+                        items: 2,
+                        loop: true,
+                    },
+                    768: {
+                        items: 3,
+                        loop: true,
+                    },
+                    1200: {
+                        items: 4,
+                        loop: true,
+                    },
+                    1400: {
+                        items: 4,
+                        loop: true,
+                    },
+                },
+            });
+        })
+    </script>
 @endpush
 
 @push('style')
+    <link rel="stylesheet" href="{{ asset('dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
     <style>
         .form-check-image {
             cursor: pointer;
@@ -199,7 +253,6 @@
 
         .form-check-input:checked+img {
             border-color: var(--bs-dark);
-            /* Bootstrap primary color */
         }
     </style>
 @endpush

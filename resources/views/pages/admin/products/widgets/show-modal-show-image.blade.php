@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-show-image" tabindex="-1">
+<div class="modal modal-lg fade" id="modal-show-image" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,7 +6,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
             </div>
             <div class="modal-body">
-                <img src="" alt="Gambar Produk">
+                <div class="table-responsive">
+                    <img src="" alt="Gambar Produk" style="min-height: 100px; width: 100%">
+                </div>
             </div>
             <div class="modal-footer">
                 <form action="" method="POST" id="form-delete-img">

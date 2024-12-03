@@ -14,27 +14,7 @@
 
     <link id="themeColors" rel="stylesheet" href="{{ asset('dist/css/style.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('dist/libs/sweetalert2/dist/sweetalert2.min.css') }}">
-    <style>
-        .unstyled > * {
-            margin: 0;
-        }
-        .app-header:not(.fixed-header) {
-            background-color: white;
-        }
-        .dt-column-title {
-            text-wrap-mode: nowrap;
-        }
-        .table tbody th, .table tbody td, .table thead th, .table thead td {
-            text-align: start!important;
-        }
-        .sidebar-nav ul .sidebar-item.selected>.sidebar-link, .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active, .sidebar-nav ul .sidebar-item>.sidebar-link.active {
-            background-color: var(--bs-dark);
-        }
-        .sidebar-nav ul .sidebar-item .sidebar-link:hover {
-            background-color: #2A354744;
-            color: var(--bs-dark);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('dist/css/custom.css') }}">
 
     @stack('style')
 </head>

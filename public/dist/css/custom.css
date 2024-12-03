@@ -1,0 +1,31 @@
+.active>.page-link {
+    --bs-pagination-active-bg: var(--bs-dark);
+    --bs-pagination-active-color: var(--bs-light);
+    --bs-pagination-active-border-color: var(--bs-dark);
+}
+.page-link {
+    --bs-pagination-color: var(--bs-dark);
+}
+.page-link:hover {
+    --bs-pagination-hover-color: var(--bs-dark);
+}
+
+.unstyled > * {
+    margin: 0;
+}
+.app-header:not(.fixed-header) {
+    background-color: white;
+}
+.dt-column-title {
+    text-wrap-mode: nowrap;
+}
+.table tbody th, .table tbody td, .table thead th, .table thead td {
+    text-align: start!important;
+}
+.sidebar-nav ul .sidebar-item.selected>.sidebar-link, .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active, .sidebar-nav ul .sidebar-item>.sidebar-link.active {
+    background-color: var(--bs-dark);
+}
+.sidebar-nav ul .sidebar-item .sidebar-link:hover {
+    background-color: #2A354744;
+    color: var(--bs-dark);
+}

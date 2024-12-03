@@ -4,7 +4,7 @@
 </div>
 <div class="row">
     @forelse($products as $product)
-        <a href="/products/1" class="col-lg-4 mb-3">
+        <a href="/products/{{ $product->id }}" class="col-lg-4 mb-3">
             <img src="{{ asset('storage/'.$product->image) }}" alt="" class="w-100 rounded-2" style="aspect-ratio: 1/1; object-fit: cover;">
             <h5 class="fw-semibold m-0">{{ $product->name }}</h5>
             <h6 class="fw-semibold m-0">Rp {{ $product->price }}</h6>
