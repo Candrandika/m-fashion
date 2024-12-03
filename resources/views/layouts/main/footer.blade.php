@@ -14,11 +14,11 @@
 
             <h6 class="fw-bolder mb-2">Bantuan dan Dukungan</h6>
             <div class="fw-semibold d-flex flex-column gap-1">
-                <div>Lacak Pesanan Saya</div>
-                <div>Pengembalian Barang dan Dana</div>
-                <div>Syarat dan Ketentuan</div>
-                <div>Kebijakan Privasi</div>
-                <div>FAQ</div>
+                <a href="https://wa.me/6285710173297" target="_blank" class="text-body">Lacak Pesanan Saya</a>
+                <a href="https://wa.me/6285710173297" target="_blank" class="text-body">Pengembalian Barang dan Dana</a>
+                <a href="https://wa.me/6285710173297" target="_blank" class="text-body">Syarat dan Ketentuan</a>
+                <a href="https://wa.me/6285710173297" target="_blank" class="text-body">Kebijakan Privasi</a>
+                <a href="https://wa.me/6285710173297" target="_blank" class="text-body">FAQ</a>
             </div>
         </div>
         <div class="col-12 col-md-3 col-lg">
