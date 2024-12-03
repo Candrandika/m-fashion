@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function() {
         Route::name('main')->group(function () {
             Route::get('home', [HomeController::class, 'index']);
         
-            Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+            Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         });
     
         Route::get('checkout', function () {

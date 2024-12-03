@@ -10,7 +10,7 @@
                 <form action="{{ route('auth.login') }}" method="post">
                     @csrf
                     <div class="mb-4">
-                        <input type="text" name="email" placeholder="Email" class="custom-input form-control bg-white border-0" style="--bs-bg-opacity: .40; height: 50px;">
+                        <input type="email" name="email" placeholder="Email" class="custom-input form-control bg-white border-0" style="--bs-bg-opacity: .40; height: 50px;" value="{{ old('email') }}">
                     </div>
                     <div class="mb-4">
                         <input type="password" name="password" placeholder="Kata Sandi" class="custom-input form-control bg-white border-0" style="--bs-bg-opacity: .40; height: 50px">

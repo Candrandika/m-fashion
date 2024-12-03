@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="container">
+        <h4 class="fw-bolder my-5 ms-5">Produk Disukai</h4>
         <div class="my-5">
             <div class="row">
                 @for ($i = 0; $i < 12; $i++)

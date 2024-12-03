@@ -3,7 +3,7 @@
     @forelse ($categories as $category)
         <div class="col-lg-4 mb-3">
             <div class="position-relative">
-                <img src="{{ asset('storage/' . $category->image) }}" alt="" class="w-100 rounded-2">
+                <img src="{{ asset('storage/' . $category->image) }}" alt="" class="w-100 rounded-2" style="aspect-ratio: 1/1; object-fit: cover;">
                 <a href="/categories/1"
                     class="btn btn-light d-flex align-items-center justify-content-between fw-semibold rounded-1 position-absolute translate-middle start-50"
                     style="bottom: 0; width: 90%">

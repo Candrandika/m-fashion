@@ -27,6 +27,13 @@
         .table tbody th, .table tbody td, .table thead th, .table thead td {
             text-align: start!important;
         }
+        .sidebar-nav ul .sidebar-item.selected>.sidebar-link, .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active, .sidebar-nav ul .sidebar-item>.sidebar-link.active {
+            background-color: var(--bs-dark);
+        }
+        .sidebar-nav ul .sidebar-item .sidebar-link:hover {
+            background-color: #2A354744;
+            color: var(--bs-dark);
+        }
     </style>
 
     @stack('style')

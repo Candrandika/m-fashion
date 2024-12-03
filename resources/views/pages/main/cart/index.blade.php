@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="container">
+        <h4 class="fw-bolder my-5 ms-5">Keranjang</h4>
         <div class="my-5">
             <table class="table align-middle" id="product-carts">
                 <thead>
