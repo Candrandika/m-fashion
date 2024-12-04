@@ -1,5 +1,5 @@
 <header class="d-flex justify-content-between align-items-center bg-white px-5 py-3">
-    <a href="/home">
+    <a href="/">
         <img src="{{ asset('dist/logos/full-dark.png') }}" alt="logo" height="30">
     </a>
     <div>
