@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\{
 };
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\Landing\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -66,8 +67,8 @@ Route::middleware('auth')->group(function() {
         });
         
         Route::resource('products', ProductController::class)->only(['index', 'show']);
-
         Route::resource('categories', CategoryController::class)->only(['show']);
+        Route::resource('favorites', FavoriteController::class)->only(['store','destroy']);
 
     // });
 
