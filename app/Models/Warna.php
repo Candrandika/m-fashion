@@ -23,6 +23,6 @@ class Warna extends Model
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, 'product_details')->where('is_delete',0);
+        return $this->belongsToMany(Size::class, 'product_details')->where('sizes.is_delete',0);
     }
 }
