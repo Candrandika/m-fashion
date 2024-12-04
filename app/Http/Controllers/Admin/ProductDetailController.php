@@ -103,7 +103,7 @@ class ProductDetailController extends Controller
     }
 
     public function dataTable(Request $request) {
-        $data = ProductDetail::with('size','color')->where('is_delete',0)->where('product_id', $request->product_id);
+        $data = ProductDetail::with('size','color')->where('product_details.is_delete',0)->where('product_details.product_id', $request->product_id);
 
         return BaseDatatable::Table($data);
     }
