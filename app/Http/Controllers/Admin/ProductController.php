@@ -53,7 +53,7 @@ class ProductController extends Controller
 
             Product::create($data);
 
-            return redirect()->back()->with('success', 'Berhasil menambahkan data product');
+            return redirect()->route('admin.products.index')->with('success', 'Berhasil menambahkan data produk');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -99,7 +99,7 @@ class ProductController extends Controller
 
             $product->update($data);
 
-            return redirect()->route('admin.products.index')->with('success', 'Berhasil mengubah data product');
+            return redirect()->route('admin.products.index')->with('success', 'Berhasil mengubah data produk');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage())->withInput();
         }
@@ -117,7 +117,7 @@ class ProductController extends Controller
 
             $product->update(["is_delete" => 1, 'image' => null]);
 
-            return redirect()->back()->with('success', 'Berhasil menghapus product');
+            return redirect()->back()->with('success', 'Berhasil menghapus produk');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

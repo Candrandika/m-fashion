@@ -6,6 +6,8 @@
 @section('content')
     @include('pages.main.products.widgets.show-modal-show-image')
 
+    @include('components.alerts.index')
+
     <div class="container">
         <div class="row my-5">
             <div class="col-lg-5">
@@ -77,10 +79,18 @@
                     <button type="button" class="btn btn-lg btn-dark rounded-0" style="flex: 1;">Tambahkan ke
                         Keranjang</button>
                     @if (count($product->favorite) > 0)
-                        <button type="button" class="btn btn-lg rounded-0" style="border: 1px solid black"><i class="ti ti-heart-filled text-danger"></i></button>
+                        <form action="{{ route('favorites.destroy', $product->favorite->first()->id) }}" method="post">
+                            @csrf
+                            @method("delete")
+                            <button type="submit" class="btn btn-lg rounded-0" style="border: 1px solid black"><i class="ti ti-heart-filled text-danger"></i></button>
+                        </form>
                     @else
-                        <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i
-                            class="ti ti-heart"></i></button>
+                        <form action="{{ route('favorites.store') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button type="submit" class="btn btn-lg btn-outline-dark rounded-0"><i
+                                class="ti ti-heart"></i></button>
+                        </form>
                     @endif
                     {{-- <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i
                             class="ti ti-upload"></i></button> --}}
