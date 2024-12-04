@@ -30,7 +30,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::where('is_delete', 0)->get();
+        $brand = Brand::where('is_delete', 0)->get();
+        return view('pages.admin.products.create', compact('brand', 'category'));
     }
 
     /**
@@ -69,7 +71,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $category = Category::where('is_delete', 0)->get();
+        $brand = Brand::where('is_delete', 0)->get();
+        return view('pages.admin.products.edit', compact('product', 'brand', 'category'));
     }
 
     /**

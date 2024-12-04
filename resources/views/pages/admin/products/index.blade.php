@@ -6,11 +6,9 @@
     @include('components.alerts.index')
     <div class="d-flex align-items-end justify-content-between mb-2">
         <h2 class="fw-bolder mb-0">Produk</h2>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-product">+ Tambah</button>
+        <a href="{{ route('admin.products.create') }}" type="button" class="btn btn-primary">+ Tambah</a>
     </div>
     @include('pages.admin.products.widgets.index-table-product')
-    @include('pages.admin.products.widgets.index-modal-create-product')
-    @include('pages.admin.products.widgets.index-modal-edit-product')
 
     <x-delete-form />
 @endsection
