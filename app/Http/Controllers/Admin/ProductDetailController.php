@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductDetailRequest;
 use App\Models\ProductDetail;
 use App\Models\ProductImage;
+use App\Models\Size;
+use App\Models\Warna;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
@@ -51,7 +53,9 @@ class ProductDetailController extends Controller
      */
     public function show(ProductDetail $productDetail)
     {
-        return view('pages.admin.productDetails.show');
+        $sizes = Size::where('product_id', $productDetail->product_id)->get();
+        $colors = Warna::where('product_id', $productDetail->product_id)->get();
+        return view('pages.admin.productDetails.show', compact('sizes','colors'));
     }
 
     /**
@@ -93,7 +97,7 @@ class ProductDetailController extends Controller
     }
 
     public function dataTable(Request $request) {
-        $data = ProductDetail::where('is_delete',0)->where('product_id', $request->product_id);
+        $data = ProductDetail::with('size','color')->where('is_delete',0)->where('product_id', $request->product_id);
 
         return BaseDatatable::Table($data);
     }

@@ -8,6 +8,8 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Size;
+use App\Models\Warna;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
@@ -63,7 +65,9 @@ class ProductController extends Controller
     public function show(String $id)
     {
         $product = Product::with('category', 'brand')->where('id', $id)->first();
-        return view('pages.admin.products.show', compact('product'));
+        $sizes = Size::where('product_id', $id)->get();
+        $colors = Warna::where('product_id', $id)->get();
+        return view('pages.admin.products.show', compact('product', 'sizes', 'colors'));
     }
 
     /**

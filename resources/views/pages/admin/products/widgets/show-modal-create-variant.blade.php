@@ -14,14 +14,20 @@
                             <label for="size_id" class="form-label mb-0">Ukuran <span class="text-danger">*</span></label>
                             <select name="size_id" id="size_id" class="form-select" required>
                                 <option value="">Pilih Ukuran</option>
+                                @foreach ($sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label for="color_id" class="form-label mb-0">Warna <span class="text-danger">*</span></label>
-                            <select name="color_id" id="color_id" class="form-select" required>
+                            <label for="warna_id" class="form-label mb-0">Warna <span class="text-danger">*</span></label>
+                            <select name="warna_id" id="warna_id" class="form-select" required>
                                 <option value="">Pilih Warna</option>
+                                @foreach ($colors as $color)
+                                    <option value="{{ $color->id }}">{{ $color->color }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

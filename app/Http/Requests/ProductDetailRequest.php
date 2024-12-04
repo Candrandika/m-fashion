@@ -23,8 +23,10 @@ class ProductDetailRequest extends FormRequest
     {
         return [
             'product_id' => 'required',
+            'size_id' => 'required',
+            'warna_id' => 'required',
             'size' => 'nullable',
-            'price' => 'required|numeric|min:1',
+            'price' => 'nullable|numeric|min:1',
             'stock' => 'required|numeric|min:0',
             'discount' => 'nullable',
             'width' => 'nullable',
@@ -36,7 +38,8 @@ class ProductDetailRequest extends FormRequest
     {
         return [
             'product_id.required' => 'Product harus diisi!',
-            'price.required' => 'Harga harus diisi!',
+            'size_id.required' => 'Ukuran harus diisi!',
+            'warna_id.required' => 'Warna harus diisi!',
             'price.numeric' => 'Harga harus berupa angka!',
             'price.min' => 'Harga harus diatas 1',
             'stock.required' => 'Stok produk harus diisi!',
