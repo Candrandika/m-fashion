@@ -28,7 +28,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7">
+            <form class="col-lg-7" action="{{ route('carts.store') }}" method="POST">
+                @csrf
                 <h4 class="fw-bolder mb-0">{{ $product->name }}</h4>
                 <div class="fs-4 mb-4">Rp {{ $product->price }}</div>
 
@@ -38,15 +39,17 @@
                         @foreach ($product->colors as $item)
                             <div class="col-auto px-0">
                                 <label class="form-check form-check-image m-0 p-0">
-                                    <input class="form-check-input d-none" type="radio" name="option"
-                                        value="{{ $item->id }}">
-                                    <img src="{{ asset('storage/'. $item->image) }}" alt="Option 1"
-                                        class="form-check-image" height="100px">
+                                    <input class="form-check-input d-none" type="radio" name="color"
+                                        value="{{ $item->id }}" data-sizes="{{ $item->sizes }}" data-product-details="{{ $item->product_details }}" required>
+                                    <img src="{{ asset('storage/'. $item->image) }}" alt="Warna {{ $item->color }}"
+                                        class="form-check-image object-fit-contain" height="120px" style="aspect-ratio: 1/1">
                                 </label>
                             </div>
                         @endforeach
                     </div>
                 </div>
+
+                <input type="hidden" name="product_detail_id">
 
                 <div id="size">
                     <div class="d-flex align-items-center justify-content-between">
@@ -55,28 +58,18 @@
                                 class="bg-danger"></span> Ukuran hanya tersisa beberapa item</div>
                     </div>
                     <div class="btn-group btn-group-lg w-100 bg-light" role="radio" aria-label="Select Size">
-                        <input type="radio" class="btn-check" name="size" id="size-s" value="s"
-                            autocomplete="off">
-                        <label for="size-s" class="btn btn-outline-dark">S</label>
-
-                        <input type="radio" class="btn-check" name="size" id="size-m" value="m"
-                            autocomplete="off">
-                        <label for="size-m" class="btn btn-outline-dark relative">M <div
-                                class="position-absolute bg-danger" style="width: 7px; height: 7px; top: 5px; right: 5px">
+                        @foreach($product->sizes as $size)
+                            <input type="radio" class="btn-check" name="size" id="size-{{ $size->id }}" value="{{ $size->id }}"
+                                autocomplete="off" data-product-detail-id="" required disabled>
+                            <label for="size-{{ $size->id }}" class="btn btn-outline-dark">{{ $size->size }} <div
+                                class="position-absolute bg-danger red-dot" style="width: 7px; height: 7px; top: 5px; right: 5px; display: none;">
                             </div></label>
-
-                        <input type="radio" class="btn-check" name="size" id="size-l" value="l"
-                            autocomplete="off">
-                        <label for="size-l" class="btn btn-outline-dark">L</label>
-
-                        <input type="radio" class="btn-check" name="size" id="size-xl" value="xl"
-                            autocomplete="off">
-                        <label for="size-xl" class="btn btn-outline-dark">XL</label>
+                        @endforeach
                     </div>
                 </div>
 
                 <div class="d-flex w-100 mt-4 gap-2">
-                    <button type="button" class="btn btn-lg btn-dark rounded-0" style="flex: 1;">Tambahkan ke
+                    <button type="submit" class="btn btn-lg btn-dark rounded-0" style="flex: 1;">Tambahkan ke
                         Keranjang</button>
                     @if (count($product->favorite) > 0)
                         <form action="{{ route('favorites.destroy', $product->favorite->first()->id) }}" method="post">
@@ -144,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection
@@ -185,6 +178,48 @@
                     },
                 },
             });
+
+            $(document).on('change', '[name=color]', function() {
+                const sizes = $(this).data('sizes');
+                const product_details = $(this).data('product-details');
+
+                $('[name=size]').each(function(index, el) {
+                    const value = $(el).val()
+                    let current_detail = {}
+                    let detail_id
+
+                    if (product_details.some((detail) => {
+                        if(detail.size_id == value) {
+                            current_detail = detail
+                        }
+                        return detail.size_id == value
+                    })) {
+                        $(el).prop('disabled', false)
+                    } else {
+                        $(el).prop('disabled', true)
+                    }
+
+                    if(current_detail.stock && current_detail.stock < 5) {
+                        console.log(current_detail.stock)
+                        $(`[for=${el.id}] .red-dot`).show()
+                    }
+                    else if(!current_detail.id) {
+                        $(`[for=${el.id}] .red-dot`).hide()
+                        $(el).prop('disabled', true)
+                    } else {
+                        $(`[for=${el.id}] .red-dot`).hide()
+                    }
+
+                    if(current_detail.id) detail_id = current_detail.id
+                    
+                    $(el).attr('data-product-detail-id', detail_id)
+                    $(el).prop('checked', false)
+                })
+            })
+            $(document).on('change', '[name=size]', function() {
+                const product_detail_id = $(this).data('product-detail-id');
+                $('[name=product_detail_id]').val(product_detail_id)
+            })
         })
     </script>
 @endpush

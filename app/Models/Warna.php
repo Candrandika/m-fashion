@@ -21,6 +21,11 @@ class Warna extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function product_details(): HasMany
+    {
+        return $this->hasMany(ProductDetail::class);
+    }
+
     public function sizes()
     {
         return $this->belongsToMany(Size::class, 'product_details')->where('sizes.is_delete',0);
