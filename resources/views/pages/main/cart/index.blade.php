@@ -20,39 +20,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for($i = 0; $i < 5; $i++)
-                    <tr>
-                        <td>
-                            <input type="checkbox" class="product-check">
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="{{ asset('dist/images/products/s1.jpg') }}" alt="produk {{ $i+1 }}" class="object-fit-cover rounded" width="50" height="50">
-                                <div>
-                                    <h6 class="fw-semibold mb-0">Produk {{ $i+1 }}</h6>
-                                    <div class="text-muted">Varian Produk</div>
+                    @forelse($carts as $item)
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="product-check">
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="{{ asset('storage/'.$item->product_detail->product->image) }}" alt="produk" class="object-fit-cover rounded" width="50" height="50">
+                                    <div>
+                                        <h6 class="fw-semibold mb-0">{{ $item->product_detail->product->name }}</h6>
+                                        <div class="text-muted">{{ $item->product_detail->color->color }} {{ $item->product_detail->size->size}}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            Rp 100.000
-                        </td>
-                        <td>
-                            <div class="input-group" style="max-width: 200px">
-                                <button class="btn btn-decrease">-</button>
-                                <input type="number" class="form-control input-qty" data-max="20" value="1">
-                                <button class="btn btn-increase">+</button>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-dark fw-semibold">Rp 100.000</div>
-                        </td>
-                        <td>
-                            <button type="button" class="text-danger border-0 bg-transparent fs-6 btn-delete"><t class="ti ti-trash"></t></button>
-
-                        </td>
-                    </tr>
-                    @endfor
+                            </td>
+                            <td>
+                                Rp {{ $item->product_detail->product->price }}
+                            </td>
+                            <td>
+                                <div class="input-group" style="max-width: 200px">
+                                    <button class="btn btn-decrease">-</button>
+                                    <input type="number" class="form-control input-qty" data-max="20" value="1">
+                                    <button class="btn btn-increase">+</button>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-dark fw-semibold">Rp 100.000</div>
+                            </td>
+                            <td>
+                                <form action="{{ route('carts.destroy', $item->id) }}" method="post">
+                                    @csrf
+                                    @method("DELETE")
+                                    <button type="submit" class="text-danger border-0 bg-transparent fs-6 btn-delete"><t class="ti ti-trash"></t></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <div>-- Tidak ada data --</div>
+                    @endforelse
                 </tbody>
                 <tfoot>
                     <tr>

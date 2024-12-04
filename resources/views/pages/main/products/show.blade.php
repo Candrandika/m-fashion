@@ -71,6 +71,8 @@
                 <div class="d-flex w-100 mt-4 gap-2">
                     <button type="submit" class="btn btn-lg btn-dark rounded-0" style="flex: 1;">Tambahkan ke
                         Keranjang</button>
+                    </form>
+
                     @if (count($product->favorite) > 0)
                         <form action="{{ route('favorites.destroy', $product->favorite->first()->id) }}" method="post">
                             @csrf
@@ -137,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            {{-- tempat penutup form lama --}}
         </div>
     </div>
 @endsection

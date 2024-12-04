@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ProductDetail extends Model
+class Cart extends Model
 {
     use HasFactory, HasUuids;
 
@@ -16,19 +16,13 @@ class ProductDetail extends Model
     protected $primaryKey = "id";
     protected $guarded = [];
 
-
-    public function product(): BelongsTo
+    public function product_detail(): BelongsTo
     {
-        return $this->belongsTo(Product::class)->where('is_delete',0);
+        return $this->belongsTo(ProductDetail::class)->where('is_delete',0);
     }
 
-    public function size(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Size::class)->where('is_delete',0);
-    }
-
-    public function color(): BelongsTo
-    {
-        return $this->belongsTo(Warna::class, 'warna_id', 'id')->where('is_delete',0);
+        return $this->belongsTo(User::class)->where('is_delete',0);
     }
 }

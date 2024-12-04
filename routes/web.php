@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\{
     AdminController
 };
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\Landing\HomeController;
@@ -69,6 +70,7 @@ Route::middleware('auth')->group(function() {
         Route::resource('products', ProductController::class)->only(['index', 'show']);
         Route::resource('categories', CategoryController::class)->only(['show']);
         Route::resource('favorites', FavoriteController::class)->only(['index','store','destroy']);
+        Route::resource('carts', CartController::class)->only(['index','store','update','destroy']);
 
     // });
 
@@ -100,12 +102,6 @@ Route::middleware('auth')->group(function() {
             Route::get('/product-detail', [AdminProductDetailController::class, 'dataTable'])->name('product-detail');
         });
     // });
-
-    Route::name('carts.')->prefix('carts')->group(function() {
-        Route::get('/', function() {
-            return view('pages.main.cart.index');
-        })->name('index');
-    });
 });
 
 

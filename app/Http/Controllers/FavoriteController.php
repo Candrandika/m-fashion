@@ -13,7 +13,7 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $favorite = Favorite::with('product','user')->get();
+        $favorite = Favorite::with('product','user')->where('user_id', Auth::user()?->id)->get();
         return view('pages.main.favorites.index', compact('favorite'));
     }
 
