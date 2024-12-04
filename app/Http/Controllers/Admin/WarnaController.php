@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ColorRequest;
+use App\Models\ProductDetail;
 use App\Models\Warna;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
@@ -66,6 +67,9 @@ class WarnaController extends Controller
     {
         $warna = Warna::find($id);
         if(!$warna) return redirect()->back()->with('error','Data warna tidak ditemukan!');
+
+        $product_details = ProductDetail::where('warna_id', $id)->where('is_delete', 0)->get();
+        if(count($product_details) > 0) return redirect()->back()->with('error','Tidak dapat menghapus data ini karena masih digunakan!');
 
         try {
             if($warna->image){

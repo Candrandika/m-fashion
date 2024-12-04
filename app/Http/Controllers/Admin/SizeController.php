@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SizeRequest;
+use App\Models\ProductDetail;
 use App\Models\Size;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
@@ -47,6 +48,9 @@ class SizeController extends Controller
 
     public function destroy(Size $size)
     {
+        $product_details = ProductDetail::where('size_id', $size->id)->where('is_delete', 0)->get();
+        if(count($product_details) > 0) return redirect()->back()->with('error','Tidak dapat menghapus data ini karena masih digunakan!');
+
         try {
             $size->update(["is_delete" => 1]);
 
