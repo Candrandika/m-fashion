@@ -19,7 +19,7 @@
     <script>
         $(document).ready(function() {
             $('#table-color').DataTable({
-                ajax: "{{ route('data-table.product-detail', ['product_id' =>$product->id]) }}",
+                ajax: "{{ route('data-table.color', ['product_id' => $product->id]) }}",
                 order: [[1, 'asc']],
                 columns: [
                     {

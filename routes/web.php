@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\{
     UserController as AdminUserController,
     TransactionController as AdminTransactionController,
     BrandController as AdminBrandController,
+    WarnaController as AdminWarnaController,
+    SizeController as AdminSizeController,
     AdminController
 };
 use App\Http\Controllers\Auth\AuthController;
@@ -79,10 +81,14 @@ Route::middleware('auth')->group(function() {
             Route::resource('users', AdminUserController::class);
             Route::resource('transactions', AdminTransactionController::class);
             Route::resource('brands', AdminBrandController::class);
+            Route::resource('colors', AdminWarnaController::class);
+            Route::resource('sizes', AdminSizeController::class);
         });
         
         Route::name('data-table.')->prefix('data-table')->group(function () {
             Route::get('/brand', [AdminBrandController::class, 'dataTable'])->name('brand');
+            Route::get('/color', [AdminWarnaController::class, 'dataTable'])->name('color');
+            Route::get('/size', [AdminSizeController::class, 'dataTable'])->name('size');
             Route::get('/category', [AdminCategoryProductController::class, 'dataTable'])->name('category');
             Route::get('/transaction', [AdminTransactionController::class, 'dataTable'])->name('transaction');
             Route::get('/user', [AdminUserController::class, 'dataTable'])->name('user');

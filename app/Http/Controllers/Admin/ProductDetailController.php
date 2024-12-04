@@ -103,18 +103,26 @@ class ProductDetailController extends Controller
             'image' => 'required|mimes:png,jpg,jpeg,mp4,mkv,mov'
         ]);
 
-        if ($request->hasFile('image')) {
-            $image = $this->upload('product_image/'.$request->product_id, $request->file('image'));
-        } else {
-            $image = null;
-        }
-
         $mimes = $request->file('image')->getMimeType();
         if(str_contains($mimes, "image")) $type = "image";
         else $type = "video";
 
+        if($type == "image" && $request->file('image')->getSize() > 2 * 1024 * 1024){
+            return redirect()->back()->with('error','File Image yang di isi tidak boleh lebih dari 2mb!');
+        } 
+
+        if($type == "video" && $request->file('image')->getSize() > 15 * 1024 * 1024){
+            return redirect()->back()->with('error','File Video yang di isi tidak boleh lebih dari 15mb!');
+        } 
+
         $check_data = ProductImage::where('type','video')->where('product_id', $request->product_id)->first();
         if($check_data && $type == "video") return redirect()->back()->with('error','Hanya boleh upload 1 video dalam 1 produk!');
+
+        $image = null;        
+        if ($request->hasFile('image')) {
+            $image = $this->upload('product_image/'.$request->product_id, $request->file('image'));
+        }
+        if(!$image) return redirect()->back()->with('error','Gambar tidak dapat dilakukan!');
 
         ProductImage::create([
             'product_id' => $request->product_id,

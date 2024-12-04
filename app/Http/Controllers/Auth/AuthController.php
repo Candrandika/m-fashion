@@ -18,8 +18,8 @@ class AuthController extends Controller
         try{
             // cek email ada atau tidak
             $user = User::where('email', $data["email"])->first();
-            if(!$user) return redirect()->back()->with('error', 'Email user tidak ditemukan!');
-            if($user->is_delete == 1) return redirect()->back()->with('error', 'Akun anda telah tidak aktif, silahkan lakukan registrasi kembali!');
+            if(!$user) return redirect()->back()->with('error', 'Email user tidak ditemukan!')->withInput();
+            if($user->is_delete == 1) return redirect()->back()->with('error', 'Akun anda telah tidak aktif, silahkan lakukan registrasi kembali!')->withInput();
 
             if(Auth::attempt($data)){
                 logger()->info('Auth check after login:', ['auth' => Auth::check()]);
@@ -28,9 +28,9 @@ class AuthController extends Controller
                 return redirect()->intended('login-success');
             }   
     
-            return redirect()->back()->with('error','Password salah, silahkan check kembali akun password anda!');
+            return redirect()->back()->with('error','Password salah, silahkan check kembali akun password anda!')->withInput();
         }catch(\Throwable $th){
-            return redirect()->back()->withError($th->getMessage());
+            return redirect()->back()->withError($th->getMessage())->withInput();
         }
     }
 

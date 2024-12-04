@@ -19,7 +19,7 @@
     <script>
         $(document).ready(function() {
             $('#table-size').DataTable({
-                ajax: "{{ route('data-table.product-detail', ['product_id' =>$product->id]) }}",
+                ajax: "{{ route('data-table.size', ['product_id' =>$product->id]) }}",
                 order: [[1, 'asc']],
                 columns: [
                     {

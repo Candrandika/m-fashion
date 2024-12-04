@@ -28,7 +28,9 @@ class ProductRequest extends FormRequest
             'name' => 'required',
             'price' => 'required|numeric',
             'desc' => 'nullable',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'supplier' => 'required',
+            'shipping_return' => 'required'
         ];
     }
 
@@ -42,6 +44,8 @@ class ProductRequest extends FormRequest
             'image.image' => 'Gambar harus berupa image!',
             'image.mimes' => 'Format gambar hanya bisa ".jpg,.png,.jpeg"!',
             'image.max' => 'Maxksimal ukuran gambar 2mb!',
+            'shipping_return.required' => 'Pengiriman dan pengembalian harus di isi!',
+            'supplier.required' => 'Data supplier harus di isi!'
         ];
     }
 
@@ -50,6 +54,12 @@ class ProductRequest extends FormRequest
         
         if($this->desc && in_array($this->desc, $char_invalid)) {
             return redirect()->back()->withErrors('Terdapat kalimat terlarang di deskripsi!');
+        }
+        if($this->supplier && in_array($this->supplier, $char_invalid)) {
+            return redirect()->back()->withErrors('Terdapat kalimat terlarang di data pemasok!');
+        }
+        if($this->shipping_return && in_array($this->shipping_return, $char_invalid)) {
+            return redirect()->back()->withErrors('Terdapat kalimat terlarang di data pengiriman dan pengembalian!');
         }
     }
 }
