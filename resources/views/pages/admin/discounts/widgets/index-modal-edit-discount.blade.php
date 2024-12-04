@@ -26,6 +26,12 @@
                         </div>
                     </div>
                     <div class="col-12">
+                        <div class="mb-3">
+                            <label for="product_id">Maks. Penggunaan</label>
+                            <input type="number" name="max_used" id="max_used" class="form-control" min="0" placeholder="Maks. Penggunaan">
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <div class="mb-1 d-flex gap-3">
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" name="discount_type" value="percentage" id="discount_percentage">
