@@ -48,6 +48,8 @@ Route::middleware('guest')->group(function(){
 });
 
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::middleware('auth')->group(function() {
     Route::get('/login-success', function () {
         $user = Auth::user();
@@ -56,8 +58,6 @@ Route::middleware('auth')->group(function() {
     
     // Route::middleware('role:user')->group(function (){
         Route::name('main')->group(function () {
-            Route::get('/', [HomeController::class, 'index']);
-        
             Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         });
     

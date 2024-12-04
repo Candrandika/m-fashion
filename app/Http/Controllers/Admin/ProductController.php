@@ -65,8 +65,8 @@ class ProductController extends Controller
     public function show(String $id)
     {
         $product = Product::with('category', 'brand')->where('id', $id)->first();
-        $sizes = Size::where('product_id', $id)->get();
-        $colors = Warna::where('product_id', $id)->get();
+        $sizes = Size::where('product_id', $id)->where('is_delete',0)->get();
+        $colors = Warna::where('product_id', $id)->where('is_delete',0)->get();
         return view('pages.admin.products.show', compact('product', 'sizes', 'colors'));
     }
 

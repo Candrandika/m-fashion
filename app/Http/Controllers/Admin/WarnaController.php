@@ -38,9 +38,13 @@ class WarnaController extends Controller
     }
 
 
-    public function update(ColorRequest $request, Warna $warna)
+    public function update(ColorRequest $request, string $id)
     {
         $data = $request->validated();
+
+        $warna = Warna::find($id);
+        if(!$warna) return redirect()->back()->with('error','Data warna tidak ditemukan!');
+
         try {
             if (isset($data['image'])) {
                 if($warna->image){
@@ -58,14 +62,17 @@ class WarnaController extends Controller
         }
     }
 
-    public function destroy(Warna $Warna)
+    public function destroy(string $id)
     {
+        $warna = Warna::find($id);
+        if(!$warna) return redirect()->back()->with('error','Data warna tidak ditemukan!');
+
         try {
-            if($Warna->image){
-                $this->remove($Warna->image);
+            if($warna->image){
+                $this->remove($warna->image);
             }
 
-            $Warna->update(["is_delete" => 1, 'image' => null]);
+            $warna->update(["is_delete" => 1]);
 
             return redirect()->back()->with('success', 'Berhasil menghapus data warna');
         } catch (\Throwable $th) {
