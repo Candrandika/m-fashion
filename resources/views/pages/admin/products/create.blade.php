@@ -4,6 +4,7 @@
 @section('subtitle', 'Tambah Produk')
 
 @section('content')
+    @include('components.alerts.index')
     <div class="mb-3">
         <h3>Tambah Produk</h3>
     </div>

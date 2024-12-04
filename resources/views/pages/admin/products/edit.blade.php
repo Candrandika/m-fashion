@@ -4,12 +4,13 @@
 @section('subtitle', 'Ubah Produk')
 
 @section('content')
+    @include('components.alerts.index')
     <div class="mb-3">
         <h3>Ubah Produk</h3>
     </div>
-    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" id="form-edit-product" class="card">
+    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" id="form-edit-product" class="card" enctype="multipart/form-data">
         @csrf
-        @method('PATCH')
+        @method('PUT')
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6">

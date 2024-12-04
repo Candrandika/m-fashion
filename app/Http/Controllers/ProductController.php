@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     public function show(Request $request, Product $product): View
     {
-        $product->load(['brand', 'category', 'details', 'product_images']);
+        $product->query()->with(['brand', 'category', 'details', 'product_images', 'sizes', 'colors', 'favorite']);
         
         return view('pages.main.products.show', [
             'product' => $product

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -35,5 +36,20 @@ class Product extends Model
     public function product_images(): HasMany
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function sizes(): HasMany
+    {
+        return $this->hasMany(Size::class);
+    }
+
+    public function colors(): HasMany
+    {
+        return $this->hasMany(Warna::class);
+    }
+
+    public function favorite(): HasMany
+    {
+        return $this->hasMany(Favorite::class)->where('user_id',Auth::user()->id);
     }
 }

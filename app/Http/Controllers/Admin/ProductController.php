@@ -95,12 +95,13 @@ class ProductController extends Controller
 
                 $data["image"] = $this->upload('products', $request->file('image'));
             }
+            
 
             $product->update($data);
 
-            return redirect()->back()->with('success', 'Berhasil mengubah data product');
+            return redirect()->route('admin.products.index')->with('success', 'Berhasil mengubah data product');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', $th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage())->withInput();
         }
     }
 
