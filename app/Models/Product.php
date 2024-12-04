@@ -50,6 +50,6 @@ class Product extends Model
 
     public function favorite(): HasMany
     {
-        return $this->hasMany(Favorite::class)->where('user_id',Auth::user()->id)->where('is_delete',0);
+        return $this->hasMany(Favorite::class)->where('user_id',Auth::user()->id);
     }
 }
