@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function() {
         
         Route::resource('products', ProductController::class)->only(['index', 'show']);
         Route::resource('categories', CategoryController::class)->only(['show']);
-        Route::resource('favorites', FavoriteController::class)->only(['store','destroy']);
+        Route::resource('favorites', FavoriteController::class)->only(['index','store','destroy']);
 
     // });
 
@@ -103,12 +103,6 @@ Route::middleware('auth')->group(function() {
     Route::name('carts.')->prefix('carts')->group(function() {
         Route::get('/', function() {
             return view('pages.main.cart.index');
-        })->name('index');
-    });
-
-    Route::name('favorites.')->prefix('favorites')->group(function() {
-        Route::get('/', function() {
-            return view('pages.main.favorites.index');
         })->name('index');
     });
 });
