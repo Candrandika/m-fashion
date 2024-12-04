@@ -23,6 +23,6 @@ class Size extends Model
 
     public function colors()
     {
-        return $this->belongsToMany(Warna::class, 'product_details');
+        return $this->belongsToMany(Warna::class, 'product_details')->where('is_delete',0);
     }
 }

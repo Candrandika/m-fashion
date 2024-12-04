@@ -43,7 +43,7 @@ class FavoriteController extends Controller
         try {
             Favorite::create($data);
     
-            return redirect()->back()->with('succes','Berhasil menambahkan produk ke favorit!');
+            return redirect()->back()->with('success','Berhasil menambahkan produk ke favorit!');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -84,7 +84,7 @@ class FavoriteController extends Controller
         try {
             $favorite->delete();
     
-            return redirect()->back()->with('succes','Berhasil menghapus produk dari favorit!');
+            return redirect()->back()->with('success','Berhasil menghapus produk dari favorit!');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());
         }

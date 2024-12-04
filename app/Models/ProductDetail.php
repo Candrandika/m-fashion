@@ -19,11 +19,11 @@ class ProductDetail extends Model
 
     public function size(): BelongsTo
     {
-        return $this->belongsTo(Size::class);
+        return $this->belongsTo(Size::class)->where('is_delete',0);
     }
 
     public function color(): BelongsTo
     {
-        return $this->belongsTo(Warna::class, 'warna_id', 'id');
+        return $this->belongsTo(Warna::class, 'warna_id', 'id')->where('is_delete',0);
     }
 }
