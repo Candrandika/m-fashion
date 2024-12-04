@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\{
     BrandController as AdminBrandController,
     WarnaController as AdminWarnaController,
     SizeController as AdminSizeController,
+    DiscountController as AdminDiscountController,
     AdminController
 };
 use App\Http\Controllers\Auth\AuthController;
@@ -83,6 +84,7 @@ Route::middleware('auth')->group(function() {
             Route::resource('brands', AdminBrandController::class);
             Route::resource('colors', AdminWarnaController::class);
             Route::resource('sizes', AdminSizeController::class);
+            Route::resource('discounts', AdminDiscountController::class);
         });
         
         Route::name('data-table.')->prefix('data-table')->group(function () {

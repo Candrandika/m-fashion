@@ -12,6 +12,9 @@
         <div class="col-xxl-4">
             @include('pages.admin.dashboard.widgets.index-top-category-chart')
         </div>
+        <div class="col-12">
+            @include('pages.admin.dashboard.widgets.index-new-user-stats')
+        </div>
         <div class="col-xxl-5">
             @include('pages.admin.dashboard.widgets.index-top-product')
         </div>
