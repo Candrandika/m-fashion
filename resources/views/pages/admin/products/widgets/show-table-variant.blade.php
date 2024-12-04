@@ -29,11 +29,11 @@
                         orderable: false
                     },
                     {
-                        data: 'size',
+                        data: 'size.size',
                         title: 'Ukuran',
                     },
                     {
-                        data: 'color',
+                        data: 'color.color',
                         title: 'Warna',
                     },
                     {
