@@ -4,7 +4,7 @@
 @section('subtitle', 'Daftar Produk')
 
 @section('content')
-<div class="container">
+<div class="container mb-5">
     <h4 class="fw-bolder my-5 ms-5">Produk @if(request('search')) - {{ request('search') }} @endif</h4>
     <div class="row">
         @forelse ($products as $product)

@@ -7,7 +7,7 @@
     @include('pages.main.products.widgets.show-modal-show-image')
 
     <div class="container">
-        <div class="row mt-5">
+        <div class="row my-5">
             <div class="col-lg-5">
                 <img data-bs-toggle="modal" data-bs-target="#modal-show-image" src="{{ asset($product->image ? 'storage/' . $product->image : 'dist/images/products/s1.jpg') }}"
                     alt="" class="w-100 object-fit-cover btn-show-image" style="aspect-ratio: 1/1;">
