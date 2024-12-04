@@ -54,7 +54,7 @@
                         <select class="form-select" id="category_id" name="category_id" required>
                             <option value="">Pilih Kategori</option>
                             @foreach ($category as $item)
-                                <option value="{{ $item->id }}"  @if(old('brand_id') == $item->id) selected @endif> {{ $item->name }}</option>
+                                <option value="{{ $item->id }}"  @if(old('category_id') == $item->id) selected @endif> {{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -103,18 +103,19 @@
                 theme: "snow",
             });
 
-            quill_edit.clipboard.dangerouslyPasteHTML(`{!! old('desc') !!}`);
-            quill_edit_supplier.clipboard.dangerouslyPasteHTML(`{!! old('supplier') !!}`);
-            quill_edit_shipping_return.clipboard.dangerouslyPasteHTML(`{!! old('shipping_return') !!}`);
+            quill_create.clipboard.dangerouslyPasteHTML(`{!! old('desc') !!}`);
+            quill_create_supplier.clipboard.dangerouslyPasteHTML(`{!! old('supplier') !!}`);
+            quill_create_shipping_return.clipboard.dangerouslyPasteHTML(`{!! old('shipping_return') !!}`);
 
-            $(document).on('submit', '#form-create-product form', function() {
+            $(document).on('submit', '#form-create-product', function(e) {
+
                 const quill_content = quill_create.root.innerHTML;
                 $('#form-create-product [name=desc]').val(quill_content)
 
                 const quill_content_supplier = quill_create_supplier.root.innerHTML;
                 $('#form-create-product [name=supplier]').val(quill_content_supplier)
 
-                const quill_content_shipping_return = quill_create.root.innerHTML;
+                const quill_content_shipping_return = quill_create_shipping_return.root.innerHTML;
                 $('#form-create-product [name=shipping_return]').val(quill_content_shipping_return)
             })
         })

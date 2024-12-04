@@ -21,6 +21,7 @@
             $('#table-size').DataTable({
                 ajax: "{{ route('data-table.size', ['product_id' =>$product->id]) }}",
                 order: [[1, 'asc']],
+                serverSide: true,
                 columns: [
                     {
                         data: 'DT_RowIndex',
@@ -30,10 +31,10 @@
                     },
                     {
                         data: 'size',
-                        title: 'Nama Ukuran',
+                        title: 'Ukuran',
                     },
                     {
-                        title: 'Ukuran (l &times; t)',
+                        title: 'Dimensi (l &times; t)',
                         mRender: function(data, type, row) {
                             return row.width + 'cm &times ' + row.height + 'cm'
                         }

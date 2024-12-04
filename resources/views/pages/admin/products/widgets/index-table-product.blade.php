@@ -11,6 +11,7 @@
         $(document).ready(function() {
             $('#table-products').DataTable({
                 ajax: "{{ route('data-table.product') }}",
+                serverSide: true,
                 columns: [
                     { 
                         data: 'DT_RowIndex',
