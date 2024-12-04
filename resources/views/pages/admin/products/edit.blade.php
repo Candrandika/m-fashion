@@ -15,15 +15,15 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="mb-3">
-                        <label for="photo" class="form-label mb-0">Gambar</label>
-                        <input type="file" class="form-control" id="photo" name="photo" accept=".jpg,.png,.jpeg">
+                        <label for="name" class="form-label mb-0">Nama Produk <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nama Produk"
+                            value="{{ old('name', $product->name) }}" required>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
-                        <label for="name" class="form-label mb-0">Nama Produk <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Nama Produk"
-                            value="{{ old('name', $product->name) }}" required>
+                        <label for="photo" class="form-label mb-0">Gambar</label>
+                        <input type="file" class="form-control" id="photo" name="photo" accept=".jpg,.png,.jpeg">
                     </div>
                 </div>
                 <div class="col-12">
@@ -104,7 +104,7 @@
             quill_edit_supplier.clipboard.dangerouslyPasteHTML(`{!! old('supplier', $product->supplier) !!}`);
             quill_edit_shipping_return.clipboard.dangerouslyPasteHTML(`{!! old('shipping_return', $product->shipping_return) !!}`);
 
-            $(document).on('submit', '#form-edit-product form', function() {
+            $(document).on('submit', '#form-edit-product', function() {
                 const quill_content = quill_edit.root.innerHTML;
                 const quill_content_supplier = quill_edit_supplier.root.innerHTML;
                 const quill_content_shipping_return = quill_edit_shipping_return.root.innerHTML;

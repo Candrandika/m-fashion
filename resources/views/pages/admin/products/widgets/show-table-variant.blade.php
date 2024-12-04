@@ -21,6 +21,7 @@
             $('#table-variant').DataTable({
                 ajax: "{{ route('data-table.product-detail', ['product_id' =>$product->id]) }}",
                 order: [[1, 'asc']],
+                serverSide: true,
                 columns: [
                     {
                         data: 'DT_RowIndex',
