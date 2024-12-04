@@ -20,4 +20,9 @@ class Size extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function colors()
+    {
+        return $this->belongsToMany(Warna::class, 'product_details');
+    }
 }
