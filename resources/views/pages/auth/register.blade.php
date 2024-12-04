@@ -12,7 +12,7 @@
                     <div class="mb-2 input-group">
                         <span class="input-group-text fs-6"><i class="ti ti-user"></i></span>
                         <div class="form-floating">
-                            <input type="email" name="name" placeholder="Nama" class="form-control bg-white"
+                            <input type="text" name="name" placeholder="Nama" class="form-control bg-white"
                                 value="{{ old('name') }}">
                             <label for="name">Nama</label>
                         </div>

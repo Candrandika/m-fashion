@@ -25,7 +25,11 @@ class AuthController extends Controller
                 logger()->info('Auth check after login:', ['auth' => Auth::check()]);
                 logger()->info('Session ID:', ['session_id' => session()->getId()]);
                 $request->session()->regenerate();
-                return redirect()->intended('login-success');
+                if(Auth::user()->hasRole('admin')){
+                    return redirect()->route('admin.dashboard');
+                }else {
+                    return redirect()->route('mainindex');
+                }
             }   
     
             return redirect()->back()->with('error','Password salah, silahkan check kembali akun password anda!')->withInput();
@@ -44,7 +48,7 @@ class AuthController extends Controller
             $user = User::create($data);
             $user->syncRoles('user');
     
-            return redirect()->route('auth.register.success');
+            return redirect()->route('login');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());
         }
