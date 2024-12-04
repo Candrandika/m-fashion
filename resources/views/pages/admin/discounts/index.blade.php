@@ -3,6 +3,8 @@
 @section('subtitle', 'Diskon')
 
 @section('content')
+    @include('components.alerts.index')
+
     <div class="d-flex align-items-end justify-content-between mb-2">
         <h2 class="fw-bolder mb-0">Diskon</h2>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-discount">+ Tambah</button>

@@ -1,6 +1,7 @@
 <div class="modal fade" id="modal-add-discount" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('admin.discounts.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
+        <form action="{{ route('admin.discounts.store') }}" method="POST" enctype="multipart/form-data" class="modal-content" enctype="multipart/form-data">
+            @csrf
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Diskon</h5>
                 <button type="button" class="btn-close" data-bs-close="modal"></button>
@@ -11,6 +12,12 @@
                         <div class="mb-3">
                             <label for="desc">Judul / Deskripsi Diskon <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="desc" name="desc" placeholder="Judul / Deskripsi Diskon" value="{{ old('desc') }}" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="image" class="form-label mb-0">Gambar / Spanduk</label>
+                            <input type="file" class="form-control" id="image" name="image" accept=".jpg,.png,.jpeg">
                         </div>
                     </div>
                     <div class="col-12">

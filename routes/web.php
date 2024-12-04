@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function() {
         });
         
         Route::name('data-table.')->prefix('data-table')->group(function () {
+            Route::get('/discount', [AdminDiscountController::class, 'dataTable'])->name('discount');
             Route::get('/brand', [AdminBrandController::class, 'dataTable'])->name('brand');
             Route::get('/color', [AdminWarnaController::class, 'dataTable'])->name('color');
             Route::get('/size', [AdminSizeController::class, 'dataTable'])->name('size');
