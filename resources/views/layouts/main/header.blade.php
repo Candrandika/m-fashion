@@ -22,7 +22,7 @@
             <img src="{{ asset('dist/images/icons/heart.png') }}" alt="" width="30">
             <div class="fs-1 fw-bolder">Favorit</div>
         </a>
-        @if (!Auth::check())
+        @if (Auth::check())
             <div class="dropdown">
                 <a href="javascript:void(0)"
                     class="text-black d-flex flex-column align-items-center justify-content-center" id="drop1"
