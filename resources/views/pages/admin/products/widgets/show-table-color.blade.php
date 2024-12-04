@@ -35,7 +35,8 @@
                     {
                         title: 'Gambar',
                         mRender: function(data, type, row) {
-                            return `<img src="${row['image']}" width="40" height="40" class="object-fit-cover" />`
+                            const storage = "{{ asset('storage') }}"
+                            return `<img src="${storage+'/'+row['image']}" width="40" height="40" class="object-fit-cover" />`
                         }
                     },
                     {
@@ -56,7 +57,7 @@
 
             $(document).on('click', '.btn-delete-color', function() {
                 const data = $(this).data('data')
-                const action = `{{ route('admin.product-details.destroy', ':id') }}`.replace(':id', data.id)
+                const action = `{{ route('admin.colors.destroy', ':id') }}`.replace(':id', data.id)
                 $('#delete-color-form').attr('action', action)
                 
                 Swal.fire({

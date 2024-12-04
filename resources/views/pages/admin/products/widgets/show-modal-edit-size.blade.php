@@ -10,19 +10,8 @@
                 @method('PUT')
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <div class="mb-3">
-                    <label for="size" class="form-label mb-0">Nama Ukuran <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="size" name="size" placeholder="Nama Ukuran (S, M, L, XL, dll)" required>
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label mb-0">Harga <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-text">Rp</div>
-                        <input type="number" class="form-control" id="price" name="price" placeholder="Harga" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="stock" class="form-label mb-0">Stok <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Stok" required>
+                    <label for="size" class="form-label mb-0">Ukuran <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="size" name="size" placeholder="Ukuran (S, M, L, XL, dll)" required>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
@@ -58,7 +47,7 @@
         $(document).ready(function() {
             $(document).on('click', '.btn-edit-size', function() {
                 const data = $(this).data('data')
-                let action = `{{ route('admin.product-details.update', ':id') }}`.replace(':id', data.id)
+                let action = `{{ route('admin.sizes.update', ':id') }}`.replace(':id', data.id)
 
                 $('#modal-edit-size [name=size]').val(data.size)
                 $('#modal-edit-size [name=price]').val(data.price)
