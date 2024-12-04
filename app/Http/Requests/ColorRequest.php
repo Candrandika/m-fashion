@@ -21,11 +21,19 @@ class ColorRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'product_id' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-            'color' => 'required'
-        ];
+        if(in_array('POST',$this->route()->methods)){
+            return [
+                'product_id' => 'required',
+                'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+                'color' => 'required'
+            ];
+        } else {
+            return [
+                'product_id' => 'required',
+                'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+                'color' => 'required'
+            ];
+        }
     }
 
     public function messages(): array
