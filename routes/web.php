@@ -30,9 +30,9 @@ Route::middleware('guest')->group(function(){
     })->name('login');
     
     Route::name('auth.')->group(function () {
-        Route::get('/', function () {
-            return view('pages.auth.index');
-        })->name('home');
+        // Route::get('/', function () {
+        //     return view('pages.auth.index');
+        // })->name('home');
         Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::get('/register', function () {
             return view('pages.auth.register');
@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function() {
     
     // Route::middleware('role:user')->group(function (){
         Route::name('main')->group(function () {
-            Route::get('home', [HomeController::class, 'index']);
+            Route::get('/', [HomeController::class, 'index']);
         
             Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         });
