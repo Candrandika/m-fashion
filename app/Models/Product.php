@@ -35,7 +35,7 @@ class Product extends Model
 
     public function product_images(): HasMany
     {
-        return $this->hasMany(ProductImage::class)->where('is_delete',0);
+        return $this->hasMany(ProductImage::class);
     }
 
     public function sizes(): HasMany
