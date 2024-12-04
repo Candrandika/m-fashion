@@ -56,7 +56,7 @@
 
             $(document).on('click', '.btn-delete-size', function() {
                 const data = $(this).data('data')
-                const action = `{{ route('admin.product-details.destroy', ':id') }}`.replace(':id', data.id)
+                const action = `{{ route('admin.sizes.destroy', ':id') }}`.replace(':id', data.id)
                 $('#delete-size-form').attr('action', action)
                 
                 Swal.fire({

@@ -25,7 +25,6 @@
                         <div class="mb-3">
                             <label for="warna_id" class="form-label mb-0">Warna <span class="text-danger">*</span></label>
                             <select name="warna_id" id="warna_id" class="form-select" required>
-                                <option value="">Pilih Warna</option>
                                 @foreach ($colors as $color)
                                     <option value="{{ $color->id }}">{{ $color->color }}</option>
                                 @endforeach
@@ -55,7 +54,7 @@
                 const data = $(this).data('data')
                 let action = `{{ route('admin.product-details.update', ':id') }}`.replace(':id', data.id)
 
-                $('#modal-edit-variant [name=color_id]').val(data.color_id)
+                $('#modal-edit-variant [name=warna_id]').val(data.warna_id)
                 $('#modal-edit-variant [name=size_id]').val(data.size_id)
                 $('#modal-edit-variant [name=stock]').val(data.stock)
                 

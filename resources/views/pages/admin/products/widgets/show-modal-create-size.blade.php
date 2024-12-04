@@ -9,8 +9,8 @@
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <div class="mb-3">
-                    <label for="size" class="form-label mb-0">Nama Ukuran <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="size" name="size" placeholder="Nama Ukuran (S, M, L, XL, dll)" required>
+                    <label for="size" class="form-label mb-0">Ukuran <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="size" name="size" placeholder="Ukuran (S, M, L, XL, dll)" required>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
