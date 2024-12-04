@@ -67,7 +67,7 @@ class WarnaController extends Controller
 
             $Warna->update(["is_delete" => 1, 'image' => null]);
 
-            return redirect()->back()->with('success', 'Berhasil menambahkan data warna');
+            return redirect()->back()->with('success', 'Berhasil menghapus data warna');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

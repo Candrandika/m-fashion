@@ -50,7 +50,7 @@ class SizeController extends Controller
         try {
             $size->update(["is_delete" => 1]);
 
-            return redirect()->back()->with('success', 'Berhasil menambahkan data ukuran');
+            return redirect()->back()->with('success', 'Berhasil mengahapus data ukuran');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

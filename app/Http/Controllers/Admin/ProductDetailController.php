@@ -40,7 +40,7 @@ class ProductDetailController extends Controller
         $data = $request->validated();
 
         $check = ProductDetail::where('product_id', $request->product_id)->where('size_id', $request->size_id)->where('warna_id', $request->warna_id)->first();
-        if($check) return redirect()->back()->with('Data sudah ditambahkan, silahkan masukkan data yang berbeda!');
+        if($check) return redirect()->back()->with('error','Data sudah ditambahkan, silahkan masukkan data yang berbeda!');
 
         try{
             ProductDetail::create($data);
@@ -77,7 +77,7 @@ class ProductDetailController extends Controller
         $data = $request->validated();
 
         $check = ProductDetail::where('product_id', $request->product_id)->where('size_id', $request->size_id)->where('warna_id', $request->warna_id)->first();
-        if($check && $check?->id != $productDetail->id) return redirect()->back()->with('Data sudah ditambahkan, silahkan masukkan data yang berbeda!');
+        if($check && $check?->id != $productDetail->id) return redirect()->back()->with('error','Data sudah ditambahkan, silahkan masukkan data yang berbeda!');
 
         try{
             $productDetail->update($data);
