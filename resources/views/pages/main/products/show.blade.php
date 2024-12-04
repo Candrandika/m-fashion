@@ -14,12 +14,14 @@
                 <div class="mt-3">
                     <div class="owl-carousel counter-carousel owl-theme">
                         @foreach ($product->product_images as $index => $img)
+                            @if($img->type == 'image')
                             <div class="item">
                                 <img data-bs-toggle="modal" data-bs-target="#modal-show-image"
                                     src="{{ asset('storage/' . $img->image) }}" alt="gambar produk {{ $index }}"
                                     class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;"
                                     data-img="{{ $img }}">
                             </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -76,9 +78,9 @@
                         Keranjang</button>
                     <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i
                             class="ti ti-heart"></i></button>
-                    {{-- <button type="button" class="btn btn-lg rounded-0" style="border: 1px solid black"><i class="ti ti-heart-filled text-danger"></i></button> --}}
-                    <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i
-                            class="ti ti-upload"></i></button>
+                    <button type="button" class="btn btn-lg rounded-0" style="border: 1px solid black"><i class="ti ti-heart-filled text-danger"></i></button>
+                    {{-- <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i
+                            class="ti ti-upload"></i></button> --}}
                 </div>
 
                 <div>

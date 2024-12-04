@@ -6,9 +6,11 @@
                 <div class="contaier-fluid mt-3">
                     <div class="owl-carousel counter-carousel owl-theme">
                         @foreach ($product->product_images as $index => $img)
+                        @if($img->type == 'image')
                         <div class="item">
                             <img data-bs-toggle="modal" data-bs-target="#modal-show-image" src="{{ asset('storage/'.$img->image) }}" alt="gambar produk {{ $index }}" class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;" data-img="{{ $img }}">
                         </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>
@@ -23,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 text-end">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-image">+ Tambah Gambar</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-image">+ Tambah Media</button>
                     </div>
                 </div>
                 <div class="mt-3">

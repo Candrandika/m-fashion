@@ -62,8 +62,9 @@
                         orderable: false, 
                         searchable: false,
                         mRender: function(data, type, row){
+                        const editRoute = "{{ route('admin.products.edit', ':id') }}".replace(':id', row.id);
                         const detailRoute = "{{ route('admin.products.show', ':id') }}".replace(':id', row.id);
-                        return `<div class="d-flex align-items-center gap-1"><a href="${detailRoute}" class="btn btn-primary p-2"><div class="ti ti-eye"></div></a><button type="button" class="btn btn-warning p-2 btn-edit" data-bs-toggle="modal" data-bs-target="#modal-edit-product" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-edit"></div></button><button type="button" class="btn btn-danger p-2 btn-delete-product" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-trash"></div></button></div>`;
+                        return `<div class="d-flex align-items-center gap-1"><a href="${detailRoute}" class="btn btn-primary p-2"><div class="ti ti-eye"></div></a><a href="${editRoute}" class="btn btn-warning p-2"><div class="ti ti-edit"></div></a><button type="button" class="btn btn-danger p-2 btn-delete-product" data-data='`+ JSON.stringify(row) +`'><div class="ti ti-trash"></div></button></div>`;
                     } },
                 ],
             });
