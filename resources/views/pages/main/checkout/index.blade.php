@@ -46,34 +46,27 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body row">
-                                <div class="col-md-12 row mb-3">
-                                    <div class="col-md-3">
-                                        <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded" >
-                                    </div>
-                                    <div class="col-md-9 d-flex flex-column justify-content-between">
-                                        <div class="col-md-12">
-                                            <h6 class="m-0">Nama Produk</h6>
-                                            <p class="m-0">x1</p>
+                                @foreach ($cart as $item)
+                                    <div class="col-md-12 row mb-3">
+                                        <div class="col-md-3">
+                                            <img src="{{ asset('storage/'.$item->product_detail->product->image) }}" alt="" class="img-fluid rounded" >
                                         </div>
-                                        <div class="col-md-12">
-                                            <h6 class="fw-bolder m-0">Rp. 12.000</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 row mb-5">
-                                    <div class="col-md-3">
-                                        <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded" >
-                                    </div>
-                                    <div class="col-md-9 d-flex flex-column justify-content-between">
-                                        <div class="col-md-12">
-                                            <h6 class="m-0">Nama Produk</h6>
-                                            <p class="m-0">x1</p>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <h6 class="fw-bolder m-0">Rp. 12.000</h6>
+                                        <div class="col-md-9 d-flex flex-column justify-content-between">
+                                            <div class="col-md-12">
+                                                <h6 class="m-0">{{ $item->product_detail->product->name }}</h6>
+                                                @php
+                                                    $stock = collect($temp)->filter(function($q) use ($item) {
+                                                        return $q["id"] == $item->id;
+                                                    })->first();
+                                                @endphp
+                                                <p class="m-0">{{ $stock["qty"] }}</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h6 class="fw-bolder m-0">Rp. {{ $item->product_detail->product->price }}</h6>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                                 <div class="col-md-12 row mb-5">
                                     <div class="col-md-12 d-flex justify-content-between mb-2">
                                         <p class="m-0">Subtotal</p>

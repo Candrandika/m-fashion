@@ -63,9 +63,7 @@ Route::middleware('auth')->group(function() {
             Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         });
     
-        Route::get('checkout', function () {
-            return view('pages.main.checkout.index');
-        })->name('display.checkout');
+        Route::get('checkout', [AdminTransactionController::class, 'create'])->name('display.checkout');
         
         Route::resource('products', ProductController::class)->only(['index', 'show']);
         Route::resource('categories', CategoryController::class)->only(['show']);
@@ -84,7 +82,7 @@ Route::middleware('auth')->group(function() {
             Route::delete('product-images/{product_image}', [AdminProductDetailController::class, 'deleteImage'])->name('product_images.destroy');
             Route::resource('product-categories', AdminCategoryProductController::class);
             Route::resource('users', AdminUserController::class);
-            Route::resource('transactions', AdminTransactionController::class);
+            Route::resource('transactions', AdminTransactionController::class)->only(['index','update']);
             Route::resource('brands', AdminBrandController::class);
             Route::resource('colors', AdminWarnaController::class);
             Route::resource('sizes', AdminSizeController::class);
