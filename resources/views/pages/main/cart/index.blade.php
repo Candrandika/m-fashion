@@ -3,6 +3,8 @@
 @section('subtitle', 'Keranjang')
 
 @section('content')
+    @include('components.alerts.index')
+
     <div class="container">
         <h4 class="fw-bolder my-5 ms-5">Keranjang</h4>
         <div class="my-5">
@@ -94,7 +96,7 @@
 
     </form>
 
-    <form action="" method="post" id="form-checkout">
+    <form action="{{ route('checkout') }}" method="post" id="form-checkout">
         @csrf
         <input type="hidden" name="product_json" value="">
     </form>

@@ -65,12 +65,13 @@ Route::middleware('auth')->group(function() {
     
         Route::get('checkout', function () {
             return view('pages.main.checkout.index');
-        });
+        })->name('display.checkout');
         
         Route::resource('products', ProductController::class)->only(['index', 'show']);
         Route::resource('categories', CategoryController::class)->only(['show']);
         Route::resource('favorites', FavoriteController::class)->only(['index','store','destroy']);
         Route::resource('carts', CartController::class)->only(['index','store','update','destroy']);
+        Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
 
     // });
 

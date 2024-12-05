@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CartRequest;
 use App\Models\Cart;
+use App\Models\TempCheckout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -94,6 +95,24 @@ class CartController extends Controller
             return redirect()->back()->with('success','Berhasil menghapus produk dari keranjang!');
         }catch(\Throwable $th){
             return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function checkout(Request $request)
+    {
+        if($request->product_json == "[]") return redirect()->back()->with('error', 'Pilih terlebih dahulu barang yang ingin di checkout!');
+
+        try{
+            TempCheckout::where('user_id', Auth::user()->id)->delete();
+
+            TempCheckout::create([
+                "user_id" => Auth::user()->id,
+                'data' => $request->product_json
+            ]);
+    
+            return redirect()->route('display.checkout')->with('success', 'Melakukan proses checkout!');
+        }catch(\Throwable $th) {
+            return redirect()->back()->withError($th->getMessage());
         }
     }
 }
