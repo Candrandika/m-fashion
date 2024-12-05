@@ -5,6 +5,11 @@
 @section('content')
     @include('components.alerts.index')
 
+    <form action="" method="post" id="form-fav">
+        @csrf
+        @method("DELETE")
+    </form>
+
     <div class="container">
         <h4 class="fw-bolder my-5 ms-5">Produk Disukai</h4>
         <div class="my-5">
@@ -17,11 +22,8 @@
                                 <h6 class="fw-bolder">{{ $item->product->name }}</h6>
                                 <div class="mb-2">Rp {{ $item->product->price }}</div>
                                 <div class="d-flex align-items-center gap-1">
-                                    <form action="{{ route('favorites.destroy', $item->id) }}" method="post">
-                                        @csrf
-                                        @method("DELETE")
-                                        <button style="border: 1px solid var(--bs-dark);" type="submit" class="btn py-0 px-2 text-danger fs-7 btn-fav"><i class="ti ti-heart-filled"></i></button>
-                                    </form>
+                                    
+                                        <button data-delete-url="{{ route('favorites.destroy', $item->id) }}" style="border: 1px solid var(--bs-dark);" type="submit" class="btn py-0 px-2 text-danger fs-7 btn-fav"><i class="ti ti-heart-filled"></i></button>
                                     <a href="{{ route('products.show', $item->product->id) }}" class="btn btn-dark w-100"><i class="ti ti-shopping-cart me-2"></i> Keranjang</a>
                                 </div>
                             </div>
@@ -39,6 +41,9 @@
     <script>
         $(document).ready(function() {
             $(document).on('click', '.btn-fav', function() {
+                const data_delete_url = $(this).data('delete-url')
+                $('#form-fav').attr('action', data_delete_url)
+
                 Swal.fire({
                     icon: 'question',
                     title: 'Apakah anda yakin?',
@@ -48,6 +53,7 @@
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $('#form-fav').submit()
                     }
                 })
             })

@@ -11,18 +11,19 @@
     <div class="container">
         <div class="row my-5">
             <div class="col-lg-5">
-                <img data-bs-toggle="modal" data-bs-target="#modal-show-image" src="{{ asset($product->image ? 'storage/' . $product->image : 'dist/images/products/s1.jpg') }}"
+                <img data-bs-toggle="modal" data-bs-target="#modal-show-image"
+                    src="{{ asset($product->image ? 'storage/' . $product->image : 'dist/images/products/s1.jpg') }}"
                     alt="" class="w-100 object-fit-cover btn-show-image" style="aspect-ratio: 1/1;">
                 <div class="mt-3">
                     <div class="owl-carousel counter-carousel owl-theme">
                         @foreach ($product->product_images as $index => $img)
-                            @if($img->type == 'image')
-                            <div class="item">
-                                <img data-bs-toggle="modal" data-bs-target="#modal-show-image"
-                                    src="{{ asset('storage/' . $img->image) }}" alt="gambar produk {{ $index }}"
-                                    class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;"
-                                    data-img="{{ $img }}">
-                            </div>
+                            @if ($img->type == 'image')
+                                <div class="item">
+                                    <img data-bs-toggle="modal" data-bs-target="#modal-show-image"
+                                        src="{{ asset('storage/' . $img->image) }}" alt="gambar produk {{ $index }}"
+                                        class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;"
+                                        data-img="{{ $img }}">
+                                </div>
                             @endif
                         @endforeach
                     </div>
@@ -38,11 +39,16 @@
                     <div class="row">
                         @foreach ($product->colors as $item)
                             <div class="col-auto px-0">
-                                <label class="form-check form-check-image m-0 p-0">
+                                <label class="form-check m-0 p-0 mb-2">
                                     <input class="form-check-input d-none" type="radio" name="color"
-                                        value="{{ $item->id }}" data-sizes="{{ $item->sizes }}" data-product-details="{{ $item->product_details }}" required>
-                                    <img src="{{ asset('storage/'. $item->image) }}" alt="Warna {{ $item->color }}"
-                                        class="form-check-image object-fit-contain" height="120px" style="aspect-ratio: 1/1">
+                                        value="{{ $item->id }}" data-sizes="{{ $item->sizes }}"
+                                        data-product-details="{{ $item->product_details }}" required>
+                                        <div class="form-check-image" title="{{ $item->color }}"    >
+                                            <img src="{{ asset('storage/' . $item->image) }}" alt="Warna {{ $item->color }}"
+                                                class="object-fit-contain" height="120px"
+                                                style="aspect-ratio: 1/1">
+                                            <div class="text-center">{{ $item->color }}</div>
+                                        </div>
                                 </label>
                             </div>
                         @endforeach
@@ -58,12 +64,13 @@
                                 class="bg-danger"></span> Ukuran hanya tersisa beberapa item</div>
                     </div>
                     <div class="btn-group btn-group-lg w-100 bg-light" role="radio" aria-label="Select Size">
-                        @foreach($product->sizes as $size)
-                            <input type="radio" class="btn-check" name="size" id="size-{{ $size->id }}" value="{{ $size->id }}"
-                                autocomplete="off" data-product-detail-id="" required disabled>
+                        @foreach ($product->sizes as $size)
+                            <input type="radio" class="btn-check" name="size" id="size-{{ $size->id }}"
+                                value="{{ $size->id }}" autocomplete="off" data-product-detail-id="" required disabled>
                             <label for="size-{{ $size->id }}" class="btn btn-outline-dark">{{ $size->size }} <div
-                                class="position-absolute bg-danger red-dot" style="width: 7px; height: 7px; top: 5px; right: 5px; display: none;">
-                            </div></label>
+                                    class="position-absolute bg-danger red-dot"
+                                    style="width: 7px; height: 7px; top: 5px; right: 5px; display: none;">
+                                </div></label>
                         @endforeach
                     </div>
                 </div>
@@ -71,24 +78,14 @@
                 <div class="d-flex w-100 mt-4 gap-2">
                     <button type="submit" class="btn btn-lg btn-dark rounded-0" style="flex: 1;">Tambahkan ke
                         Keranjang</button>
-                    </form>
 
                     @if (count($product->favorite) > 0)
-                        <form action="{{ route('favorites.destroy', $product->favorite->first()->id) }}" method="post">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="btn btn-lg rounded-0" style="border: 1px solid black"><i class="ti ti-heart-filled text-danger"></i></button>
-                        </form>
+                        <button type="button" class="btn btn-lg rounded-0 btn-fav" style="border: 1px solid black"><i
+                                class="ti ti-heart-filled text-danger"></i></button>
                     @else
-                        <form action="{{ route('favorites.store') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit" class="btn btn-lg btn-outline-dark rounded-0"><i
+                        <button type="button" class="btn btn-lg btn-outline-dark rounded-0 btn-fav"><i
                                 class="ti ti-heart"></i></button>
-                        </form>
                     @endif
-                    {{-- <button type="button" class="btn btn-lg btn-outline-dark rounded-0"><i
-                            class="ti ti-upload"></i></button> --}}
                 </div>
 
                 <div>
@@ -139,7 +136,18 @@
                         </div>
                     </div>
                 </div>
-            {{-- tempat penutup form lama --}}
+            </form>
+            @if (count($product->favorite) > 0)
+                <form action="{{ route('favorites.destroy', $product->favorite->first()->id) }}" method="post" id="form-fav">
+                    @csrf
+                    @method('delete')
+                </form>
+            @else
+                <form action="{{ route('favorites.store') }}" method="post" id="form-fav">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                </form>
+            @endif
         </div>
     </div>
 @endsection
@@ -181,6 +189,10 @@
                 },
             });
 
+            $(document).on('click', '.btn-fav', function() {
+                $('#form-fav').submit()
+            })
+
             $(document).on('change', '[name=color]', function() {
                 const sizes = $(this).data('sizes');
                 const product_details = $(this).data('product-details');
@@ -191,29 +203,28 @@
                     let detail_id
 
                     if (product_details.some((detail) => {
-                        if(detail.size_id == value) {
-                            current_detail = detail
-                        }
-                        return detail.size_id == value
-                    })) {
+                            if (detail.size_id == value) {
+                                current_detail = detail
+                            }
+                            return detail.size_id == value
+                        })) {
                         $(el).prop('disabled', false)
                     } else {
                         $(el).prop('disabled', true)
                     }
 
-                    if(current_detail.stock && current_detail.stock < 5) {
+                    if (current_detail.stock && current_detail.stock < 5) {
                         console.log(current_detail.stock)
                         $(`[for=${el.id}] .red-dot`).show()
-                    }
-                    else if(!current_detail.id) {
+                    } else if (!current_detail.id) {
                         $(`[for=${el.id}] .red-dot`).hide()
                         $(el).prop('disabled', true)
                     } else {
                         $(`[for=${el.id}] .red-dot`).hide()
                     }
 
-                    if(current_detail.id) detail_id = current_detail.id
-                    
+                    if (current_detail.id) detail_id = current_detail.id
+
                     $(el).attr('data-product-detail-id', detail_id)
                     $(el).prop('checked', false)
                 })
@@ -237,7 +248,7 @@
             transition: border-color 0.3s ease;
         }
 
-        .form-check-input:checked+img {
+        .form-check-input:checked+.form-check-image {
             border-color: var(--bs-dark);
         }
     </style>
