@@ -11,6 +11,7 @@
     </div>
 
     @include('pages.admin.discounts.widgets.index-table-discount')
+    @include('pages.admin.discounts.widgets.index-modal-show-image')
     @include('pages.admin.discounts.widgets.index-modal-create-discount')
     @include('pages.admin.discounts.widgets.index-modal-edit-discount')
 @endsection

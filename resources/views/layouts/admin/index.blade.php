@@ -48,6 +48,8 @@
     <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('dist/js/custom.js') }}"></script>
     <script src="{{ asset('dist/libs/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('dist/libs/momentjs/moment.min.js') }}"></script>
+    <script src="{{ asset('dist/libs/momentjs/moment-with-locales.min.js') }}"></script>
 
     @stack('script')
 </body>

@@ -1,9 +1,10 @@
 <div class="modal fade" id="modal-edit-discount" tabindex="-1">
     <div class="modal-dialog">
         <form action="" method="POST" enctype="multipart/form-data" class="modal-content">
+            @csrf
             @method('PUT')
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Diskon</h5>
+                <h5 class="modal-title">Ubah Diskon</h5>
                 <button type="button" class="btn-close" data-bs-close="modal"></button>
             </div>
             <div class="modal-body">
@@ -13,6 +14,10 @@
                             <label for="desc">Judul / Deskripsi Diskon <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="desc" name="desc" placeholder="Judul / Deskripsi Diskon" required>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image">Gambar / Banner</label>
+                        <input type="file" class="form-control" id="image" name="image" accept=".jpg,.jpeg,.png">
                     </div>
                     <div class="col-12">
                         <div class="mb-3">
@@ -69,7 +74,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-muted" data-bs-close="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary">Tambah</button>
+                <button type="submit" class="btn btn-primary">Ubah</button>
             </div>
         </form>
     </div>
@@ -78,24 +83,46 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            showHideByType()
+            showHideByTypeEdit()
 
-            function showHideByType() {
-                const type = $('#modal-add-discount [name=discount_type]:checked').val()
+            $(document).on('click', '.btn-edit', function() {
+                const data_discount = $(this).data('discount')
+                
+                const edit_url = '{{ route('admin.discounts.update', ':id') }}'.replace(':id', data_discount.id)
+
+                $('#modal-edit-discount form').attr('action', edit_url)
+
+                $('#modal-edit-discount [name=desc]').val(data_discount.desc)
+                $('#modal-edit-discount [name=product_id]').val(data_discount.product_id)
+                $('#modal-edit-discount [name=max_used]').val(data_discount.max_used)
+                $('#modal-edit-discount [name=discount_type]').each(function() {
+                    if ($(this).val() == data_discount.discount_type) $(this).prop('checked', true)
+                    else $(this).prop('checked', false)
+                })
+                $('#modal-edit-discount [name=discount\\[percentage\\]]').val(data_discount.percentage)
+                $('#modal-edit-discount [name=discount\\[price\\]]').val(data_discount.price)
+                $('#modal-edit-discount [name=start_at]').val(data_discount.start_at)
+                $('#modal-edit-discount [name=end_at]').val(data_discount.end_at)
+
+                showHideByTypeEdit()
+            })
+
+            function showHideByTypeEdit() {
+                const type = $('#modal-edit-discount [name=discount_type]:checked').val()
                 if (type == 'percentage') {
-                    $('#percentage-view').show()
-                    $('#price-view').hide()
+                    $('#modal-edit-discount #percentage-view').show()
+                    $('#modal-edit-discount #price-view').hide()
                 } else if(type == 'price') {
-                    $('#percentage-view').hide()
-                    $('#price-view').show()
+                    $('#modal-edit-discount #percentage-view').hide()
+                    $('#modal-edit-discount #price-view').show()
                 } else {
-                    $('#percentage-view').hide()
-                    $('#price-view').hide()
+                    $('#modal-edit-discount #percentage-view').hide()
+                    $('#modal-edit-discount #price-view').hide()
                 }
             }
 
-            $(document).on('click input change', '#modal-add-discount [name=discount_type]', function() {
-                showHideByType()
+            $(document).on('click input change', '#modal-edit-discount [name=discount_type]', function() {
+                showHideByTypeEdit()
             })
         })
     </script>
