@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Services\MidtransService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -27,7 +28,7 @@ class TransactionController extends Controller
     }
 
     public function dataTable(Request $request){
-        $data = Transaction::when(Auth::user()->hasRole('user'), function($q){
+        $data = Transaction::with('user')->when(Auth::user()->hasRole('user'), function($q){
             $q->where('user_id', Auth::user()->id);
         });
 
@@ -51,7 +52,11 @@ class TransactionController extends Controller
     {
         $data = $request->validated();
         
+        DB::beginTransaction();
         try{
+            $check_transaksi = Transaction::where('user_id', Auth::user()->id)->where('status', 'PENDING')->first();
+            if($check_transaksi) return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "snap_token" => $check_transaksi->snap_token])->setStatusCode(200);
+
             $token = $this->midtransService->transaction([
                 "transaction_details" => [
                     "order_id" => $data["order_id"],
@@ -66,8 +71,12 @@ class TransactionController extends Controller
             $data["item_details"] = json_encode($data["item_details"]);
 
             Transaction::create($data);
+            TempCheckout::where('user_id', Auth::user()->id)->delete();
+
+            DB::commit();
             return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "snap_token" => $token])->setStatusCode(200);
         }catch(\Throwable $th){
+            DB::rollBack();
             return response()->json(["message" => $th->getMessage(), "is_success" => false])->setStatusCode(500);
         }
     }
