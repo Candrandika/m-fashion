@@ -18,6 +18,6 @@ class Transaction extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class)->where('is_delete',0);
+        return $this->belongsTo(User::class);
     }
 }

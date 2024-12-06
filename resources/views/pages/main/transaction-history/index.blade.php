@@ -18,17 +18,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><strong>TR-1254367</strong></td>
-                        <td>Rp.90.000</td>
-                        <td>
-                            <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">Selesai</span>
-                        </td>
-                        <td>29 November 2024</td>
-                        <td>
-                            <button type="button" class="btn btn-dark">Detail</button>
-                        </td>
-                    </tr>
+                    @forelse ($transaction as $item)
+                        <tr>
+                            <td><strong>{{ $item->order_id }}</strong></td>
+                            <td>Rp.{{ $item->price }}</td>
+                            <td>
+                                @if($item->status == "PENDING")
+                                    <span class="mb-1 badge rounded-pill  bg-secondary-subtle text-secondary">{{ $item->status }}</span>
+                                @elseif($item->status == "PROCESS")
+                                    <span class="mb-1 badge rounded-pill  bg-primary-subtle text-primary">{{ $item->status }}</span>
+                                @elseif ($item->status == "PAID")
+                                    <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">{{ $item->status }}</span>
+                                 @elseif ($item->status == "FAILED")
+                                    <span class="mb-1 badge rounded-pill  bg-danger-subtle text-danger">{{ $item->status }}</span>
+                                @endif
+                            </td>
+                            <td>{{ $item->created_at }}</td>
+                            <td>
+                                @if($item->status == "PENDING") <button type="submit" class="btn btn-success">Diterima</button> @endif
+                                <a href="{{ route('transaction-history.detail', $item->id) }}" class="btn btn-dark">Detail</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <div>-- Tidak ada data --</div>
+                    @endforelse
                 </tbody>
             </table>
         </div>

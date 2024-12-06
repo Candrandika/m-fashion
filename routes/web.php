@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::post('callback', [AdminTransactionController::class, 'callback'])->name('callback');
 
     Route::get('transaction-history', [TransactionHistoryController::class, 'index'])->name('transaction-history');
-    Route::get('transaction-history/{id}', [TransactionHistoryController::class, 'show'])->name('transaction-history');
+    Route::get('transaction-history/{id}', [TransactionHistoryController::class, 'show'])->name('transaction-history.detail');
 
     // });
 
