@@ -25,6 +25,8 @@
                             <td>
                                 @if($item->status == "PENDING")
                                     <span class="mb-1 badge rounded-pill  bg-secondary-subtle text-secondary">{{ $item->status }}</span>
+                                @elseif($item->status == "PROCESS")
+                                    <span class="mb-1 badge rounded-pill  bg-primary-subtle text-primary">{{ $item->status }}</span>
                                 @elseif ($item->status == "PAID")
                                     <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">{{ $item->status }}</span>
                                  @elseif ($item->status == "FAILED")

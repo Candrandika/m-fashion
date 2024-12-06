@@ -71,7 +71,7 @@ class TransactionController extends Controller
             $data["item_details"] = json_encode($data["item_details"]);
 
             Transaction::create($data);
-            TempCheckout::where('user_id', Auth::user()->id)->delete();
+            $checkout = TempCheckout::where('user_id', Auth::user()->id)->first();
 
             DB::commit();
             return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "snap_token" => $token])->setStatusCode(200);
@@ -83,6 +83,51 @@ class TransactionController extends Controller
 
     public function callback(Request $request)
     {
-        dd($request->all());
+        $result = json_decode($request->result);
+        $transaksi = Transaction::where('user_id', Auth::user()->id)->where('status','PENDING')->first();
+        if(!$transaksi) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
+
+        try{
+            if(isset($result->transaction_id)){
+                $payment = null;
+                if(isset($result->va_numbers)){
+                    $payment = json_encode($result->va_numbers);
+                }
+    
+                $temp = json_decode($transaksi->item_details, true);
+                $ids = array_column($temp, 'id');
+    
+                $carts = Cart::with('product_detail')->whereIn('id',$ids)->get();
+                
+                foreach($carts as $cart) {
+                    $stock = collect($temp)
+                    ->filter(function ($q) use ($cart) {
+                        return $q['id'] == $cart->id;
+                    })
+                    ->first();
+    
+                    $cart->product_detail->sold += $stock->quantity;
+                    $cart->product_detail->stock -= $stock->quantity;
+                    $cart->product_detail->save();
+                    $cart->delete();
+                }
+    
+                $transaksi->update([
+                    "transaction_id" => $result->transaction_id,
+                    "status" => "PAID",
+                    "payment_method" => $result->payment_type,
+                    "va_payment" => $payment,
+                    "paid_timestamps" => $result->transaction_time
+                ]);
+            
+                DB::commit();
+                return redirect()->route('transaction-history')->with('success', 'Transaksi telah dilakukan, silahkan cek transaksi anda di riwayat transaksi!');
+            }
+        }catch(\Throwable $th){
+            DB::rollBack();
+            return response()->json(["message" => $th->getMessage(), "is_success" => false])->setStatusCode(500);
+        }
+        
+        return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
     }
 }

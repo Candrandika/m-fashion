@@ -82,11 +82,14 @@ class TransactionRequest extends FormRequest
                 $result = [
                     "id" => $item->product_detail_id,
                     "name" => $item->product_detail->product->name,
+                    "size" => $item->product_detail->size->size,
+                    "color" => $item->product_detail->color->color,
                     "brand" => $item->product_detail->product->brand->name,
                     "category" => $item->product_detail->product->category->name,
                     "merchant_name" => "MFashion",
                     "url" => "https://mfashion.com",
-                    "price" => $stock["qty"] * $item->product_detail->product->price,
+                    "price" => $item->product_detail->product->price,
+                    "total_price" => $stock["qty"] * $item->product_detail->product->price,
                     "quantity" => $stock["qty"],
                 ];
 
