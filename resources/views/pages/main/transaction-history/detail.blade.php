@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="container">
-        <h4 class="fw-bolder my-5 ms-5">Detail Riwayat Transaksi <span class="mb-1 badge rounded-pill  bg-success-subtle text-success ms-3">Selesai</span></h4>
+        <h4 class="fw-bolder my-5 ms-5">Detail Riwayat Transaksi <span class="mb-1 badge rounded-pill  bg-success-subtle text-success ms-3">{{ $transaction->status }}</span></h4>
        <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -21,6 +21,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        @foreach ($item_details as $item)
+                                            <td>{{ $item->name }}</td>
+                                            <td>Rp. {{ $item->price }}</td>
+                                            <td>{{ $item->quantity }} </td>
+                                            <td>Rp. {{ $item->quantity * $item->price }}</td>
+                                        @endforeach
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -30,12 +38,13 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <strong>Wiradarma Nurmagika Bagaskara</strong>
-                        <p class="text-muted m-0">wira@gmail.com</p>
-                        <p class="text-muted m-0">083848020111</p>
+                        <strong>{{ $customer_detail->first_name }}</strong>
+                        <p class="text-muted m-0">{{ $customer_detail->email }}</p>
+                        <p class="text-muted m-0">{{ $customer_detail->phone }}</p>
 
                         <p class="mt-3">
-                            Jl Pemuda No 11, Ds Kebobang, Kec Wonosari, Kab. Wonosari, Kab. Wonosari, Jawa Barat 45111
+                            {{ $customer_detail->shipping_address->address }}, {{ $customer_detail->shipping_address->district }}, {{ $customer_detail->shipping_address->city }}, {{ $customer_detail->shipping_address->province }} {{ $customer_detail->shipping_address->postal_code }}
+                            <button class="btn btn-dark">CHECKOUT</button>
                         </p>
                     </div>
                 </div>
