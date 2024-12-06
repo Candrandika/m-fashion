@@ -11,13 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('transactions');
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('product_id')->constrained('products');
             $table->foreignUuid('user_id')->constrained('users');
             $table->json('item_details')->nullable();
+            $table->json('customer_details')->nullable();
             $table->string('payment_method')->nullable();
             $table->double('price')->nullable();
+            $table->string('order_id')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('resi')->nullable();
+            $table->string('shipping_method')->nullable();
+            $table->string('snap_token')->nullable();
+            $table->string('redirect_url')->nullable();
             $table->string('status')->default('PENDING');
             $table->timestamps();
         });

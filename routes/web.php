@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function() {
         Route::resource('categories', CategoryController::class)->only(['show']);
         Route::resource('favorites', FavoriteController::class)->only(['index','store','destroy']);
         Route::resource('carts', CartController::class)->only(['index','store','update','destroy']);
+        Route::resource('transactions', AdminTransactionController::class)->only(['store','destroy']);
         Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
 
     // });

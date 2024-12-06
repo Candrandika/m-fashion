@@ -12,35 +12,35 @@
                     <form class="card-body row" id="form-shipping">
                         <div class="form-group mb-3 col-md-12">
                             <label for="name" class="mb-2">Nama Lengkap <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" name="customers_details[first_name]" placeholder="Nama Lengkap Anda">
+                            <input type="text" class="form-control" id="name" name="customer_details[first_name]" placeholder="Nama Lengkap Anda">
                         </div>
                         <div class="form-group mb-3 col-md-6">
                             <label for="email" class="mb-2">Email <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="email" name="customers_details[email]" placeholder="Email">
+                            <input type="text" class="form-control" id="email" name="customer_details[email]" placeholder="Email">
                         </div>
                         <div class="form-group mb-3 col-md-6">
                             <label for="phone" class="mb-2">Nomor Telepon <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="phone" name="customers_details[phone]" placeholder="Nomor Telepon">
+                            <input type="text" class="form-control" id="phone" name="customer_details[phone]" placeholder="Nomor Telepon">
                         </div>
                         <div class="form-group mb-3 col-md-3">
                             <label for="province" class="mb-2">Provinsi</label>
-                            <input type="text" class="form-control" id="province" placeholder="Provinsi">
+                            <input type="text" class="form-control" id="province" name="customer_details[shipping_address][province]" placeholder="Provinsi">
                         </div>
                         <div class="form-group mb-3 col-md-3">
                             <label for="city" class="mb-2">Kota/Kabupaten</label>
-                            <input type="text" class="form-control" id="city" name="customers_details[shipping_address][city]" placeholder="Kabupaten">
+                            <input type="text" class="form-control" id="city" name="customer_details[shipping_address][city]" placeholder="Kabupaten">
                         </div>
                         <div class="form-group mb-3 col-md-3">
                             <label for="district" class="mb-2">Kecamatan</label>
-                            <input type="text" class="form-control" id="district" placeholder="Kecamatan">
+                            <input type="text" class="form-control" id="district" name="customer_details[shipping_address][district]" placeholder="Kecamatan">
                         </div>
                         <div class="form-group mb-3 col-md-3">
                             <label for="postal_code" class="mb-2">Kode Pos</label>
-                            <input type="text" name="customers_details[shipping_address][postal_code]" id="postal_code" class="form-control" placeholder="Nama Lengkap Anda">
+                            <input type="text" name="customer_details[shipping_address][postal_code]" id="postal_code" class="form-control" placeholder="Nama Lengkap Anda">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="address" class="mb-2">Alamat Lengkap</label>
-                            <textarea  id="address" class="form-control" name="customers_details[shipping_address][address]" placeholder="Nama Jalan, Gedung, No. Rumah dan Detal Lainnya (Cth: Blok / Unit No., Patokan)"></textarea>
+                            <textarea  id="address" class="form-control" name="customer_details[shipping_address][address]" placeholder="Nama Jalan, Gedung, No. Rumah dan Detal Lainnya (Cth: Blok / Unit No., Patokan)"></textarea>
                         </div>
                     </form>
                 </div>
@@ -65,12 +65,14 @@
                                                         return $q['id'] == $item->id;
                                                     })
                                                     ->first();
+
+                                                $total_price = $item->product_detail->product->price * $stock["qty"];
                                             @endphp
                                             <p class="m-0">&times;{{ number_format($stock['qty'], 0, ',', '.') }}</p>
                                         </div>
                                     </div>
                                     <h6 class="ms-auto fw-bolder m-0">Rp.
-                                        {{ number_format($item->product_detail->product->price, 0, ',', '.') }}</h6>
+                                        {{ number_format(($item->product_detail->product->price * $stock["qty"]), 0, ',', '.') }}</h6>
                                 </div>
                             @endforeach
                         </div>
@@ -85,7 +87,7 @@
                             </div> --}}
                             <div class="d-flex justify-content-between mb-2">
                                 <p class="fw-bolder m-0">Total</p>
-                                <h6 class="fw-bolder m-0">Rp. 12.000</h6>
+                                <h6 class="fw-bolder m-0">Rp. {{ number_format($total_price, 0, ',', '.') }}</h6>
                             </div>
                         </div>
 
@@ -104,15 +106,18 @@
             $(document).on('click', '#btn-pay', function() {
                 const form_data = new FormData($('#form-shipping')[0]);
 
+                const form_obj = {
+                    "_token": "{{ csrf_token() }}",
+                }
+                form_data.forEach((val, key) => {
+                    form_obj[key] = val
+                })
+
                 $.ajax({
-                    url: "",
+                    url: "{{ route('transactions.store') }}",
                     method: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        data: form_data
-                    },
+                    data: form_obj,
                     success: function(res) {
-                        console.log(res);
                         if (res.status =='success') {
                             snap.pay(res.snap_token, {
                                 // Optional
