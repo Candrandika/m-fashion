@@ -122,7 +122,7 @@ class TransactionController extends Controller
         if(!$transaksi && $request->type == "api") return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
 
         try{
-            if(isset($result->transaction_id)){
+            if(isset($result->transaction_status) && $result->transaction_status != "pending" && $result->transaction_status != "expire"){
                 $payment = null;
                 if(isset($result->va_numbers)){
                     $payment = json_encode($result->va_numbers);
