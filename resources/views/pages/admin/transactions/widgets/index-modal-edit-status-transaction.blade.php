@@ -10,13 +10,23 @@
                 <div class="mb-3">
                     <label for="status" class="form-label mb-0">Status</label>
                     <select class="form-select" id="status" name="status">
-                        <option value="pending">Pending</option>
-                        <option value="paid">Dibayar</option>
-                        <option value="expired">Transaksi Kedaluwarsa</option>
-                        <option value="failed">Transaksi Gagal</option>
-                        <option value="shipping">Dikirim</option>
-                        <option value="complete">Transaksi Selesai</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="PAID">Dibayar</option>
+                        <option value="EXPIRED">Transaksi Kedaluwarsa</option>
+                        <option value="FAILED">Transaksi Gagal</option>
+                        <option value="SHIPPING">Dikirim</option>
+                        <option value="COMPLETE">Transaksi Selesai</option>
                     </select>
+                </div>
+                <div id="shipping-form" style="display: none">
+                    <div class="form-group mb-3">
+                        <label for="shipping_method" class="form-label mb-0">Kurir</label>
+                        <input type="text" name="shipping_method" class="form-control" id="shipping_method" placeholder="Kurir">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="resi" class="form-label mb-0">No. Resi</label>
+                        <input type="text" name="resi" class="form-control" id="resi" placeholder="No. Resi">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -26,3 +36,20 @@
         </form>
     </div>
 </div>
+
+@push('script')
+<script>
+    $(document).ready(function() {
+        function checkShipping() {
+            if($('[name=status]').val() == 'SHIPPING') $('#shipping-form').show();
+            else $('#shipping-form').hide();
+        }
+
+        $(document).on('change', '[name=status]', function() {
+            checkShipping()
+        })
+
+        // $(document).on('click')
+    })
+</script>
+@endpush
