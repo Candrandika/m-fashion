@@ -5,8 +5,9 @@
 
 @section('content')
     <div class="container">
-        <h4 class="fw-bolder my-5 ms-5">Detail Riwayat Transaksi <span class="mb-1 badge rounded-pill  bg-success-subtle text-success ms-3">{{ $transaction->status }}</span></h4>
-       <div class="row justify-content-center">
+        <h4 class="fw-bolder my-5 ms-5">Detail Riwayat Transaksi <span
+                class="mb-1 badge rounded-pill  bg-success-subtle text-success ms-3">{{ $transaction->status }}</span></h4>
+        <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
@@ -43,13 +44,17 @@
                         <p class="text-muted m-0">{{ $customer_detail->phone }}</p>
 
                         <p class="mt-3">
-                            {{ $customer_detail->shipping_address->address }}, {{ $customer_detail->shipping_address->district }}, {{ $customer_detail->shipping_address->city }}, {{ $customer_detail->shipping_address->province }} {{ $customer_detail->shipping_address->postal_code }}
-                            <button class="btn btn-dark">CHECKOUT</button>
+                            {{ $customer_detail->shipping_address->address }},
+                            {{ $customer_detail->shipping_address->district }},
+                            {{ $customer_detail->shipping_address->city }},
+                            {{ $customer_detail->shipping_address->province }}
+                            {{ $customer_detail->shipping_address->postal_code }}
                         </p>
+                        <button class="btn btn-dark w-100">CHECKOUT</button>
                     </div>
                 </div>
             </div>
-       </div>
+        </div>
     </div>
 @endsection
 
