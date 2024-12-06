@@ -41,7 +41,7 @@ class TransactionController extends Controller
         $data = TempCheckout::where('user_id', Auth::user()->id)->first();
         $transaksi = Transaction::where('user_id', Auth::user()->id)->where('status','PENDING')->first();
         if(!$data) return redirect()->back()->with('error', 'Anda tidak memiliki barang yang di checkout!');
-        if(!$transaksi) return redirect()->back()->with('error', 'Anda masih memiliki tanggungan pembayaran, silahkan selesaikan terlebih dahulu!');
+        if($transaksi) return redirect()->back()->with('error', 'Anda masih memiliki tanggungan pembayaran, silahkan selesaikan terlebih dahulu!');
 
         $temp = json_decode($data->data, true);
         $ids = array_column($temp, 'id');
