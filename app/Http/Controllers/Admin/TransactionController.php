@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Models\TempCheckout;
 use App\Models\Transaction;
 use App\Services\MidtransService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -38,7 +39,9 @@ class TransactionController extends Controller
     public function create()
     {
         $data = TempCheckout::where('user_id', Auth::user()->id)->first();
+        $transaksi = Transaction::where('user_id', Auth::user()->id)->where('status','PENDING')->first();
         if(!$data) return redirect()->back()->with('error', 'Anda tidak memiliki barang yang di checkout!');
+        if(!$transaksi) return redirect()->back()->with('error', 'Anda masih memiliki tanggungan pembayaran, silahkan selesaikan terlebih dahulu!');
 
         $temp = json_decode($data->data, true);
         $ids = array_column($temp, 'id');
@@ -70,8 +73,38 @@ class TransactionController extends Controller
             $data["customer_details"] = json_encode($data["customer_details"]);
             $data["item_details"] = json_encode($data["item_details"]);
 
-            Transaction::create($data);
+            $transaksi = Transaction::create($data);
             $checkout = TempCheckout::where('user_id', Auth::user()->id)->first();
+
+            if($request->payemnt_type == "cash"){
+                $temp = json_decode($checkout->data, true);
+                $ids = array_column($temp, 'id');
+    
+                $carts = Cart::with('product_detail')->whereIn('id',$ids)->get();
+                
+                foreach($carts as $cart) {
+                    $stock = collect($temp)
+                    ->filter(function ($q) use ($cart) {
+                        return $q['id'] == $cart->id;
+                    })
+                    ->first();
+    
+                    $cart->product_detail->sold += $stock->quantity;
+                    $cart->product_detail->stock -= $stock->quantity;
+                    $cart->product_detail->save();
+                    $cart->delete();
+
+                    $transaksi->update([
+                        "transaction_id" => "-",
+                        "status" => "PAID",
+                        "payment_method" => $request->payment_type,
+                        "va_payment" => null,
+                        "paid_timestamps" => Carbon::now()
+                    ]);
+                }
+
+                return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "url" => route('transaction-history')])->setStatusCode(200);
+            }
 
             DB::commit();
             return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "snap_token" => $token])->setStatusCode(200);
@@ -85,7 +118,8 @@ class TransactionController extends Controller
     {
         $result = json_decode($request->result);
         $transaksi = Transaction::where('user_id', Auth::user()->id)->where('status','PENDING')->first();
-        if(!$transaksi) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
+        if(!$transaksi && $request->type != "api") return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
+        if(!$transaksi && $request->type == "api") return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
 
         try{
             if(isset($result->transaction_id)){
@@ -129,5 +163,10 @@ class TransactionController extends Controller
         }
         
         return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
+    }
+
+    public function update(Request $request)
+    {
+
     }
 }
