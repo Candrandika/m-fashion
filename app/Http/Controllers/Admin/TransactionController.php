@@ -71,4 +71,9 @@ class TransactionController extends Controller
             return response()->json(["message" => $th->getMessage(), "is_success" => false])->setStatusCode(500);
         }
     }
+
+    public function callback(Request $request)
+    {
+        dd($request->all());
+    }
 }

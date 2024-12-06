@@ -110,7 +110,7 @@
         </div>
     </div>
 
-    <form action="" id="form-pay" method="POST">
+    <form action="{{ route('callback') }}" id="form-pay" method="POST">
         @csrf
         <input type="hidden" name="result" value="">
     </form>
@@ -162,7 +162,7 @@
             })
 
             function send_res_to_form(result) {
-                $('[name=result]').val(result)
+                $('[name=result]').val(JSON.stringify(result))
                 $('#form-pay').submit()
             }
         })

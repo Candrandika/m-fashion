@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function() {
         Route::resource('carts', CartController::class)->only(['index','store','update','destroy']);
         Route::resource('transactions', AdminTransactionController::class)->only(['store','destroy']);
         Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
+        Route::post('callback', [AdminTransactionController::class, 'callback'])->name('callback');
 
     // });
 
