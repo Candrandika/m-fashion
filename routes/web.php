@@ -72,7 +72,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class)->only(['show']);
     Route::resource('favorites', FavoriteController::class)->only(['index', 'store', 'destroy']);
     Route::resource('carts', CartController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('transactions', AdminTransactionController::class)->only(['store', 'destroy']);
     Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::post('callback', [AdminTransactionController::class, 'callback'])->name('callback');
 
     Route::get('transaction-history', [TransactionHistoryController::class, 'index'])->name('transaction-history');
     Route::get('transaction-history/{id}', [TransactionHistoryController::class, 'show'])->name('transaction-history');
