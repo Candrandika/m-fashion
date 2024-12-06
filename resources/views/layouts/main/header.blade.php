@@ -49,6 +49,17 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="message-body">
+                            <a href="../main/page-user-profile.html" class="py-8 px-7 mt-8 d-flex align-items-center">
+                              <span class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
+                                <img src="../assets/images/svgs/icon-account.svg" alt="modernize-img" width="24" height="24">
+                              </span>
+                              <div class="w-100 ps-3">
+                                <h6 class="mb-1 fs-3 fw-semibold lh-base">Transaksi</h6>
+                                <span class="fs-2 d-block text-body-secondary">Riwayat Transaksi</span>
+                              </div>
+                            </a>
+                          </div>
                         <div class="d-grid py-4 px-7 pt-8">
                             <form action="{{ route('mainlogout') }}" method="POST">
                                 @csrf
