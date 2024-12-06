@@ -5,6 +5,7 @@
 
 @section('content')
     @include('pages.main.products.widgets.show-modal-show-image')
+    @include('pages.main.products.widgets.show-modal-auto-size')
 
     @include('components.alerts.index')
 
@@ -43,12 +44,11 @@
                                     <input class="form-check-input d-none" type="radio" name="color"
                                         value="{{ $item->id }}" data-sizes="{{ $item->sizes }}"
                                         data-product-details="{{ $item->product_details }}" required>
-                                        <div class="form-check-image" title="{{ $item->color }}"    >
-                                            <img src="{{ asset('storage/' . $item->image) }}" alt="Warna {{ $item->color }}"
-                                                class="object-fit-contain" height="120px"
-                                                style="aspect-ratio: 1/1">
-                                            <div class="text-center">{{ $item->color }}</div>
-                                        </div>
+                                    <div class="form-check-image" title="{{ $item->color }}">
+                                        <img src="{{ asset('storage/' . $item->image) }}" alt="Warna {{ $item->color }}"
+                                            class="object-fit-contain" height="120px" style="aspect-ratio: 1/1">
+                                        <div class="text-center">{{ $item->color }}</div>
+                                    </div>
                                 </label>
                             </div>
                         @endforeach
@@ -74,6 +74,9 @@
                         @endforeach
                     </div>
                 </div>
+
+                <button type="button" class="fw-bolder mt-2 border-0 bg-transparent text-decoration-underline"
+                    data-bs-toggle="modal" data-bs-target="#modal-auto-size">Fitur Panduan Ukuran</button>
 
                 <div class="d-flex w-100 mt-4 gap-2">
                     <button type="submit" class="btn btn-lg btn-dark rounded-0" style="flex: 1;">Tambahkan ke
@@ -138,7 +141,8 @@
                 </div>
             </form>
             @if (count($product->favorite) > 0)
-                <form action="{{ route('favorites.destroy', $product->favorite->first()->id) }}" method="post" id="form-fav">
+                <form action="{{ route('favorites.destroy', $product->favorite->first()->id) }}" method="post"
+                    id="form-fav">
                     @csrf
                     @method('delete')
                 </form>
