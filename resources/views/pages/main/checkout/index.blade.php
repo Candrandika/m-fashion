@@ -11,7 +11,9 @@
         <div class="row">
             <div class="col-lg-7">
                 <div class="card">
-                    <form class="card-body row" id="form-shipping">
+                    <form class="card-body row" id="form-shipping" action="{{ route('transactions.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="method_type" value="auto"/>
                         <button type="submit" id="btn-submit" class="d-none"></button>
                         <div class="form-group mb-3 col-md-12">
                             <label for="name" class="mb-2">Nama Lengkap <span class="text-danger">*</span></label>
@@ -103,7 +105,28 @@
                             </div>
                         </div>
 
+                        
+                        <div class="mb-2 mt-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="method_pay" id="method_pay_1" value="auto" checked>
+                                <label class="form-check-label" for="method_pay_1">Otomatis</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="method_pay" id="method_pay_2" value="manual">
+                                <label class="form-check-label" for="method_pay_2">Manual</label>
+                            </div>
+                        </div>
+
                         <button type="button" class="btn btn-dark w-100" id="btn-pay">Checkout</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body py-2">
+                        <p class="mb-2">Note :</p>
+                        <ul style="list-style: disc" class="fs-2">
+                            <li>Otomatis : pembayaran akan di verifikasi otomatis oleh sistem</li>
+                            <li>Manual : pembayaran akan diverifikasi oleh admin secara langsung (pembayaran di lokasi)</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -125,45 +148,54 @@
             })
 
             $(document).on('submit', '#form-shipping', function(e) {
-                e.preventDefault();
-
-                const form_data = new FormData($('#form-shipping')[0]);
-
-                const form_obj = {
-                    "_token": "{{ csrf_token() }}",
-                }
-                form_data.forEach((val, key) => {
-                    form_obj[key] = val
-                })
-
-                $.ajax({
-                    url: "{{ route('transactions.store') }}",
-                    method: 'POST',
-                    data: form_obj,
-                    success: function(res) {
-                        if (res.is_success) {
-                            snap.pay(res.snap_token, {
-                                onSuccess: function(result) {
-                                    send_res_to_form(result)
-                                },
-                                onPending: function(result) {
-                                    send_res_to_form(result)
-                                },
-                                onError: function(result) {
-                                    send_res_to_form(result)
-                                },
-                                onClose: function(result) {
-                                    Toaster('warning', 'Pembayaran tidak dilanjutkan')
-                                }
-                            });
+                if($('[name=method_pay]:checked').val() == 'auto') {
+                    e.preventDefault();
+    
+                    const form_data = new FormData($('#form-shipping')[0]);
+    
+                    const form_obj = {}
+                    
+                    form_data.forEach((val, key) => {
+                        form_obj[key] = val
+                    })
+    
+                    $.ajax({
+                        url: "{{ route('transactions.store') }}",
+                        method: 'POST',
+                        data: form_obj,
+                        success: function(res) {
+                            if (res.is_success) {
+                                snap.pay(res.snap_token, {
+                                    onSuccess: function(result) {
+                                        send_res_to_form(result)
+                                    },
+                                    onPending: function(result) {
+                                        send_res_to_form(result)
+                                    },
+                                    onError: function(result) {
+                                        send_res_to_form(result)
+                                    },
+                                    onClose: function(result) {
+                                        Toaster('warning', 'Pembayaran tidak dilanjutkan')
+                                    }
+                                });
+                            }
                         }
-                    }
-                })
+                    })
+                }
             })
 
             function send_res_to_form(result) {
                 $('[name=result]').val(JSON.stringify(result))
                 $('#form-pay').submit()
+            }
+
+            handling_method_type()
+
+            $(document).on('change click', $('[name=method_pay]'), handling_method_type)
+
+            function handling_method_type() {
+                $('[name=method_type]').val(($('[name=method_pay]:checked').val()))
             }
         })
     </script>

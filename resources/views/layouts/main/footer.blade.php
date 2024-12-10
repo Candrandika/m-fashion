@@ -1,4 +1,4 @@
-<footer class="bg-white p-5">
+<footer class="bg-muted p-5" style="--bs-bg-opacity:.1">
     <div class="row mx-auto justify-content-center container gap-2">
         <div class="col-12 col-md-4 col-lg">
             <h6 class="fw-bolder mb-2">Informasi</h6>

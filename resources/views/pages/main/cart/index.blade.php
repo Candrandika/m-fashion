@@ -66,7 +66,7 @@
                     <tr>
                         <td colspan="6"></td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td colspan="2" class="text-dark fw-bold">Voucer</td>
                         <td colspan="2"></td>
                         <td colspan="2">
@@ -75,14 +75,14 @@
                                 <div class="input-group-text bg-transparent"><i class="ti ti-check"></i></div>
                             </div>
                         </td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td colspan="6">
                             <div class="d-flex align-items-center gap-4 justify-content-end">
                                 <div>Total</div>
                                 <div class="text-black fw-bolder fs-7">Rp <span class="all-total">0</span></div>
                             </div>
-                            <button class="btn btn-lg btn-dark w-100" id="btn-checkout">Checkout</button>
+                            <button type="button" class="btn btn-lg btn-dark w-100" id="btn-checkout">Checkout</button>
                         </td>
                     </tr>
                 </tfoot>
@@ -218,6 +218,15 @@
             // Handle checkout
             $(document).on('click', '#btn-checkout', function() {
                 const product_json = []
+
+                if($('#product-carts tbody tr[data-cart] .product-check:checked').length == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Pilih produk terlebih dahulu',
+                    })
+                    return;
+                }
 
                 $('#product-carts tbody tr[data-cart] .product-check:checked').each(function(index, el) {
                     const row = $(el).closest('tr')

@@ -22,14 +22,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($item_details as $item)
                                     <tr>
-                                        @foreach ($item_details as $item)
-                                            <td>{{ $item->name }}</td>
-                                            <td>Rp. {{ $item->price }}</td>
-                                            <td>{{ $item->quantity }} </td>
-                                            <td>Rp. {{ $item->quantity * $item->price }}</td>
-                                        @endforeach
+                                        <td>{{ $item->name }}</td>
+                                        <td>Rp. {{ $item->price }}</td>
+                                        <td>{{ $item->quantity }} </td>
+                                        <td>Rp. {{ $item->quantity * $item->price }}</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
