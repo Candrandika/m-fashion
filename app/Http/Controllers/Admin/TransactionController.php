@@ -171,8 +171,29 @@ class TransactionController extends Controller
         return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
     }
 
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
+        $request->validate([
+            "status" => 'required'
+        ], [
+            'status.required' => 'Anda harus memilih status terlebih dahulu'
+        ]);
 
+        try {
+            if($request->status == "SHIPPING" && !$request->shipping_method) return redirect()->back()->with('error', 'Nama jasa pengiriman harus diisi!');
+            if($request->status == "SHIPPING" && !$request->resi) return redirect()->back()->with('error', 'Nomor resi pengiriman harus diisi!');
+            
+            $transaction = Transaction::find($id);
+            if(!$transaction) return redirect()->back()->with('error', 'Data transaksi sudah digunakan!');
+    
+            $transaction->update([
+                "status" => $request->status,
+                "shipping_method" => $request->shipping_method,
+                "resi" => $request->resi,
+            ]);
+            return redirect()->back()->with('success', 'Berhasil merubah status transaksi!');
+        }catch(\Throwable $th) {
+            return redirect()->back()->withError($th->getMessage());
+        }
     }
 }

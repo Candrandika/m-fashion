@@ -84,7 +84,6 @@
                     {
                         title: 'Aksi',
                         mRender: function(data, type, row) {
-                            console.log({row})
                             return `<div class="d-flex align-items-center gap-1">
                                     <button type="button" class="btn btn-primary p-2 btn-show" data-bs-toggle="modal"
                                         data-bs-target="#modal-detail-transaction" data-products="${row.item_details}">

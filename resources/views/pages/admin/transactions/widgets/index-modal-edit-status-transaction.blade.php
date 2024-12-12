@@ -7,6 +7,7 @@
             </div>
             <div class="modal-body">
                 @csrf
+                @method("PUT")
                 <div class="mb-3">
                     <label for="status" class="form-label mb-0">Status</label>
                     <select class="form-select" id="status" name="status">

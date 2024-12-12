@@ -31,6 +31,8 @@
                                     <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">{{ $item->status }}</span>
                                 @elseif ($item->status == "FAILED")
                                     <span class="mb-1 badge rounded-pill  bg-danger-subtle text-danger">{{ $item->status }}</span>
+                                @else
+                                    <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">{{ $item->status }}</span>
                                 @endif
                             </td>
                             <td>{{ $item->created_at }}</td>
@@ -38,7 +40,7 @@
                                 <div class="d-flex align-items-center justify-content-center gap-2">
 
                                     @if($item->status == "SHIPPING")
-                                        <form action="#" method="POST">
+                                        <form action="{{ route('transaction-history.update', $item->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <button  class="btn btn-success">Diterima</button>

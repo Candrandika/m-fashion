@@ -23,4 +23,12 @@ class TransactionHistoryController extends Controller
         
         return view('pages.main.transaction-history.detail', compact('transaction', 'item_details', 'customer_detail'));
     }
+
+    public function update(Request $request, string $id){
+        $transaction = Transaction::where('user_id',Auth::user()->id)->where('id', $id)->first();
+        if(!$transaction) return redirect()->back()->with('error','Tidak ditemukan data transaksi');
+
+        $transaction->update(["status" => "COMPLETE"]);
+        return redirect()->back()->with('success','Berhasil mengubah status transaksi anda!');
+    }
 }

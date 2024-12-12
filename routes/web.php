@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('transaction-history', [TransactionHistoryController::class, 'index'])->name('transaction-history');
     Route::get('transaction-history/{id}', [TransactionHistoryController::class, 'show'])->name('transaction-history.detail');
+    Route::put('transaction-history/{id}', [TransactionHistoryController::class, 'update'])->name('transaction-history.update');
 
     // });
 
