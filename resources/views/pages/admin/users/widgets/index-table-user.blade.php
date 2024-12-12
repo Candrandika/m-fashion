@@ -11,6 +11,7 @@
         $(document).ready(function() {
             $('#table-categories').DataTable({
                 dom: "<'row mt-2 justify-content-between align-items-center'<'col-md-auto custom-container-left'><'col-md-auto ms-auto custom-container-right'>><'row mt-2 justify-content-between'<'col-md-auto me-auto'l><'col-md-auto me-start'f>><'row mt-2 justify-content-md-center'<'col-12'rt>><'row mt-2 justify-content-between align-items-center'<'col-md-auto me-auto'i><'col-md-auto ms-auto'p>>",
+                serverSide: true,
                 initComplete: function() {
                     $('.custom-container-right').html(`
                             <div>

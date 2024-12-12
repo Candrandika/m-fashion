@@ -16,6 +16,7 @@
         $(document).ready(function() {
             $('#table-discounts').DataTable({
                 ajax: "{{ route('data-table.discount') }}",
+                serverSide: true,
                 columns: [{
                         data: 'DT_RowIndex',
                         title: "No",

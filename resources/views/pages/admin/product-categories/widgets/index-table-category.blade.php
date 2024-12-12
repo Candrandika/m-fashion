@@ -11,6 +11,7 @@
         $(document).ready(function() {
             $('#table-categories').DataTable({
                 ajax: "{{ route('data-table.category') }}",
+                serverSide: true,
                 columns: [
                     { 
                         data: 'DT_RowIndex',

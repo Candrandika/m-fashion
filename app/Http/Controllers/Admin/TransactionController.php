@@ -32,7 +32,7 @@ class TransactionController extends Controller
     public function dataTable(Request $request){
         $data = Transaction::with('user')->when(Auth::user()->hasRole('user'), function($q){
             $q->where('user_id', Auth::user()->id);
-        })->orderBy('');
+        });
 
         return BaseDatatable::Table($data);
     }
