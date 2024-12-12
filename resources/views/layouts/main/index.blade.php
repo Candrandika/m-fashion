@@ -37,7 +37,7 @@
         </div>
         @include('layouts.main.footer')
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasBottom"
-            aria-labelledby="offcanvasBottomLabel" style="min-width: 25%;">
+            aria-labelledby="offcanvasBottomLabel" style="min-width: 50%;">
             <div class="offcanvas-header d-flex justify-content-start align-items-center gap-3">
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
@@ -51,15 +51,32 @@
                 @endforeach
             </div>
             <div class="offcanvas-body">
-                <div class="d-flex flex-column gap-3">
-                    <div
-                        class="d-flex flex-column-reverse align-items-stretch justify-content-center rounded overflow-hidden">
-                        <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt=""
-                            class="d-none d-lg-block object-fit-contain w-100">
-                        <div class="bg-danger d-flex flex-column justify-content-center p-4 text-light">
-                            <div class="lead">PENAWARAN KHUSUS</div>
-                            <h4 class="m-0 text-light fw-bolder">Diskon 35% hanya minggu ini dan dapatkan hadiah istimewa
-                            </h4>
+                <div class="d-flex gap-3 justify-content-between h-100 pt-4">
+                    <div class="d-flex flex-column justify-content-between">
+                        <div class="d-flex flex-column gap-1">
+                            <a href="#" class="h4 m-0 text-uppercase text-black fw-bolder">Barang Baru</a>
+                            <a href="#" class="h4 m-0 text-uppercase text-black fw-bolder">Promo 12.12</a>
+                            <a href="#" class="h4 m-0 text-uppercase text-black fw-bolder">Kategori Produk</a>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <a href="/about" class="text-uppercase text-black fw-bolder">Tentang Kami</a>
+                            <a href="/location" class="text-uppercase text-black fw-bolder">Lokasi Toko</a>
+                            <a href="/contact-us" class="text-uppercase text-black fw-bolder">Sosial Media</a>
+                            <a href="https://wa.me/6285710173297" target="_blank" class="text-uppercase text-black fw-bolder">Customer Service</a>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column gap-5" style="max-width: 200px; overflow: auto;">
+                        <div>
+                            <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="d-none d-lg-block w-100">
+                            <h6 class="m-0 mt-2 fw-bolder text-uppercase">Diskon 12.12</h6>
+                        </div>
+                        <div>
+                            <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="d-none d-lg-block w-100">
+                            <h6 class="m-0 mt-2 fw-bolder text-uppercase">Diskon 12.12</h6>
+                        </div>
+                        <div>
+                            <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt="" class="d-none d-lg-block w-100">
+                            <h6 class="m-0 mt-2 fw-bolder text-uppercase">Diskon 12.12</h6>
                         </div>
                     </div>
                 </div>
