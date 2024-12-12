@@ -45,12 +45,24 @@
             if($('[name=status]').val() == 'SHIPPING') $('#shipping-form').show();
             else $('#shipping-form').hide();
         }
-
+        
         $(document).on('change', '[name=status]', function() {
             checkShipping()
         })
 
-        // $(document).on('click')
+        $(document).on('click', '.btn-edit', function() {
+            const data = $(this).data('data')
+            $('[name=status]').val(data.status)
+            $('[name=shipping_method]').val(data.shipping_method)
+            $('[name=resi]').val(data.resi)
+
+            let url = `{{ route("admin.transactions.update", ":id") }}`
+            url = url.replace(':id', data.id)
+
+            $('#modal-edit-status-transaction form').attr('action', url)
+
+            checkShipping()
+        })
     })
 </script>
 @endpush
