@@ -40,18 +40,22 @@
                                 <div class="d-flex align-items-center justify-content-center gap-2">
 
                                     @if($item->status == "SHIPPING")
+                                    <div>
+                                        <button type="button" class="btn btn-success btn-acc">Diterima</button>
                                         <form action="{{ route('transaction-history.update', $item->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
-                                            <button  class="btn btn-success">Diterima</button>
                                         </form>
+                                    </div>
                                     @endif
                                     @if($item->status == "PENDING")
+                                    <div>
                                         <form action="#" method="POST">
                                             @method('PUT')
                                             @csrf
-                                            <button  class="btn btn-warning">Batalkan</button>
                                         </form>
+                                        <button type="button" class="btn btn-warning btn-cancel">Batalkan</button>
+                                    </div>
                                     @endif
                                     <a href="{{ route('transaction-history.detail', $item->id) }}" class="btn btn-dark">Detail</a>
                                 </div>
@@ -70,7 +74,30 @@
 @push('script')
     <script>
         $(document).ready(function() {
-
+            $(document).on('click', '.btn-acc', function() {
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Produk sudah anda terima!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Sudah!',
+                    cancelButtonText: 'Belum'
+                }).then((result) => {
+                    if (result.isConfirmed) $(this).parent().find('form').submit()
+                })
+            })
+            $(document).on('click', '.btn-cancel', function() {
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Transaksi akan dibatalkan!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) $(this).parent().find('form').submit()
+                })
+            })
         })
     </script>
 @endpush
