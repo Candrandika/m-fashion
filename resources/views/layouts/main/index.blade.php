@@ -55,7 +55,7 @@
                     <div
                         class="d-flex flex-column-reverse align-items-stretch justify-content-center rounded overflow-hidden">
                         <img src="{{ asset('dist/images/profile/user-1.jpg') }}" alt=""
-                            class="rounded-start d-none d-lg-block object-fit-contain w-100">
+                            class="d-none d-lg-block object-fit-contain w-100">
                         <div class="bg-danger d-flex flex-column justify-content-center p-4 text-light">
                             <div class="lead">PENAWARAN KHUSUS</div>
                             <h4 class="m-0 text-light fw-bolder">Diskon 35% hanya minggu ini dan dapatkan hadiah istimewa
