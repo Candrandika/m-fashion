@@ -127,6 +127,7 @@ class TransactionController extends Controller
     {
         $result = json_decode($request->result);
         $transaksi = Transaction::where('user_id', Auth::user()->id)->where('status','PENDING')->first();
+        if(!$transaksi) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
         if(!$transaksi && $request->type != "api") return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
         if(!$transaksi && $request->type == "api") return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
 
@@ -171,13 +172,13 @@ class TransactionController extends Controller
             
                 DB::commit();
                 return redirect()->route('transaction-history')->with('success', 'Transaksi telah kadaluarsa, silahkan cek transaksi anda di riwayat transaksi!');
+            } else {
+                return redirect()->route('transaction-history.detail', $transaksi->id)->with('success', 'Transaksi telah dibuat!');
             }
         }catch(\Throwable $th){
             DB::rollBack();
             return response()->json(["message" => $th->getMessage(), "is_success" => false])->setStatusCode(500);
         }
-        
-        return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
     }
 
     public function update(Request $request, string $id)

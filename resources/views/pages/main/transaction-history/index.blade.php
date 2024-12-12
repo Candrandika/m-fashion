@@ -4,6 +4,8 @@
 @section('subtitle', 'Checkout')
 
 @section('content')
+    @include('components.alerts.index')
+    
     <div class="container">
         <h4 class="fw-bolder my-5 ms-5">Riwayat Transaksi</h4>
         <div class="my-5">
@@ -63,7 +65,7 @@
                                     @endif
                                     @if($item->status == "PENDING" || $item->status == "WAITING_ACCEPTION")
                                     <div>
-                                        <form action="#" method="POST">
+                                        <form action="{{ route('transaction-history.update', $item->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
                                             <input type="hidden" name="status" value="rejected">
