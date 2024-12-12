@@ -6,6 +6,7 @@ use App\Helpers\BaseDatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Cart;
+use App\Models\ProductDetail;
 use App\Models\TempCheckout;
 use App\Models\Transaction;
 use App\Services\MidtransService;
@@ -60,7 +61,7 @@ class TransactionController extends Controller
             $check_transaksi = Transaction::where('user_id', Auth::user()->id)->where('status', 'PENDING')->first();
             if($check_transaksi) return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "snap_token" => $check_transaksi->snap_token])->setStatusCode(200);
 
-            if($request->method_type == "otomatis"){
+            if($request->method_type == "auto"){
                 $token = $this->midtransService->transaction([
                     "transaction_details" => [
                         "order_id" => $data["order_id"],
@@ -80,24 +81,23 @@ class TransactionController extends Controller
             $transaksi = Transaction::create($data);
             $checkout = TempCheckout::where('user_id', Auth::user()->id)->first();
 
-            if($request->method_type == "manual"){
-                $temp = json_decode($checkout->data, true);
-                $ids = array_column($temp, 'id');
-    
-                $carts = Cart::with('product_detail')->whereIn('id',$ids)->get();
+            $temp = json_decode($checkout->data, true);
+            $ids = array_column($temp, 'id');
+
+            $carts = Cart::with('product_detail')->whereIn('id',$ids)->get();
                 
-                foreach($carts as $cart) {
+            foreach($carts as $cart) {
+                if($request->method_type == "manual"){
                     $stock = collect($temp)
                     ->filter(function ($q) use ($cart) {
                         return $q['id'] == $cart->id;
                     })
                     ->first();
-   
+
                     $cart->product_detail->sold += $stock["qty"];
                     $cart->product_detail->stock -= $stock["qty"];
                     $cart->product_detail->save();
-                    $cart->delete();
-
+                    
                     $transaksi->update([
                         "transaction_id" => "-",
                         "status" => "WAITING_ACCEPTION",
@@ -106,12 +106,13 @@ class TransactionController extends Controller
                         "paid_timestamps" => Carbon::now()
                     ]);
                 }
-
-                DB::commit();
-                return redirect()->route('transaction-history')->with('success','Berhasil melakukan transaksi COD!');
+                $cart->delete();
             }
 
+            $checkout->delete();
+            
             DB::commit();
+            if($request->method_type == "manual") return redirect()->route('transaction-history')->with('success','Berhasil melakukan transaksi COD!');
             return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "snap_token" => $token])->setStatusCode(200);
         }catch(\Throwable $th){
             DB::rollBack();
@@ -137,19 +138,18 @@ class TransactionController extends Controller
                 $temp = json_decode($transaksi->item_details, true);
                 $ids = array_column($temp, 'id');
     
-                $carts = Cart::with('product_detail')->whereIn('id',$ids)->get();
+                $product_details = ProductDetail::whereIn('id',$ids)->get();
                 
-                foreach($carts as $cart) {
+                foreach($product_details as $detail) {
                     $stock = collect($temp)
-                    ->filter(function ($q) use ($cart) {
-                        return $q['id'] == $cart->id;
+                    ->filter(function ($q) use ($detail) {
+                        return $q['id'] == $detail->id;
                     })
                     ->first();
     
-                    $cart->product_detail->sold += $stock->quantity;
-                    $cart->product_detail->stock -= $stock->quantity;
-                    $cart->product_detail->save();
-                    $cart->delete();
+                    $detail->sold += $stock->quantity;
+                    $detail->stock -= $stock->quantity;
+                    $detail->save();
                 }
     
                 $transaksi->update([
