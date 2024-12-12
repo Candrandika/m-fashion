@@ -147,8 +147,8 @@ class TransactionController extends Controller
                     })
                     ->first();
     
-                    $detail->sold += $stock->quantity;
-                    $detail->stock -= $stock->quantity;
+                    $detail->sold += $stock["quantity"];
+                    $detail->stock -= $stock["quantity"];
                     $detail->save();
                 }
     
