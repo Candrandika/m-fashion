@@ -157,6 +157,12 @@ class TransactionController extends Controller
                 DB::commit();
                 return redirect()->route('transaction-history')->with('success', 'Transaksi telah dilakukan, silahkan cek transaksi anda di riwayat transaksi!');
             }
+            else if(isset($result->transaction_status) && $result->transaction_status == "expire"){
+                $transaksi->update(["status" => "EXPIRED"]);
+            
+                DB::commit();
+                return redirect()->route('transaction-history')->with('success', 'Transaksi telah kadaluarsa, silahkan cek transaksi anda di riwayat transaksi!');
+            }
         }catch(\Throwable $th){
             DB::rollBack();
             return response()->json(["message" => $th->getMessage(), "is_success" => false])->setStatusCode(500);
