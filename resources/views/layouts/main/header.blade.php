@@ -1,4 +1,4 @@
-<header class="d-flex justify-content-between align-items-center bg-white px-5 py-3">
+<header class="d-flex flex-column flex-lg-row justify-content-between align-items-center bg-white px-5 py-3 gap-3">
     <a href="/">
         <img src="{{ asset('dist/logos/full-dark.png') }}" alt="logo" height="30">
     </a>
@@ -50,16 +50,18 @@
                             </div>
                         </div>
                         <div class="message-body">
-                            <a href="{{ route('transaction-history') }}" class="py-8 px-7 mt-8 d-flex align-items-center">
-                              <span class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
-                                <img src="../assets/images/svgs/icon-account.svg" alt="modernize-img" width="24" height="24">
-                              </span>
-                              <div class="w-100 ps-3">
-                                <h6 class="mb-1 fs-3 fw-semibold lh-base">Transaksi</h6>
-                                <span class="fs-2 d-block text-body-secondary">Riwayat Transaksi</span>
-                              </div>
+                            <a href="{{ route('transaction-history') }}"
+                                class="py-8 px-7 mt-8 d-flex align-items-center">
+                                <span
+                                    class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
+                                    <i class="ti ti-shopping-cart"></i>
+                                </span>
+                                <div class="w-100 ps-3">
+                                    <h6 class="mb-1 fs-3 fw-semibold lh-base">Transaksi</h6>
+                                    <span class="fs-2 d-block text-body-secondary">Riwayat Transaksi</span>
+                                </div>
                             </a>
-                          </div>
+                        </div>
                         <div class="d-grid py-4 px-7 pt-8">
                             <form action="{{ route('mainlogout') }}" method="POST">
                                 @csrf
@@ -85,7 +87,7 @@
                             <h5 class="mb-0 fs-5 fw-semibold" style="text-wrap: nowrap;">Keanggotaan MFashion</h5>
                         </div>
                         <div class="d-grid py-4 px-7 pt-8">
-                                <a href="/login" class="btn btn-dark w-100">Masuk</a>
+                            <a href="/login" class="btn btn-dark w-100">Masuk</a>
                         </div>
                     </div>
                 </div>
@@ -93,13 +95,13 @@
         @endif
         <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
             aria-controls="offcanvasBottom" class="text-black">
-            <svg width="24" height="24" viewBox="0 0 42 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 2H40" stroke="black" stroke-width="3" stroke-linecap="round" />
-                <path d="M2 17H40" stroke="black" stroke-width="3" stroke-linecap="round" />
-                <path d="M2 33H40" stroke="black" stroke-width="3" stroke-linecap="round" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M4 8l16 0" />
+                <path d="M4 16l16 0" />
             </svg>
 
-            {{-- <i class="ti ti-menu fs-8"></i> --}}
         </a>
     </div>
 </header>
