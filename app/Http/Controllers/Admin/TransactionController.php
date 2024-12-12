@@ -98,15 +98,18 @@ class TransactionController extends Controller
                     $cart->product_detail->stock -= $stock["qty"];
                     $cart->product_detail->save();
                     
-                    $transaksi->update([
-                        "transaction_id" => "-",
-                        "status" => "WAITING_ACCEPTION",
-                        "payment_method" => $request->payment_type,
-                        "va_payment" => null,
-                        "paid_timestamps" => Carbon::now()
-                    ]);
                 }
                 $cart->delete();
+            }
+            
+            if($request->method_type == "manual"){
+                $transaksi->update([
+                    "transaction_id" => "-",
+                    "status" => "WAITING_ACCEPTION",
+                    "payment_method" => "manual",
+                    "va_payment" => null,
+                    "paid_timestamps" => Carbon::now()
+                ]);
             }
 
             $checkout->delete();
