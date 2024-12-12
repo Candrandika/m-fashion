@@ -4,6 +4,7 @@
 @section('subtitle', 'Checkout')
 
 @section('content')
+    @include('components.alerts.index')
     <div class="container">
         <h4 class="fw-bolder my-5 ms-5">Detail Riwayat Transaksi <span
                 class="mb-1 badge rounded-pill  bg-success-subtle text-success ms-3">{{ $transaction->status }}</span></h4>
@@ -51,22 +52,50 @@
                             {{ $customer_detail->shipping_address->postal_code }}
                         </p>
                         @if ($transaction->status == "PENDING")
-                            <form action="">
-                                <button type="submit" class="btn btn-dark w-100">CHECKOUT</button>
-                            </form>
+                            <button type="button" class="btn btn-dark w-100 btn-checkout">CHECKOUT</button>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <form action="{{ route('callback') }}" id="form-pay" method="POST">
+        @csrf
+        <input type="hidden" name="result" value="">
+    </form
 @endsection
 
 
 @push('script')
     <script>
         $(document).ready(function() {
+            $(document).on('click', '.btn-checkout', function() {
+                snap.pay("{{ $transaction->snap_token }}", {
+                    onSuccess: function(result) {
+                        send_res_to_form(result)
+                    },
+                    onPending: function(result) {
+                        send_res_to_form(result)
+                    },
+                    onError: function(result) {
+                        send_res_to_form(result)
+                    },
+                    onClose: function(result) {
+                        console.log({result})
+                        Toaster('warning', 'Pembayaran tidak dilanjutkan')
+                    }
+                });
+            })
 
+            function send_res_to_form(result) {
+                $('[name=result]').val(JSON.stringify(result))
+                $('#form-pay').submit()
+            }
         })
     </script>
+@endpush
+
+@push('style')
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 @endpush

@@ -9,10 +9,13 @@
         <div class="col-xxl-8">
             @include('pages.admin.dashboard.widgets.index-transaction-chart')
         </div>
-        <div class="col-xxl-4">
+        <div class="col-xxl-4 col-lg-6">
             @include('pages.admin.dashboard.widgets.index-top-category-chart')
         </div>
-        <div class="col-12">
+        <div class="col-xxl-4 col-lg-6">
+            @include('pages.admin.dashboard.widgets.index-brand-chart')
+        </div>
+        <div class="col-xxl-8">
             @include('pages.admin.dashboard.widgets.index-new-user-stats')
         </div>
         <div class="col-xxl-5">
