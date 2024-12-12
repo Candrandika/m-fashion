@@ -59,7 +59,9 @@
                             </td>
                         </tr>
                     @empty
-                        <div class="fw-bolder text-center text-muted">-- Tidak ada data --</div>
+                        <tr>
+                            <th class="fw-bolder text-center text-muted" colspan="6">-- Tidak ada data --</th>
+                        </tr>
                     @endforelse
                 </tbody>
                 <tfoot>
