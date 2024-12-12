@@ -49,7 +49,7 @@
                                         </form>
                                     </div>
                                     @endif
-                                    @if($item->status == "PENDING")
+                                    @if($item->status == "PENDING" || $item->status == "WAITING_ACCEPTION")
                                     <div>
                                         <form action="#" method="POST">
                                             @method('PUT')
