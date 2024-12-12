@@ -79,7 +79,7 @@
                                                     })
                                                     ->first();
 
-                                                $total_price = $item->product_detail->product->price * $stock['qty'];
+                                                $total_price += $item->product_detail->product->price * $stock['qty'];
                                             @endphp
                                             <p class="m-0">&times;{{ number_format($stock['qty'], 0, ',', '.') }}</p>
                                         </div>

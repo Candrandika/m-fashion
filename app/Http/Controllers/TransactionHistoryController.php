@@ -28,7 +28,15 @@ class TransactionHistoryController extends Controller
         $transaction = Transaction::where('user_id',Auth::user()->id)->where('id', $id)->first();
         if(!$transaction) return redirect()->back()->with('error','Tidak ditemukan data transaksi');
 
-        $transaction->update(["status" => "COMPLETE"]);
+        if($request->status == "accepted"){
+            $status = "COMPLETED";
+        } else if($request->status == "rejected") {
+            $status = "CANCELED";
+        } else {
+            return redirect()->back()->with('error', 'Tidak dapat mengubah transaksi selain diterima / dibatalkan!');
+        }
+
+        $transaction->update(["status" => $status]);
         return redirect()->back()->with('success','Berhasil mengubah status transaksi anda!');
     }
 }

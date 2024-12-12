@@ -50,9 +50,11 @@
                             {{ $customer_detail->shipping_address->province }}
                             {{ $customer_detail->shipping_address->postal_code }}
                         </p>
-                        <form action="">
-                            <button type="submit" class="btn btn-dark w-100">CHECKOUT</button>
-                        </form>
+                        @if ($transaction->status == "PENDING")
+                            <form action="">
+                                <button type="submit" class="btn btn-dark w-100">CHECKOUT</button>
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

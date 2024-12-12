@@ -22,8 +22,8 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
-                        <label for="photo" class="form-label mb-0">Gambar</label>
-                        <input type="file" class="form-control" id="photo" name="photo" accept=".jpg,.png,.jpeg">
+                        <label for="image" class="form-label mb-0">Gambar</label>
+                        <input type="file" class="form-control" id="image" name="image" accept=".jpg,.png,.jpeg">
                     </div>
                 </div>
                 <div class="col-12">
