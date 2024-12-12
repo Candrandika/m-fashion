@@ -61,6 +61,10 @@
                                     status.text = "Dibatalkan"
                                     status.color = "bg-light-danger text-danger"
                                     break;
+                                case 'REJECTED':
+                                    status.text = "Ditolak"
+                                    status.color = "bg-light-danger text-danger"
+                                    break;
                                 case "SHIPPING":
                                     status.text = 'Pengiriman'
                                     status.color = 'bg-dark text-white'
@@ -118,6 +122,7 @@
                                 <option value="PAID">Dibayar</option>
                                 <option value="EXPIRED">Transaksi Kedaluwarsa</option>
                                 <option value="FAILED">Transaksi Gagal</option>
+                                <option value="REJECTED">Transaksi Ditolak</option>
                                 <option value="SHIPPING">Dikirim</option>
                                 <option value="COMPLETE">Transaksi Selesai</option>
                             </select>

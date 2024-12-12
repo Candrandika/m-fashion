@@ -15,6 +15,7 @@
                         <option value="PAID">Dibayar</option>
                         <option value="EXPIRED">Transaksi Kedaluwarsa</option>
                         <option value="FAILED">Transaksi Gagal</option>
+                        <option value="REJECTED">Transaksi Ditolak</option>
                         <option value="SHIPPING">Dikirim</option>
                         <option value="COMPLETE">Transaksi Selesai</option>
                     </select>

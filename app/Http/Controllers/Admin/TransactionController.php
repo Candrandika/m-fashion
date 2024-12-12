@@ -101,7 +101,7 @@ class TransactionController extends Controller
                 }
                 $cart->delete();
             }
-            
+
             if($request->method_type == "manual"){
                 $transaksi->update([
                     "transaction_id" => "-",
@@ -194,6 +194,26 @@ class TransactionController extends Controller
             
             $transaction = Transaction::find($id);
             if(!$transaction) return redirect()->back()->with('error', 'Data transaksi sudah digunakan!');
+            if($request->statis == "REJECTED" && $transaction->payment_method != "manual") return redirect()->back()->with('error', 'Tidak dapat menolak transaksi karena transaksi ini bukan dilakukan secara manual!');
+
+            if($transaction->payment_method == "manual"){
+                $temp = json_decode($transaction->item_details, true);
+                $ids = array_column($temp, 'id');
+    
+                $product_details = ProductDetail::whereIn('id',$ids)->get();
+                
+                foreach($product_details as $detail) {
+                    $stock = collect($temp)
+                    ->filter(function ($q) use ($detail) {
+                        return $q['id'] == $detail->id;
+                    })
+                    ->first();
+    
+                    $detail->sold -= $stock["quantity"];
+                    $detail->stock += $stock["quantity"];
+                    $detail->save();
+                }
+            }
     
             $transaction->update([
                 "status" => $request->status,
