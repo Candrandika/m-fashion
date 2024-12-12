@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
                 'email' => 'required|email|unique:users,email',
                 'phone' => 'nullable',
                 'password' => 'required|min:8',
+                'password_confirmation' => 'sometimes|same:password'
             ];
         }else {
             return [

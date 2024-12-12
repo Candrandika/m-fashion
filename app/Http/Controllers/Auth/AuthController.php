@@ -43,6 +43,7 @@ class AuthController extends Controller
         $data = $request->validated();
 
         try{
+            if(isset($data["password_confirmation"])) unset($data["password_confirmation"]);
             $data["password"] = bcrypt($data["password"]);
 
             $user = User::create($data);

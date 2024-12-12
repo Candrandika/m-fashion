@@ -29,6 +29,7 @@ class UserController extends Controller
                 $data["image"] = null;
             }
 
+            if(isset($data["password_confirmation"])) unset($data["password_confirmation"]);
             $data["password"] = bcrypt($data["password"]);
 
             $user = User::create($data);
