@@ -98,8 +98,9 @@
                     {
                         title: 'Aksi',
                         mRender: function(data, type, row) {
-                            delete row.item_details
-                            delete row.customer_details
+                            const product = {...row}
+                            delete product.customer_details
+                            delete product.item_details
 
                             return `<div class="d-flex align-items-center gap-1">
                                     <button type="button" class="btn btn-primary p-2 btn-show" data-bs-toggle="modal"
@@ -107,7 +108,7 @@
                                         <div class="ti ti-eye"></div>
                                     </button>
                                     <button type="button" class="btn btn-warning p-2 btn-edit" data-bs-toggle="modal"
-                                        data-bs-target="#modal-edit-status-transaction" data-data='${JSON.stringify(row)}'>
+                                        data-bs-target="#modal-edit-status-transaction" data-data='${JSON.stringify(product)}'>
                                         <div class="ti ti-edit"></div>
                                     </button>
                                 </div>`
