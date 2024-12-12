@@ -25,12 +25,24 @@
                             <td>
                                 @if($item->status == "PENDING")
                                     <span class="mb-1 badge rounded-pill  bg-secondary-subtle text-secondary">{{ $item->status }}</span>
+                                @elseif($item->status == "WAITING_ACCEPTION")
+                                    <span class="mb-1 badge rounded-pill  bg-info-subtle text-info">{{ $item->status }}</span>
                                 @elseif($item->status == "PROCESS")
                                     <span class="mb-1 badge rounded-pill  bg-primary-subtle text-primary">{{ $item->status }}</span>
                                 @elseif ($item->status == "PAID")
                                     <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">{{ $item->status }}</span>
                                 @elseif ($item->status == "FAILED")
                                     <span class="mb-1 badge rounded-pill  bg-danger-subtle text-danger">{{ $item->status }}</span>
+                                @elseif ($item->status == "EXPIRED")
+                                    <span class="mb-1 badge rounded-pill  bg-warning-subtle text-warning">{{ $item->status }}</span>
+                                @elseif ($item->status == "CANCELED")
+                                    <span class="mb-1 badge rounded-pill  bg-danger-subtle text-danger">{{ $item->status }}</span>
+                                @elseif ($item->status == "REJECTED")
+                                    <span class="mb-1 badge rounded-pill  bg-danger-subtle text-danger">{{ $item->status }}</span>
+                                @elseif ($item->status == "SHIPPING")
+                                    <span class="mb-1 badge rounded-pill  bg-dark text-white">{{ $item->status }}</span>
+                                @elseif ($item->status == "COMPLETE")
+                                    <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">{{ $item->status }}</span>
                                 @else
                                     <span class="mb-1 badge rounded-pill  bg-success-subtle text-success">{{ $item->status }}</span>
                                 @endif

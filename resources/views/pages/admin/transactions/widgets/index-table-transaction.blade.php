@@ -44,7 +44,7 @@
                                     break;
                                 case 'WAITING_ACCEPTION':
                                     status.text = "Menunggu Persetujuan"
-                                    status.color = "bg-muted text-info"
+                                    status.color = "bg-light-info text-info"
                                     break;
                                 case 'PAID':
                                     status.text = "Dibayar"
