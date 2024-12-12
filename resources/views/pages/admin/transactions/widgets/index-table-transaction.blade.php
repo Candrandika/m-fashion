@@ -40,6 +40,10 @@
                                     status.text = "Pending"
                                     status.color = "bg-muted text-white"
                                     break;
+                                case 'WAITING_ACCEPTION':
+                                    status.text = "Menunggu Persetujuan"
+                                    status.color = "bg-muted text-info"
+                                    break;
                                 case 'PAID':
                                     status.text = "Dibayar"
                                     status.color = "bg-light-success text-success"
@@ -51,6 +55,10 @@
 
                                 case 'FAILED':
                                     status.text = "Gagal"
+                                    status.color = "bg-light-danger text-danger"
+                                    break;
+                                case 'CANCELED':
+                                    status.text = "Dibatalkan"
                                     status.color = "bg-light-danger text-danger"
                                     break;
                                 case "SHIPPING":

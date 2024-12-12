@@ -45,6 +45,7 @@
                                         <form action="{{ route('transaction-history.update', $item->id) }}" method="POST">
                                             @method('PUT')
                                             @csrf
+                                            <input type="hidden" name="status" value="accepted">
                                         </form>
                                     </div>
                                     @endif
@@ -53,6 +54,7 @@
                                         <form action="#" method="POST">
                                             @method('PUT')
                                             @csrf
+                                            <input type="hidden" name="status" value="rejected">
                                         </form>
                                         <button type="button" class="btn btn-warning btn-cancel">Batalkan</button>
                                     </div>

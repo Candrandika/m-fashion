@@ -31,7 +31,7 @@ class TransactionController extends Controller
     public function dataTable(Request $request){
         $data = Transaction::with('user')->when(Auth::user()->hasRole('user'), function($q){
             $q->where('user_id', Auth::user()->id);
-        });
+        })->orderBy('');
 
         return BaseDatatable::Table($data);
     }
@@ -60,23 +60,27 @@ class TransactionController extends Controller
             $check_transaksi = Transaction::where('user_id', Auth::user()->id)->where('status', 'PENDING')->first();
             if($check_transaksi) return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "snap_token" => $check_transaksi->snap_token])->setStatusCode(200);
 
-            $token = $this->midtransService->transaction([
-                "transaction_details" => [
-                    "order_id" => $data["order_id"],
-                    "gross_amount" => $data["price"]
-                ],
-                "customer_details" => $data["customer_details"],
-                "item_details" => $data["item_details"],
-            ]);
+            if($request->method_type == "otomatis"){
+                $token = $this->midtransService->transaction([
+                    "transaction_details" => [
+                        "order_id" => $data["order_id"],
+                        "gross_amount" => $data["price"]
+                    ],
+                    "customer_details" => $data["customer_details"],
+                    "item_details" => $data["item_details"],
+                ]);
+    
+                $data["snap_token"] = $token;
+            }
 
-            $data["snap_token"] = $token;
+            if($request->method_type == "manual") $data["payment_method"] = "cash";
             $data["customer_details"] = json_encode($data["customer_details"]);
             $data["item_details"] = json_encode($data["item_details"]);
 
             $transaksi = Transaction::create($data);
             $checkout = TempCheckout::where('user_id', Auth::user()->id)->first();
 
-            if($request->payemnt_type == "cash"){
+            if($request->method_type == "manual"){
                 $temp = json_decode($checkout->data, true);
                 $ids = array_column($temp, 'id');
     
@@ -88,22 +92,23 @@ class TransactionController extends Controller
                         return $q['id'] == $cart->id;
                     })
                     ->first();
-    
-                    $cart->product_detail->sold += $stock->quantity;
-                    $cart->product_detail->stock -= $stock->quantity;
+   
+                    $cart->product_detail->sold += $stock["qty"];
+                    $cart->product_detail->stock -= $stock["qty"];
                     $cart->product_detail->save();
                     $cart->delete();
 
                     $transaksi->update([
                         "transaction_id" => "-",
-                        "status" => "PAID",
+                        "status" => "WAITING_ACCEPTION",
                         "payment_method" => $request->payment_type,
                         "va_payment" => null,
                         "paid_timestamps" => Carbon::now()
                     ]);
                 }
 
-                return response()->json(["message" => "Berhasil melakukan proses transaksi", "is_success" => true, "url" => route('transaction-history')])->setStatusCode(200);
+                DB::commit();
+                return redirect()->route('transaction-history')->with('success','Berhasil melakukan transaksi COD!');
             }
 
             DB::commit();
@@ -121,6 +126,7 @@ class TransactionController extends Controller
         if(!$transaksi && $request->type != "api") return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
         if(!$transaksi && $request->type == "api") return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
 
+        DB::beginTransaction();
         try{
             if(isset($result->transaction_status) && $result->transaction_status != "pending" && $result->transaction_status != "expire"){
                 $payment = null;
