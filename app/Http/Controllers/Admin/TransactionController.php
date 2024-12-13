@@ -126,17 +126,16 @@ class TransactionController extends Controller
     public function callback(Request $request)
     {
         $result = json_decode($request->result);
+        $url = $request->fullUrl();
         $transaksi = Transaction::where('user_id', Auth::user()?->id)->where('status','PENDING')->first();
         if(!$transaksi && isset($result->transaction_id)) {
             $transaksi = Transaction::where('transaction_id', $result->transaction_id)->where('status','PENDING')->first();
         }
-        if(!$transaksi) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
-        if(!$transaksi && $request->type != "api") return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
-        if(!$transaksi && $request->type == "api") return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
+        if(!$transaksi && !str_contains($url, 'midtrans')) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
+        if(!$transaksi && str_contains($url, 'midtrans')) return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
 
         $invalid_status = ['deny','cancel','expired','failure']; 
         $success_status = ['capture','settlement','success','done'];
-        $url = $request->fullUrl();
 
         DB::beginTransaction();
         try{
