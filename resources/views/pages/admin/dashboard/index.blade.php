@@ -6,8 +6,9 @@
     <div class="d-flex align-items-center justify-content-between mb-2">
         <h2 class="fw-bolder m-0">Dashboard</h2>
         <select name="year" id="year" class="form-select w-auto bg-white">
-            <option value="2023">2023</option>
-            <option value="2024" selected>2024</option>
+            @foreach ($year as $index => $value)
+                <option value="{{ $value }}">{{ $value }}</option>
+            @endforeach
         </select>
     </div>
     @include('pages.admin.dashboard.widgets.index-scorecard')

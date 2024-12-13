@@ -65,55 +65,53 @@ Route::middleware('auth')->group(function () {
         return view('pages.auth.login-success', compact('user'));
     })->name('login.success');
 
-    // Route::middleware('role:user')->group(function (){
     Route::name('main')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
 
-    Route::get('checkout', [AdminTransactionController::class, 'create'])->name('display.checkout');
+    Route::middleware('role:user')->group(function (){
+        Route::get('checkout', [AdminTransactionController::class, 'create'])->name('display.checkout');
+        Route::resource('products', ProductController::class)->only(['index', 'show']);
+        Route::resource('categories', CategoryController::class)->only(['show']);
+        Route::resource('favorites', FavoriteController::class)->only(['index', 'store', 'destroy']);
+        Route::resource('carts', CartController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::resource('transactions', AdminTransactionController::class)->only(['store', 'destroy']);
+        Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
+        Route::post('callback', [AdminTransactionController::class, 'callback'])->name('callback');
 
-    Route::resource('products', ProductController::class)->only(['index', 'show']);
-    Route::resource('categories', CategoryController::class)->only(['show']);
-    Route::resource('favorites', FavoriteController::class)->only(['index', 'store', 'destroy']);
-    Route::resource('carts', CartController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::resource('transactions', AdminTransactionController::class)->only(['store', 'destroy']);
-    Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
-    Route::post('callback', [AdminTransactionController::class, 'callback'])->name('callback');
-
-    Route::get('transaction-history', [TransactionHistoryController::class, 'index'])->name('transaction-history');
-    Route::get('transaction-history/{id}', [TransactionHistoryController::class, 'show'])->name('transaction-history.detail');
-    Route::put('transaction-history/{id}', [TransactionHistoryController::class, 'update'])->name('transaction-history.update');
-
-    // });
-
-    // Route::middleware('role:user')->group(function (){
-    Route::name('admin.')->prefix('admin')->group(function () {
-        Route::get('/', [AdminController::class, 'indexDashboard'])->name('dashboard');
-        Route::resource('products', AdminProductController::class);
-        Route::resource('product-details', AdminProductDetailController::class);
-        Route::post('product-images/{product}', [AdminProductDetailController::class, 'addImage'])->name('product_images');
-        Route::delete('product-images/{product_image}', [AdminProductDetailController::class, 'deleteImage'])->name('product_images.destroy');
-        Route::resource('product-categories', AdminCategoryProductController::class);
-        Route::resource('users', AdminUserController::class);
-        Route::resource('transactions', AdminTransactionController::class)->only(['index', 'update']);
-        Route::resource('brands', AdminBrandController::class);
-        Route::resource('colors', AdminWarnaController::class);
-        Route::resource('sizes', AdminSizeController::class);
-        Route::resource('discounts', AdminDiscountController::class);
+        Route::get('transaction-history', [TransactionHistoryController::class, 'index'])->name('transaction-history');
+        Route::get('transaction-history/{id}', [TransactionHistoryController::class, 'show'])->name('transaction-history.detail');
+        Route::put('transaction-history/{id}', [TransactionHistoryController::class, 'update'])->name('transaction-history.update');
     });
 
-    Route::name('data-table.')->prefix('data-table')->group(function () {
-        Route::get('/discount', [AdminDiscountController::class, 'dataTable'])->name('discount');
-        Route::get('/brand', [AdminBrandController::class, 'dataTable'])->name('brand');
-        Route::get('/color', [AdminWarnaController::class, 'dataTable'])->name('color');
-        Route::get('/size', [AdminSizeController::class, 'dataTable'])->name('size');
-        Route::get('/category', [AdminCategoryProductController::class, 'dataTable'])->name('category');
-        Route::get('/transaction', [AdminTransactionController::class, 'dataTable'])->name('transaction');
-        Route::get('/user', [AdminUserController::class, 'dataTable'])->name('user');
-        Route::get('/product', [AdminProductController::class, 'dataTable'])->name('product');
-        Route::get('/product-detail', [AdminProductDetailController::class, 'dataTable'])->name('product-detail');
+    Route::middleware('role:admin')->group(function (){
+        Route::name('admin.')->prefix('admin')->group(function () {
+            Route::get('/', [AdminController::class, 'indexDashboard'])->name('dashboard');
+            Route::resource('products', AdminProductController::class);
+            Route::resource('product-details', AdminProductDetailController::class);
+            Route::post('product-images/{product}', [AdminProductDetailController::class, 'addImage'])->name('product_images');
+            Route::delete('product-images/{product_image}', [AdminProductDetailController::class, 'deleteImage'])->name('product_images.destroy');
+            Route::resource('product-categories', AdminCategoryProductController::class);
+            Route::resource('users', AdminUserController::class);
+            Route::resource('transactions', AdminTransactionController::class)->only(['index', 'update']);
+            Route::resource('brands', AdminBrandController::class);
+            Route::resource('colors', AdminWarnaController::class);
+            Route::resource('sizes', AdminSizeController::class);
+            Route::resource('discounts', AdminDiscountController::class);
+        });
+
+        Route::name('data-table.')->prefix('data-table')->group(function () {
+            Route::get('/discount', [AdminDiscountController::class, 'dataTable'])->name('discount');
+            Route::get('/brand', [AdminBrandController::class, 'dataTable'])->name('brand');
+            Route::get('/color', [AdminWarnaController::class, 'dataTable'])->name('color');
+            Route::get('/size', [AdminSizeController::class, 'dataTable'])->name('size');
+            Route::get('/category', [AdminCategoryProductController::class, 'dataTable'])->name('category');
+            Route::get('/transaction', [AdminTransactionController::class, 'dataTable'])->name('transaction');
+            Route::get('/user', [AdminUserController::class, 'dataTable'])->name('user');
+            Route::get('/product', [AdminProductController::class, 'dataTable'])->name('product');
+            Route::get('/product-detail', [AdminProductDetailController::class, 'dataTable'])->name('product-detail');
+        });
     });
-    // });
 });
 
 

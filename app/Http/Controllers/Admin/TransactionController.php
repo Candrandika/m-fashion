@@ -133,6 +133,8 @@ class TransactionController extends Controller
 
         $invalid_status = ['deny','cancel','expired','failure']; 
         $success_status = ['capture','settlement','success','done'];
+        $url = $request->fullUrl();
+
         DB::beginTransaction();
         try{
             if(isset($result->transaction_status) && in_array($result->transaction_status, $success_status)){
@@ -165,8 +167,9 @@ class TransactionController extends Controller
                     "va_payment" => $payment,
                     "paid_timestamps" => $result->transaction_time
                 ]);
-            
+                
                 DB::commit();
+                if(str_contains($url, 'midtrans')) return response()->json(["message" => "Transaksi telah dilakukan, silahkan cek transaksi anda di riwayat transaksi", "success" => true])->setStatusCode(200);
                 return redirect()->route('transaction-history')->with('success', 'Transaksi telah dilakukan, silahkan cek transaksi anda di riwayat transaksi!');
             }
             else if(isset($result->transaction_status) && in_array($result->transaction_status, $invalid_status)){
@@ -189,13 +192,16 @@ class TransactionController extends Controller
                 $transaksi->update(["status" => $status]);
             
                 DB::commit();
+                if(str_contains($url, 'midtrans')) return response()->json(["message" => "Transaksi telah kadaluarsa, silahkan cek transaksi anda di riwayat transaksi!", "success" => true])->setStatusCode(200);
                 return redirect()->route('transaction-history')->with('success', 'Transaksi telah kadaluarsa, silahkan cek transaksi anda di riwayat transaksi!');
             } else {
+                if(str_contains($url, 'midtrans')) return response()->json(["message" => "Transaksi masih dalam proses!", "success" => true])->setStatusCode(200);
                 return redirect()->route('transaction-history.detail', $transaksi->id)->with('success', 'Transaksi telah dibuat!');
             }
         }catch(\Throwable $th){
             DB::rollBack();
-            return response()->json(["message" => $th->getMessage(), "is_success" => false])->setStatusCode(500);
+            if(str_contains($url, 'midtrans')) return response()->json(["message" => $th->getMessage(), "is_success" => false])->setStatusCode(500);
+            return redirect()->route('transaction-history')->withError($th->getMessage());
         }
     }
 
