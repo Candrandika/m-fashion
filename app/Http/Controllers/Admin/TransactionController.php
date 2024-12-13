@@ -131,9 +131,11 @@ class TransactionController extends Controller
         if(!$transaksi && $request->type != "api") return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
         if(!$transaksi && $request->type == "api") return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
 
+        $invalid_status = ['deny','cancel','expired','failure']; 
+        $success_status = ['capture','settlement','success','done'];
         DB::beginTransaction();
         try{
-            if(isset($result->transaction_status) && $result->transaction_status != "pending" && $result->transaction_status != "expire"){
+            if(isset($result->transaction_status) && in_array($result->transaction_status, $success_status)){
                 $payment = null;
                 if(isset($result->va_numbers)){
                     $payment = json_encode($result->va_numbers);
@@ -167,8 +169,24 @@ class TransactionController extends Controller
                 DB::commit();
                 return redirect()->route('transaction-history')->with('success', 'Transaksi telah dilakukan, silahkan cek transaksi anda di riwayat transaksi!');
             }
-            else if(isset($result->transaction_status) && $result->transaction_status == "expire"){
-                $transaksi->update(["status" => "EXPIRED"]);
+            else if(isset($result->transaction_status) && in_array($result->transaction_status, $invalid_status)){
+                $status = "FAILED";
+                switch($result->transaction_status) {
+                    case 'expire':
+                        $status = "EXPIRED";
+                        break;
+                    case 'failure':
+                        $status = "FAILED";
+                        break;
+                    case 'cancel':
+                        $status = "CANCELED";
+                        break;
+                    case 'deny':
+                        $status = "REJECTED";
+                        break;
+                }
+
+                $transaksi->update(["status" => $status]);
             
                 DB::commit();
                 return redirect()->route('transaction-history')->with('success', 'Transaksi telah kadaluarsa, silahkan cek transaksi anda di riwayat transaksi!');
