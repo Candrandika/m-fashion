@@ -65,13 +65,12 @@ Route::middleware('auth')->group(function () {
         return view('pages.auth.login-success', compact('user'));
     })->name('login.success');
 
-    // Route::middleware('role:user')->group(function (){
-        Route::name('main')->group(function () {
-            Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-        });
+    Route::name('main')->group(function () {
+        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    });
 
+    Route::middleware('role:user')->group(function (){
         Route::get('checkout', [AdminTransactionController::class, 'create'])->name('display.checkout');
-
         Route::resource('products', ProductController::class)->only(['index', 'show']);
         Route::resource('categories', CategoryController::class)->only(['show']);
         Route::resource('favorites', FavoriteController::class)->only(['index', 'store', 'destroy']);
@@ -83,9 +82,9 @@ Route::middleware('auth')->group(function () {
         Route::get('transaction-history', [TransactionHistoryController::class, 'index'])->name('transaction-history');
         Route::get('transaction-history/{id}', [TransactionHistoryController::class, 'show'])->name('transaction-history.detail');
         Route::put('transaction-history/{id}', [TransactionHistoryController::class, 'update'])->name('transaction-history.update');
-    // });
+    });
 
-    // Route::middleware('role:admin')->group(function (){
+    Route::middleware('role:admin')->group(function (){
         Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('/', [AdminController::class, 'indexDashboard'])->name('dashboard');
             Route::resource('products', AdminProductController::class);
@@ -112,7 +111,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/product', [AdminProductController::class, 'dataTable'])->name('product');
             Route::get('/product-detail', [AdminProductDetailController::class, 'dataTable'])->name('product-detail');
         });
-        // });
+    });
 });
 
 
