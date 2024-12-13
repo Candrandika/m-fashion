@@ -14,7 +14,12 @@ use stdClass;
 class AdminController extends Controller
 {
     public function indexDashboard() {
-        return view('pages.admin.dashboard.index');
+        $start_year = User::selectRaw('YEAR(created_at) as year')->orderBy('created_at','ASC')->first()?->year ?? date('Y');
+        $year = [];
+        for($i = (int)$start_year; $i <= (int)date('Y'); $i++){
+            $year[] = $i;
+        }
+        return view('pages.admin.dashboard.index', compact('year'));
     }
 
     public function dataDashboard(Request $request)
