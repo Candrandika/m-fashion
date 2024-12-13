@@ -42,7 +42,7 @@
                         <img src="{{ asset('dist/images/icons/spay.png') }}" alt="" class="img-fluid" style="max-height: 40px">
                     </div>
                     <div style="height: 40px" class="mb-2">
-                        <img src="{{ asset('dist/images/icons/gopay.png') }}" alt="" class="img-fluid" style="max-height: 40px">
+                        <img src="{{ asset('dist/images/icons/gopay.svg') }}" alt="" class="img-fluid" style="max-height: 40px">
                     </div>
                 </div>
             </div>
@@ -51,8 +51,12 @@
             <h6 class="fw-bolder mb-2 text-start text-md-center">Tersedia Di</h6>
             <div>
                 <div class="d-flex flex-column align-items-start align-items-md-center">
-                    <img src="{{ asset('dist/images/icons/tokopedia.png') }}" alt="" class="object-fit-cover mb-1" height="60">
-                    <img src="{{ asset('dist/images/icons/shopee.png') }}" alt="" class="object-fit-cover mb-1" height="60">
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/tokopedia.png') }}" alt="" class="object-fit-cover mb-1" height="60">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/shopee.png') }}" alt="" class="object-fit-cover mb-1" height="60">
+                    </a>
                 </div>
             </div>
         </div>
@@ -60,14 +64,26 @@
             <h6 class="fw-bolder mb-2 text-start text-lg-center">Temukan Kami</h6>
             <div>
                 <div class="d-flex align-items-center justify-content-start justify-content-md-center gap-2 mb-2">
-                    <img src="{{ asset('dist/images/icons/x.png') }}" alt="" width="40">
-                    <img src="{{ asset('dist/images/icons/whatsapp.png') }}" alt="" width="40">
-                    <img src="{{ asset('dist/images/icons/facebook.png') }}" alt="" width="40">
-                    <img src="{{ asset('dist/images/icons/instagram.png') }}" alt="" width="40">
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/x.png') }}" alt="" width="40">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/whatsapp.png') }}" alt="" width="40">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/facebook.png') }}" alt="" width="40">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/instagram.png') }}" alt="" width="40">
+                    </a>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-start align-items-md-center">
-                    <img src="{{ asset('dist/images/icons/playstore.png') }}" alt="" class="object-fit-cover mb-1" height="60">
-                    <img src="{{ asset('dist/images/icons/appstore.png') }}" alt="" class="object-fit-cover mb-1" height="60">
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/playstore.png') }}" alt="" class="object-fit-cover mb-1" height="60">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="{{ asset('dist/images/icons/appstore.png') }}" alt="" class="object-fit-cover mb-1" height="60">
+                    </a>
                 </div>
             </div>
         </div>
