@@ -36,9 +36,9 @@
             @yield('content')
         </div>
         @include('layouts.main.footer')
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasBottom"
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBottom"
             aria-labelledby="offcanvasBottomLabel" style="min-width: 50%;">
-            <div class="offcanvas-header d-flex justify-content-start align-items-center gap-3">
+            <div class="offcanvas-header d-flex flex-row-reverse justify-content-start align-items-center gap-3">
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
                 @php
@@ -51,14 +51,14 @@
                 @endforeach
             </div>
             <div class="offcanvas-body">
-                <div class="d-flex gap-3 justify-content-between h-100 pt-4">
+                <div class="d-flex flex-row-reverse gap-3 justify-content-between h-100 pt-4">
                     <div class="d-flex flex-column justify-content-between">
-                        <div class="d-flex flex-column gap-1">
+                        <div class="d-flex flex-column gap-1 text-end">
                             <a href="#" class="h4 m-0 text-uppercase text-black fw-bolder">Barang Baru</a>
                             <a href="#" class="h4 m-0 text-uppercase text-black fw-bolder">Promo 12.12</a>
                             <a href="#" class="h4 m-0 text-uppercase text-black fw-bolder">Kategori Produk</a>
                         </div>
-                        <div class="d-flex flex-column">
+                        <div class="d-flex flex-column text-end">
                             <a href="/about" class="text-uppercase text-black fw-bolder">Tentang Kami</a>
                             <a href="/location" class="text-uppercase text-black fw-bolder">Lokasi Toko</a>
                             <a href="/contact-us" class="text-uppercase text-black fw-bolder">Sosial Media</a>
