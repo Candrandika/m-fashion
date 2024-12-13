@@ -56,6 +56,8 @@ Route::middleware('guest')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::get('data-dashboard', [AdminController::class, 'dataDashboard'])->name('data.dashoard');
+
     Route::get('/login-success', function () {
         $user = Auth::user();
         return view('pages.auth.login-success', compact('user'));
