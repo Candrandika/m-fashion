@@ -129,7 +129,7 @@ class TransactionController extends Controller
         $url = $request->fullUrl();
         $transaksi = Transaction::where('user_id', Auth::user()?->id)->where('status','PENDING')->first();
         if(!$transaksi && isset($result->transaction_id)) {
-            $transaksi = Transaction::where('transaction_id', $result->transaction_id)->where('status','PENDING')->first();
+            $transaksi = Transaction::where('order_id', $result->order_id)->where('status','PENDING')->first();
         }
         if(!$transaksi && !str_contains($url, 'midtrans')) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
         if(!$transaksi && str_contains($url, 'midtrans')) return response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!'])->setStatusCode(404);
