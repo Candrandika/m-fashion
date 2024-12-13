@@ -126,7 +126,10 @@ class TransactionController extends Controller
     public function callback(Request $request)
     {
         $result = json_decode($request->result);
-        $transaksi = Transaction::where('user_id', Auth::user()->id)->where('status','PENDING')->first();
+        $transaksi = Transaction::where('user_id', Auth::user()?->id)->where('status','PENDING')->first();
+        if(!$transaksi && isset($result->transaction_id)) {
+            $transaksi = Transaction::where('transaction_id', $result->transaction_id)->where('status','PENDING')->first();
+        }
         if(!$transaksi) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
         if(!$transaksi && $request->type != "api") return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
         if(!$transaksi && $request->type == "api") return redirect()->response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
@@ -195,6 +198,10 @@ class TransactionController extends Controller
                 if(str_contains($url, 'midtrans')) return response()->json(["message" => "Transaksi telah kadaluarsa, silahkan cek transaksi anda di riwayat transaksi!", "success" => true])->setStatusCode(200);
                 return redirect()->route('transaction-history')->with('success', 'Transaksi telah kadaluarsa, silahkan cek transaksi anda di riwayat transaksi!');
             } else {
+                $transaksi->update([
+                    "transaction_id" => $result->transaction_id
+                ]);
+
                 if(str_contains($url, 'midtrans')) return response()->json(["message" => "Transaksi masih dalam proses!", "success" => true])->setStatusCode(200);
                 return redirect()->route('transaction-history.detail', $transaksi->id)->with('success', 'Transaksi telah dibuat!');
             }
