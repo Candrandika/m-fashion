@@ -39,7 +39,7 @@
                         <label for="phone">No. Telp</label>
                     </div>
                 </div>
-                <div class="mb-4 input-group">
+                <div class="mb-3 input-group">
                     <div class="input-group-text fs-6"><i class="ti ti-key"></i></div>
                     <div class="form-floating">
                         <input type="password" name="password" placeholder="Kata Sandi" class="form-control bg-white">
