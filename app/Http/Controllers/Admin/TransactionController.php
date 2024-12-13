@@ -127,6 +127,10 @@ class TransactionController extends Controller
     {
         $result = json_decode($request->result);
         $url = $request->fullUrl();
+        if(str_contains($url, 'midtrans')){
+            $result = $request;
+        }
+
         $transaksi = Transaction::where('user_id', Auth::user()?->id)->where('status','PENDING')->first();
         if(!$transaksi && isset($result->transaction_id)) {
             $transaksi = Transaction::where('order_id', $result->order_id)->where('status','PENDING')->first();
