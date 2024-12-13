@@ -37,7 +37,7 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            $('#top-product-table').DataTable({
+            best_product_table = $('#top-product-table').DataTable({
                 order: [[2, 'desc']],
                 searching: false,
                 paging: false,
@@ -47,5 +47,29 @@
                 ]
             });
         })
+
+        function updateBestProductTable(data) {
+            const allRows = []
+            data.forEach((d, index) => {
+                const asset = "{{ asset('storage') }}"
+
+                const row = [
+                    index+1,
+                    `<div class="d-flex align-items-center gap-3">
+                        <img src="${asset+'/'+d.image}" class="rounded object-fit-cover" width="40" height="40">
+                        <div>
+                            <div class="fw-bolder">${d.name}</div>
+                            <div class="">${formatRp.format(d.price)}</div>
+                        </div>
+                    </div>`,
+                    d.details_sum_sold ?? '-'
+                ]
+                allRows.push(row)
+            })
+
+            best_product_table.clear()
+            best_product_table.rows.add(allRows)
+            best_product_table.draw()
+        }
     </script>
 @endpush

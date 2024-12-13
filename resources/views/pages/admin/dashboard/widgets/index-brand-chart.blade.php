@@ -1,12 +1,6 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Produk dalam Brand</h5>
-        <div>
-            <select name="year" id="year" class="form-select">
-                <option value="">Filter Tahun</option>
-                <option value="2024">2024</option>
-            </select>
-        </div>
     </div>
     <div class="card-body">
         <div id="brand-chart" style="max-height: 100px;"></div>
@@ -21,15 +15,33 @@
                     type: 'pie',
                     height: 360
                 },
-                series: [10, 13, 8,],
-                labels: ['H&M', 'Uniqlo', 'Adidas'],
+                series: [],
+                labels: [],
                 legend: {
                     show: false
                 }
             }
 
-            let chart = new ApexCharts(document.querySelector('#brand-chart'), options);
-            chart.render();
+            brand_chart = new ApexCharts(document.querySelector('#brand-chart'), options);
+            brand_chart.render();
         })
+
+        function updateBrandChart(data) {
+            const series = data.map((d) => (parseFloat(d.total_sold)))
+            const labels = data.map((d) => (d.name))
+            let colors = undefined
+
+            if(data.length == 0) {
+                series.push('kosong')
+                labels.push(1)
+                colors = ['#f0f0f0']
+            }
+
+            brand_chart.updateOptions({
+                series,
+                labels,
+                colors
+            })
+        }
     </script>
 @endpush
