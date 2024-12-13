@@ -132,7 +132,7 @@ class TransactionController extends Controller
             $transaksi = Transaction::where('transaction_id', $result->transaction_id)->where('status','PENDING')->first();
         }
         if(!$transaksi && !str_contains($url, 'midtrans')) return redirect()->back()->with('error', 'Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!');
-        if(!$transaksi && str_contains($url, 'midtrans')) return response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!']);
+        if(!$transaksi && str_contains($url, 'midtrans')) return response()->json(['Tidak ditemukan untuk transaksi anda, silahkan cek kembali kedalam riwayat pembelanjaan!'])->setStatusCode(404);
 
         $invalid_status = ['deny','cancel','expired','failure']; 
         $success_status = ['capture','settlement','success','done'];
