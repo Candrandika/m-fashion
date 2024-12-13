@@ -55,6 +55,8 @@ Route::middleware('guest')->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::post('callback-midtrans', [AdminTransactionController::class, 'callback'])->name('callback.midtrans');
+
 Route::middleware('auth')->group(function () {
     Route::get('data-dashboard', [AdminController::class, 'dataDashboard'])->name('data.dashboard');
 
