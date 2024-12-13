@@ -4,7 +4,7 @@
 @section('subtitle', 'Daftar Produk')
 
 @section('content')
-    @include('pages.main.products.widgets.show-modal-show-image')
+    {{-- @include('pages.main.products.widgets.show-modal-show-image') --}}
     @include('pages.main.products.widgets.show-modal-auto-size')
 
     @include('components.alerts.index')
@@ -12,24 +12,25 @@
     <div class="container">
         <div class="row my-5">
             <div class="col-lg-5">
-                <img data-bs-toggle="modal" data-bs-target="#modal-show-image"
-                    src="{{ asset($product->image ? 'storage/' . $product->image : 'dist/images/products/s1.jpg') }}"
-                    alt="" class="w-100 object-fit-cover btn-show-image" style="aspect-ratio: 1/1;">
+                <img src="{{ asset($product->image ? 'storage/' . $product->image : 'dist/images/products/s1.jpg') }}" alt="" class="w-100 object-fit-cover btn-show-image" style="aspect-ratio: 1/1;" id="big-product-img">
                 <div class="mt-3">
                     <div class="owl-carousel counter-carousel owl-theme">
+                        @if($product->image)
+                        <div class="item">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="" class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;">
+                        </div>
+                        @endif
                         @foreach ($product->product_images as $index => $img)
                             @if ($img->type == 'image')
                                 <div class="item">
-                                    <img data-bs-toggle="modal" data-bs-target="#modal-show-image"
-                                        src="{{ asset('storage/' . $img->image) }}" alt="gambar produk {{ $index }}"
-                                        class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;"
-                                        data-img="{{ $img }}">
+                                    <img src="{{ asset('storage/' . $img->image) }}" alt="gambar produk {{ $index }}" class="object-fit-cover rounded w-100 btn-show-image" style="aspect-ratio: 1/1;">
                                 </div>
                             @endif
                         @endforeach
                     </div>
                 </div>
             </div>
+
             <form class="col-lg-7" action="{{ route('carts.store') }}" method="POST">
                 @csrf
                 <h4 class="fw-bolder mb-0">{{ $product->name }}</h4>
@@ -237,6 +238,13 @@
                 const product_detail_id = $(this).data('product-detail-id');
                 $('[name=product_detail_id]').val(product_detail_id)
             })
+
+            $(document).on('click', '.btn-show-image', function() {
+                let src = $(this).attr('src');
+
+                $('#modal-show-image img').attr('src', src);
+                $('#big-product-img').attr('src', src);
+            });
         })
     </script>
 @endpush

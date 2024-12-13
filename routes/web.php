@@ -58,7 +58,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('callback-midtrans', [AdminTransactionController::class, 'callback'])->name('callback.midtrans');
 
 Route::middleware('auth')->group(function () {
-    Route::get('data-dashboard', [AdminController::class, 'dataDashboard'])->name('data.dashoard');
+    Route::get('data-dashboard', [AdminController::class, 'dataDashboard'])->name('data.dashboard');
 
     Route::get('/login-success', function () {
         $user = Auth::user();

@@ -1,12 +1,6 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">Data Transaksi</h5>
-        <div>
-            <select name="year" id="year" class="form-select">
-                <option value="">Filter Tahun</option>
-                <option value="2024">2024</option>
-            </select>
-        </div>
     </div>
     <div class="card-body">
         <div id="transaction-history-chart" style="max-height: 100px;"></div>
@@ -27,15 +21,24 @@
                 },
                 series: [{
                     name: 'Data Penjualan',
-                    data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 70, 91, 125]
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 }],
                 xaxis: {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Dec']
                 }
             }
 
-            let chart = new ApexCharts(document.querySelector('#transaction-history-chart'), options);
-            chart.render();
+            transaction_chart = new ApexCharts(document.querySelector('#transaction-history-chart'), options);
+            transaction_chart.render();
         })
+
+        function updateTransactionChart(data) {
+            const formatted_data = Object.values(data)
+
+            transaction_chart.updateSeries([{
+                name: 'Data Penjualan',
+                data: formatted_data
+            }])
+        }
     </script>
 @endpush
